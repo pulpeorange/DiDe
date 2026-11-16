@@ -209,7 +209,7 @@ window.dash = (() => {
   [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
 
   /* Langues */
-  .rfg:not(.l-en) .t-en, .rfg:not(.l-es) .t-es, .rfg.l-en .t-fr, .rfg.l-es .t-fr { display: none !important; }
+  .rfg:not(.l-en) .t-en, .rfg:not(.l-de) .t-de, .rfg.l-en .t-fr, .rfg.l-de .t-fr { display: none !important; }
   .rfg .langues { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 6px; margin-bottom: calc(-1 * var(--cds-gap-md)); }
   .rfg .langues a { font-size: var(--cds-font-size-caption); padding: 3px 10px; border-radius: 999px; border: 1px solid var(--bord); color: var(--muet); text-decoration: none; background: rgba(255, 255, 255, .04); }
   .rfg .langues a:hover, .rfg .langues a:focus-visible { color: #fff; border-color: var(--or); }
@@ -231,13 +231,13 @@ window.dash = (() => {
 </style>
 
 <div class="rfg">
-  <nav class="langues" aria-label="Langue / Language / Idioma">
+  <nav class="langues" aria-label="Langue / Language / Sprache">
     <a href="?lang=fr" hreflang="fr" lang="fr" data-lang="fr">🇫🇷 Français</a>
     <a href="?lang=en" hreflang="en" lang="en" data-lang="en">🇬🇧 English</a>
-    <a href="?lang=es" hreflang="es" lang="es" data-lang="es">🇪🇸 Español</a>
+    <a href="?lang=de" hreflang="de" lang="de" data-lang="de">🇩🇪 Deutsch</a>
   </nav>
   <header class="hero">
-    <svg class="blason" viewBox="0 0 120 150" role="img" aria-label="Bannière de l'alliance" data-aria-fr="Bannière de l'alliance" data-aria-en="Alliance banner" data-aria-es="Estandarte de la alianza">
+    <svg class="blason" viewBox="0 0 120 150" role="img" aria-label="Bannière de l'alliance" data-aria-fr="Bannière de l'alliance" data-aria-en="Alliance banner" data-aria-de="Allianzbanner">
       <defs>
         <linearGradient id="rfg-ban" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#5b2fc0"/></linearGradient>
         <linearGradient id="rfg-or" x1="0" x2="1"><stop offset="0" stop-color="#c99a2e"/><stop offset=".5" stop-color="#f7e3a1"/><stop offset="1" stop-color="#c99a2e"/></linearGradient>
@@ -249,69 +249,69 @@ window.dash = (() => {
       <path d="M60 41 L65.6 55.6 L81 56 L68.8 65.6 L73.2 80.6 L60 71.8 L46.8 80.6 L51.2 65.6 L39 56 L54.4 55.6 Z" fill="#fff"/>
     </svg>
     <div>
-      <p class="surtitre"><span class="t-fr">Last Beacon · Tableau de bord d'alliance</span><span class="t-en">Last Beacon · Alliance dashboard</span><span class="t-es">Last Beacon · Panel de la alianza</span></p>
+      <p class="surtitre"><span class="t-fr">Last Beacon · Tableau de bord d'alliance</span><span class="t-en">Last Beacon · Alliance dashboard</span><span class="t-de">Last Beacon · Allianz-Dashboard</span></p>
       <h1><span class="tag">&lt;DiDe&gt;</span> DieDeutschen</h1>
       <div class="puces">
-        <span class="puce"><span class="t-fr">Chef d'alliance : JohnGotti</span><span class="t-en">Alliance leader: JohnGotti</span><span class="t-es">Líder de la alianza: JohnGotti</span></span>
-        <span class="puce"><span class="t-fr">Alliés :</span><span class="t-en">Allies:</span><span class="t-es">Aliados:</span> moon</span>
+        <span class="puce"><span class="t-fr">Chef d'alliance : JohnGotti</span><span class="t-en">Alliance leader: JohnGotti</span><span class="t-de">Allianzführer: JohnGotti</span></span>
+        <span class="puce"><span class="t-fr">Alliés :</span><span class="t-en">Allies:</span><span class="t-de">Verbündete:</span> moon</span>
       </div>
     </div>
   </header>
 
-  <p class="t-fr lead">Relevé du <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b> : <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> membres à bord, dont <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> absents depuis plus de 7 jours, à relancer ou à remplacer en priorité.</p><p class="t-en lead">Survey of <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b>: <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> members aboard, including <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> absent for more than 7 days, to nudge or replace first.</p><p class="t-es lead">Registro del <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b>: <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> miembros a bordo, de los cuales <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> llevan más de 7 días ausentes; hay que reactivarlos o reemplazarlos primero.</p>
+  <p class="t-fr lead">Relevé du <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b> : <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> membres à bord, dont <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> absents depuis plus de 7 jours, à relancer ou à remplacer en priorité.</p><p class="t-en lead">Survey of <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b>: <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> members aboard, including <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> absent for more than 7 days, to nudge or replace first.</p><p class="t-de lead">Erfassung vom <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b>: <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> Mitglieder an Bord, davon <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> seit über 7 Tagen abwesend – zuerst ansprechen oder ersetzen.</p>
 
 
-  <section class="tiles" aria-label="Chiffres clés" data-aria-fr="Chiffres clés" data-aria-en="Key figures" data-aria-es="Cifras clave">
-    <div class="card"><span class="kpi-l"><span class="t-fr">Membres</span><span class="t-en">Members</span><span class="t-es">Miembros</span></span>
+  <section class="tiles" aria-label="Chiffres clés" data-aria-fr="Chiffres clés" data-aria-en="Key figures" data-aria-de="Kennzahlen">
+    <div class="card"><span class="kpi-l"><span class="t-fr">Membres</span><span class="t-en">Members</span><span class="t-de">Mitglieder</span></span>
       <span class="kpi-v" data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</span>
       <span class="kpi-d" data-draw="delta" data-source="dernier" data-field="d_membres" data-row="0" data-fmt="int">—</span></div>
-    <div class="card"><span class="kpi-l"><span class="t-fr">Puissance totale</span><span class="t-en">Total power</span><span class="t-es">Poder total</span></span>
+    <div class="card"><span class="kpi-l"><span class="t-fr">Puissance totale</span><span class="t-en">Total power</span><span class="t-de">Gesamtmacht</span></span>
       <span class="kpi-v" data-draw="kpi" data-source="dernier" data-field="puissance_totale" data-row="0" data-fmt="md">—</span>
       <span class="kpi-d" data-draw="delta" data-source="dernier" data-field="d_puissance" data-row="0" data-fmt="m">—</span></div>
-    <div class="card"><span class="kpi-l"><span class="t-fr">Puissance moyenne</span><span class="t-en">Average power</span><span class="t-es">Poder medio</span></span>
+    <div class="card"><span class="kpi-l"><span class="t-fr">Puissance moyenne</span><span class="t-en">Average power</span><span class="t-de">Durchschnittliche Macht</span></span>
       <span class="kpi-v" data-draw="kpi" data-source="dernier" data-field="puissance_moy" data-row="0" data-fmt="m">—</span>
       <span class="kpi-d" data-draw="delta" data-source="dernier" data-field="d_moy" data-row="0" data-fmt="m">—</span></div>
-    <div class="card"><span class="kpi-l"><span class="t-fr">Connectés sur 24 h</span><span class="t-en">Online in the last 24 h</span><span class="t-es">Conectados en 24 h</span></span>
+    <div class="card"><span class="kpi-l"><span class="t-fr">Connectés sur 24 h</span><span class="t-en">Online in the last 24 h</span><span class="t-de">Online in 24 Std.</span></span>
       <span class="kpi-v" data-draw="kpi" data-source="dernier" data-field="actifs_24h" data-row="0" data-fmt="int">—</span>
       <span class="kpi-d" data-draw="delta" data-source="dernier" data-field="d_actifs" data-row="0" data-fmt="int">—</span></div>
-    <div class="card"><span class="kpi-l"><span class="t-fr">Absents &gt; 7 jours</span><span class="t-en">Absent &gt; 7 days</span><span class="t-es">Ausentes &gt; 7 días</span></span>
+    <div class="card"><span class="kpi-l"><span class="t-fr">Absents &gt; 7 jours</span><span class="t-en">Absent &gt; 7 days</span><span class="t-de">Abwesend &gt; 7 Tage</span></span>
       <span class="kpi-v" data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</span>
       <span class="kpi-d" data-draw="delta" data-source="dernier" data-field="d_inactifs" data-row="0" data-fmt="int" data-inverse="1">—</span></div>
   </section>
 
   <section>
-    <h2 class="ancre" id="evolution"><span class="t-fr">Évolution</span><span class="t-en">Trends</span><span class="t-es">Evolución</span></h2>
-    <p class="note"><span class="t-fr">Un point par relevé (quotidien à 17h, ou avant/après un événement). Les courbes se dessinent à partir du deuxième relevé.</span><span class="t-en">One point per survey (daily at 5 pm Paris time, or before/after an event). Lines appear from the second survey.</span><span class="t-es">Un punto por registro (diario a las 17 h de París, o antes/después de un evento). Las curvas aparecen a partir del segundo registro.</span></p>
+    <h2 class="ancre" id="evolution"><span class="t-fr">Évolution</span><span class="t-en">Trends</span><span class="t-de">Entwicklung</span></h2>
+    <p class="note"><span class="t-fr">Un point par relevé (quotidien à 17h, ou avant/après un événement). Les courbes se dessinent à partir du deuxième relevé.</span><span class="t-en">One point per survey (daily at 5 pm Paris time, or before/after an event). Lines appear from the second survey.</span><span class="t-de">Ein Punkt pro Erfassung (täglich um 17 Uhr Pariser Zeit oder vor/nach einem Event). Die Kurven erscheinen ab der zweiten Erfassung.</span></p>
     <div class="grid">
-      <div class="card"><h2><span class="t-fr">Effectif</span><span class="t-en">Headcount</span><span class="t-es">Efectivo</span></h2><p class="note"><span class="t-fr">Nombre de membres</span><span class="t-en">Number of members</span><span class="t-es">Número de miembros</span></p>
+      <div class="card"><h2><span class="t-fr">Effectif</span><span class="t-en">Headcount</span><span class="t-de">Mitgliederzahl</span></h2><p class="note"><span class="t-fr">Nombre de membres</span><span class="t-en">Number of members</span><span class="t-de">Anzahl der Mitglieder</span></p>
         <div class="chart" data-draw="serie" data-source="synthese" data-field="membres" data-fmt="int"></div></div>
-      <div class="card"><h2><span class="t-fr">Puissance totale</span><span class="t-en">Total power</span><span class="t-es">Poder total</span></h2><p class="note"><span class="t-fr">Somme des puissances affichées</span><span class="t-en">Sum of displayed power</span><span class="t-es">Suma del poder mostrado</span></p>
+      <div class="card"><h2><span class="t-fr">Puissance totale</span><span class="t-en">Total power</span><span class="t-de">Gesamtmacht</span></h2><p class="note"><span class="t-fr">Somme des puissances affichées</span><span class="t-en">Sum of displayed power</span><span class="t-de">Summe der angezeigten Macht</span></p>
         <div class="chart" data-draw="serie" data-source="synthese" data-field="puissance_totale" data-fmt="md"></div></div>
-      <div class="card"><h2><span class="t-fr">Activité</span><span class="t-en">Activity</span><span class="t-es">Actividad</span></h2><p class="note"><span class="t-fr">Membres connectés dans les dernières 24 h</span><span class="t-en">Members online in the last 24 h</span><span class="t-es">Miembros conectados en las últimas 24 h</span></p>
+      <div class="card"><h2><span class="t-fr">Activité</span><span class="t-en">Activity</span><span class="t-de">Aktivität</span></h2><p class="note"><span class="t-fr">Membres connectés dans les dernières 24 h</span><span class="t-en">Members online in the last 24 h</span><span class="t-de">In den letzten 24 Std. online</span></p>
         <div class="chart" data-draw="serie" data-source="synthese" data-field="actifs_24h" data-fmt="int"></div></div>
     </div>
   </section>
 
   <section class="grid">
-    <div class="card"><h2 class="ancre" id="rangs"><span class="t-fr">Répartition par rang</span><span class="t-en">Breakdown by rank</span><span class="t-es">Distribución por rango</span></h2><p class="note"><span class="t-fr">Dernier relevé : membres et puissance cumulée par rang</span><span class="t-en">Latest survey: members and total power by rank</span><span class="t-es">Último registro: miembros y poder acumulado por rango</span></p>
+    <div class="card"><h2 class="ancre" id="rangs"><span class="t-fr">Répartition par rang</span><span class="t-en">Breakdown by rank</span><span class="t-de">Verteilung nach Rang</span></h2><p class="note"><span class="t-fr">Dernier relevé : membres et puissance cumulée par rang</span><span class="t-en">Latest survey: members and total power by rank</span><span class="t-de">Letzte Erfassung: Mitglieder und Gesamtmacht pro Rang</span></p>
       <div class="chart" data-draw="barres" data-source="rangs" data-label="rang"></div></div>
-    <div class="card"><h2 class="ancre" id="assiduite"><span class="t-fr">Dernière connexion</span><span class="t-en">Last login</span><span class="t-es">Última conexión</span></h2><p class="note"><span class="t-fr">Dernier relevé : membres par ancienneté de dernière connexion</span><span class="t-en">Latest survey: members by time since last login</span><span class="t-es">Último registro: miembros según su última conexión</span></p>
+    <div class="card"><h2 class="ancre" id="assiduite"><span class="t-fr">Dernière connexion</span><span class="t-en">Last login</span><span class="t-de">Letzter Login</span></h2><p class="note"><span class="t-fr">Dernier relevé : membres par ancienneté de dernière connexion</span><span class="t-en">Latest survey: members by time since last login</span><span class="t-de">Letzte Erfassung: Mitglieder nach letztem Login</span></p>
       <div class="chart" data-draw="barres" data-source="activite" data-label="tranche"></div></div>
   </section>
 
   <section class="card">
-    <h2 class="ancre" id="mouvements"><span class="t-fr">Arrivées et départs</span><span class="t-en">Arrivals and departures</span><span class="t-es">Llegadas y salidas</span></h2>
-    <p class="note"><span class="t-fr">Comparaison des deux derniers relevés</span><span class="t-en">Comparison of the last two surveys</span><span class="t-es">Comparación de los dos últimos registros</span></p>
-    <p class="note" data-empty="mouvements" hidden><span class="t-fr">Aucun mouvement à afficher : il faut au moins deux relevés.</span><span class="t-en">No movement to show: at least two surveys are needed.</span><span class="t-es">No hay movimientos que mostrar: hacen falta al menos dos registros.</span></p>
+    <h2 class="ancre" id="mouvements"><span class="t-fr">Arrivées et départs</span><span class="t-en">Arrivals and departures</span><span class="t-de">Beitritte und Austritte</span></h2>
+    <p class="note"><span class="t-fr">Comparaison des deux derniers relevés</span><span class="t-en">Comparison of the last two surveys</span><span class="t-de">Vergleich der beiden letzten Erfassungen</span></p>
+    <p class="note" data-empty="mouvements" hidden><span class="t-fr">Aucun mouvement à afficher : il faut au moins deux relevés.</span><span class="t-en">No movement to show: at least two surveys are needed.</span><span class="t-de">Keine Bewegungen: Es braucht mindestens zwei Erfassungen.</span></p>
     <div class="tbox"><table data-source="mouvements" data-row-key="membre">
-      <thead><tr><th data-field="mouvement"><span class="t-fr">Mouvement</span><span class="t-en">Movement</span><span class="t-es">Movimiento</span></th><th data-field="membre"><span class="t-fr">Membre</span><span class="t-en">Member</span><span class="t-es">Miembro</span></th><th data-field="rang"><span class="t-fr">Rang</span><span class="t-en">Rank</span><span class="t-es">Rango</span></th><th class="num" data-field="puissance"><span class="t-fr">Puissance</span><span class="t-en">Power</span><span class="t-es">Poder</span></th></tr></thead>
+      <thead><tr><th data-field="mouvement"><span class="t-fr">Mouvement</span><span class="t-en">Movement</span><span class="t-de">Bewegung</span></th><th data-field="membre"><span class="t-fr">Membre</span><span class="t-en">Member</span><span class="t-de">Mitglied</span></th><th data-field="rang"><span class="t-fr">Rang</span><span class="t-en">Rank</span><span class="t-de">Rang</span></th><th class="num" data-field="puissance"><span class="t-fr">Puissance</span><span class="t-en">Power</span><span class="t-de">Macht</span></th></tr></thead>
       <tbody data-draw="mouv"></tbody>
     </table></div>
   </section>
 
   <section class="card">
-    <h2 class="ancre" id="membres"><span class="t-fr">Membres</span><span class="t-en">Members</span><span class="t-es">Miembros</span></h2>
-    <p class="note"><span class="t-fr">Dernier relevé. Variation : écart de puissance avec le relevé précédent. Puissances arrondies à 0,1 M comme dans le jeu.</span><span class="t-en">Latest survey. Change: power difference since the previous survey. Power rounded to 0.1 M as in the game.</span><span class="t-es">Último registro. Variación: diferencia de poder con el registro anterior. Poder redondeado a 0,1 M como en el juego.</span></p>
+    <h2 class="ancre" id="membres"><span class="t-fr">Membres</span><span class="t-en">Members</span><span class="t-de">Mitglieder</span></h2>
+    <p class="note"><span class="t-fr">Dernier relevé. Variation : écart de puissance avec le relevé précédent. Puissances arrondies à 0,1 M comme dans le jeu.</span><span class="t-en">Latest survey. Change: power difference since the previous survey. Power rounded to 0.1 M as in the game.</span><span class="t-de">Letzte Erfassung. Veränderung: Machtunterschied zur vorherigen Erfassung. Macht auf 0,1 M gerundet wie im Spiel.</span></p>
     <div class="tools">
       <input type="search" placeholder="Rechercher un membre" aria-label="Rechercher un membre" class="t-fr rfg-search">
       <select class="t-fr rfg-filtre" aria-label="Filtrer par statut">
@@ -327,192 +327,192 @@ window.dash = (() => {
         <option value="À surveiller">To watch (3–7 d)</option>
         <option value="Absent">Absent (&gt; 7 d)</option>
       </select>
-      <input type="search" placeholder="Buscar un miembro" aria-label="Buscar un miembro" class="t-es rfg-search">
-      <select class="t-es rfg-filtre" aria-label="Filtrar por estado">
-        <option value="">Todos los estados</option>
-        <option value="Actif">Activos</option>
-        <option value="À surveiller">A vigilar (3 a 7 d)</option>
-        <option value="Absent">Ausentes (&gt; 7 d)</option>
+      <input type="search" placeholder="Mitglied suchen" aria-label="Mitglied suchen" class="t-de rfg-search">
+      <select class="t-de rfg-filtre" aria-label="Nach Status filtern">
+        <option value="">Alle Status</option>
+        <option value="Actif">Aktiv</option>
+        <option value="À surveiller">Beobachten (3 bis 7 T)</option>
+        <option value="Absent">Abwesend (&gt; 7 T)</option>
       </select>
     </div>
     <div class="tbox"><table data-source="membres" data-row-key="membre">
       <thead><tr>
-        <th data-field="membre"><button data-sort="membre"><span class="t-fr">Membre</span><span class="t-en">Member</span><span class="t-es">Miembro</span></button></th>
-        <th data-field="rang"><button data-sort="rang"><span class="t-fr">Rang</span><span class="t-en">Rank</span><span class="t-es">Rango</span></button></th>
-        <th class="num" data-field="puissance" aria-sort="descending"><button data-sort="puissance"><span class="t-fr">Puissance</span><span class="t-en">Power</span><span class="t-es">Poder</span></button></th>
-        <th class="num" data-field="variation"><button data-sort="variation"><span class="t-fr">Variation</span><span class="t-en">Change</span><span class="t-es">Variación</span></button></th>
-        <th class="num hide-n" data-field="niveau"><button data-sort="niveau"><span class="t-fr">Phare</span><span class="t-en">Beacon</span><span class="t-es">Faro</span></button></th>
-        <th class="hide-n" data-field="connexion_h"><button data-sort="connexion_h"><span class="t-fr">Dernière connexion</span><span class="t-en">Last login</span><span class="t-es">Última conexión</span></button></th>
-        <th data-field="statut"><button data-sort="statut"><span class="t-fr">Statut</span><span class="t-en">Status</span><span class="t-es">Estado</span></button></th>
+        <th data-field="membre"><button data-sort="membre"><span class="t-fr">Membre</span><span class="t-en">Member</span><span class="t-de">Mitglied</span></button></th>
+        <th data-field="rang"><button data-sort="rang"><span class="t-fr">Rang</span><span class="t-en">Rank</span><span class="t-de">Rang</span></button></th>
+        <th class="num" data-field="puissance" aria-sort="descending"><button data-sort="puissance"><span class="t-fr">Puissance</span><span class="t-en">Power</span><span class="t-de">Macht</span></button></th>
+        <th class="num" data-field="variation"><button data-sort="variation"><span class="t-fr">Variation</span><span class="t-en">Change</span><span class="t-de">Veränderung</span></button></th>
+        <th class="num hide-n" data-field="niveau"><button data-sort="niveau"><span class="t-fr">Phare</span><span class="t-en">Beacon</span><span class="t-de">Leuchtturm</span></button></th>
+        <th class="hide-n" data-field="connexion_h"><button data-sort="connexion_h"><span class="t-fr">Dernière connexion</span><span class="t-en">Last login</span><span class="t-de">Letzter Login</span></button></th>
+        <th data-field="statut"><button data-sort="statut"><span class="t-fr">Statut</span><span class="t-en">Status</span><span class="t-de">Status</span></button></th>
       </tr></thead>
       <tbody data-draw="table"></tbody>
     </table></div>
-    <p class="note"><span class="t-fr">Clique sur un pseudo pour ouvrir sa fiche : évolution de sa puissance et participation aux événements.</span><span class="t-en">Click a name to open their profile: power trend and event participation.</span><span class="t-es">Haz clic en un nombre para abrir su ficha: evolución de su poder y participación en eventos.</span></p>
+    <p class="note"><span class="t-fr">Clique sur un pseudo pour ouvrir sa fiche : évolution de sa puissance et participation aux événements.</span><span class="t-en">Click a name to open their profile: power trend and event participation.</span><span class="t-de">Klicke auf einen Namen, um das Profil zu öffnen: Machtentwicklung und Event-Teilnahme.</span></p>
   </section>
 
   <section class="card fiche" id="fiche-membre" hidden>
     <div class="fiche-tete">
       <div>
-        <p class="surtitre"><span class="t-fr">Fiche membre</span><span class="t-en">Member profile</span><span class="t-es">Ficha del miembro</span></p>
+        <p class="surtitre"><span class="t-fr">Fiche membre</span><span class="t-en">Member profile</span><span class="t-de">Mitgliederprofil</span></p>
         <h2 class="fiche-nom" data-draw="fiche-val" data-source="membres" data-field="membre">—</h2>
-        <p class="t-fr note">Rang <b data-draw="fiche-val" data-source="membres" data-field="rang">—</b> · Phare niveau <b data-draw="fiche-val" data-source="membres" data-field="niveau" data-fmt="int">—</b> · Dernière connexion : <b data-draw="fiche-val" data-source="membres" data-field="connexion_h" data-fmt="depuis">—</b></p><p class="t-en note">Rank <b data-draw="fiche-val" data-source="membres" data-field="rang">—</b> · Beacon level <b data-draw="fiche-val" data-source="membres" data-field="niveau" data-fmt="int">—</b> · Last login: <b data-draw="fiche-val" data-source="membres" data-field="connexion_h" data-fmt="depuis">—</b></p><p class="t-es note">Rango <b data-draw="fiche-val" data-source="membres" data-field="rang">—</b> · Faro nivel <b data-draw="fiche-val" data-source="membres" data-field="niveau" data-fmt="int">—</b> · Última conexión: <b data-draw="fiche-val" data-source="membres" data-field="connexion_h" data-fmt="depuis">—</b></p>
+        <p class="t-fr note">Rang <b data-draw="fiche-val" data-source="membres" data-field="rang">—</b> · Phare niveau <b data-draw="fiche-val" data-source="membres" data-field="niveau" data-fmt="int">—</b> · Dernière connexion : <b data-draw="fiche-val" data-source="membres" data-field="connexion_h" data-fmt="depuis">—</b></p><p class="t-en note">Rank <b data-draw="fiche-val" data-source="membres" data-field="rang">—</b> · Beacon level <b data-draw="fiche-val" data-source="membres" data-field="niveau" data-fmt="int">—</b> · Last login: <b data-draw="fiche-val" data-source="membres" data-field="connexion_h" data-fmt="depuis">—</b></p><p class="t-de note">Rang <b data-draw="fiche-val" data-source="membres" data-field="rang">—</b> · Leuchtturm Stufe <b data-draw="fiche-val" data-source="membres" data-field="niveau" data-fmt="int">—</b> · Letzter Login: <b data-draw="fiche-val" data-source="membres" data-field="connexion_h" data-fmt="depuis">—</b></p>
       </div>
       <div class="fiche-actions">
-        <button type="button" class="fiche-fermer fiche-export" aria-label="Exporter la fiche en image PNG" data-aria-fr="Exporter la fiche en image PNG" data-aria-en="Export the profile as a PNG image" data-aria-es="Exportar la ficha como imagen PNG">⬇ <span class="t-fr">Exporter en image</span><span class="t-en">Export as image</span><span class="t-es">Exportar como imagen</span></button>
-        <button type="button" class="fiche-fermer" aria-label="Fermer la fiche du membre" data-aria-fr="Fermer la fiche du membre" data-aria-en="Close the member profile" data-aria-es="Cerrar la ficha del miembro">✕ <span class="t-fr">Fermer</span><span class="t-en">Close</span><span class="t-es">Cerrar</span></button>
+        <button type="button" class="fiche-fermer fiche-export" aria-label="Exporter la fiche en image PNG" data-aria-fr="Exporter la fiche en image PNG" data-aria-en="Export the profile as a PNG image" data-aria-de="Profil als PNG-Bild exportieren">⬇ <span class="t-fr">Exporter en image</span><span class="t-en">Export as image</span><span class="t-de">Als Bild exportieren</span></button>
+        <button type="button" class="fiche-fermer" aria-label="Fermer la fiche du membre" data-aria-fr="Fermer la fiche du membre" data-aria-en="Close the member profile" data-aria-de="Mitgliederprofil schließen">✕ <span class="t-fr">Fermer</span><span class="t-en">Close</span><span class="t-de">Schließen</span></button>
       </div>
     </div>
     <div class="ev-tete">
-      <div class="card"><span class="kpi-l"><span class="t-fr">Puissance actuelle</span><span class="t-en">Current power</span><span class="t-es">Poder actual</span></span><span class="kpi-v" data-draw="fiche-val" data-source="membres" data-field="puissance" data-fmt="m">—</span><span class="kpi-d"><span class="t-fr">au dernier relevé</span><span class="t-en">at the latest survey</span><span class="t-es">en el último registro</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Progression</span><span class="t-en">Progress</span><span class="t-es">Progresión</span></span><span class="kpi-v" data-draw="fiche-val" data-source="stats_membres" data-field="progression" data-fmt="signe">—</span><span class="t-fr kpi-d">depuis le premier relevé (<span data-draw="fiche-val" data-source="stats_membres" data-field="premier_releve" data-fmt="date">—</span>)</span><span class="t-en kpi-d">since the first survey (<span data-draw="fiche-val" data-source="stats_membres" data-field="premier_releve" data-fmt="date">—</span>)</span><span class="t-es kpi-d">desde el primer registro (<span data-draw="fiche-val" data-source="stats_membres" data-field="premier_releve" data-fmt="date">—</span>)</span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Piège Léviathan</span><span class="t-en">Leviathan Trap</span><span class="t-es">Trampa del Leviatán</span></span><span class="kpi-v"><span data-draw="fiche-val" data-source="stats_membres" data-field="lev_participations" data-fmt="int">—</span> / <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_total" data-fmt="int">—</span></span><span class="t-fr kpi-d">participations · meilleur rang <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_meilleur" data-fmt="int">—</span></span><span class="t-en kpi-d">participations · best rank <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_meilleur" data-fmt="int">—</span></span><span class="t-es kpi-d">participaciones · mejor puesto <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_meilleur" data-fmt="int">—</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Dégâts Léviathan</span><span class="t-en">Leviathan damage</span><span class="t-es">Daño al Leviatán</span></span><span class="kpi-v" data-draw="fiche-val" data-source="stats_membres" data-field="lev_degats" data-fmt="m">—</span><span class="kpi-d"><span class="t-fr">cumulés sur les pièges relevés</span><span class="t-en">total over recorded traps</span><span class="t-es">acumulado en las trampas registradas</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Guerre d'Oasis</span><span class="t-en">Oasis War</span><span class="t-es">Guerra del Oasis</span></span><span class="kpi-v"><span data-draw="fiche-val" data-source="stats_membres" data-field="oas_presences" data-fmt="int">—</span> / <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_total" data-fmt="int">—</span></span><span class="t-fr kpi-d">présences · inscrit <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_inscriptions" data-fmt="int">—</span> fois</span><span class="t-en kpi-d">attendances · registered <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_inscriptions" data-fmt="int">—</span> times</span><span class="t-es kpi-d">asistencias · inscrito <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_inscriptions" data-fmt="int">—</span> veces</span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Points d'Oasis</span><span class="t-en">Oasis points</span><span class="t-es">Puntos del Oasis</span></span><span class="kpi-v" data-draw="fiche-val" data-source="stats_membres" data-field="oas_points" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">cumulés</span><span class="t-en">total</span><span class="t-es">acumulados</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Puissance actuelle</span><span class="t-en">Current power</span><span class="t-de">Aktuelle Macht</span></span><span class="kpi-v" data-draw="fiche-val" data-source="membres" data-field="puissance" data-fmt="m">—</span><span class="kpi-d"><span class="t-fr">au dernier relevé</span><span class="t-en">at the latest survey</span><span class="t-de">bei der letzten Erfassung</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Progression</span><span class="t-en">Progress</span><span class="t-de">Fortschritt</span></span><span class="kpi-v" data-draw="fiche-val" data-source="stats_membres" data-field="progression" data-fmt="signe">—</span><span class="t-fr kpi-d">depuis le premier relevé (<span data-draw="fiche-val" data-source="stats_membres" data-field="premier_releve" data-fmt="date">—</span>)</span><span class="t-en kpi-d">since the first survey (<span data-draw="fiche-val" data-source="stats_membres" data-field="premier_releve" data-fmt="date">—</span>)</span><span class="t-de kpi-d">seit der ersten Erfassung (<span data-draw="fiche-val" data-source="stats_membres" data-field="premier_releve" data-fmt="date">—</span>)</span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Piège Léviathan</span><span class="t-en">Leviathan Trap</span><span class="t-de">Leviathan-Falle</span></span><span class="kpi-v"><span data-draw="fiche-val" data-source="stats_membres" data-field="lev_participations" data-fmt="int">—</span> / <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_total" data-fmt="int">—</span></span><span class="t-fr kpi-d">participations · meilleur rang <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_meilleur" data-fmt="int">—</span></span><span class="t-en kpi-d">participations · best rank <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_meilleur" data-fmt="int">—</span></span><span class="t-de kpi-d">Teilnahmen · bester Platz <span data-draw="fiche-val" data-source="stats_membres" data-field="lev_meilleur" data-fmt="int">—</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Dégâts Léviathan</span><span class="t-en">Leviathan damage</span><span class="t-de">Schaden am Leviathan</span></span><span class="kpi-v" data-draw="fiche-val" data-source="stats_membres" data-field="lev_degats" data-fmt="m">—</span><span class="kpi-d"><span class="t-fr">cumulés sur les pièges relevés</span><span class="t-en">total over recorded traps</span><span class="t-de">Summe aus den erfassten Fallen</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Guerre d'Oasis</span><span class="t-en">Oasis War</span><span class="t-de">Oasenkrieg</span></span><span class="kpi-v"><span data-draw="fiche-val" data-source="stats_membres" data-field="oas_presences" data-fmt="int">—</span> / <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_total" data-fmt="int">—</span></span><span class="t-fr kpi-d">présences · inscrit <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_inscriptions" data-fmt="int">—</span> fois</span><span class="t-en kpi-d">attendances · registered <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_inscriptions" data-fmt="int">—</span> times</span><span class="t-de kpi-d">Teilnahmen · angemeldet <span data-draw="fiche-val" data-source="stats_membres" data-field="oas_inscriptions" data-fmt="int">—</span> Mal</span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Points d'Oasis</span><span class="t-en">Oasis points</span><span class="t-de">Oasenpunkte</span></span><span class="kpi-v" data-draw="fiche-val" data-source="stats_membres" data-field="oas_points" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">cumulés</span><span class="t-en">total</span><span class="t-de">insgesamt</span></span></div>
     </div>
     <div class="deux">
-      <div><h3><span class="t-fr">Évolution de la puissance</span><span class="t-en">Power trend</span><span class="t-es">Evolución del poder</span></h3><p class="note"><span class="t-fr">Un point par relevé ; la courbe se dessine à partir du deuxième.</span><span class="t-en">One point per survey; the line appears from the second one.</span><span class="t-es">Un punto por registro; la curva aparece a partir del segundo.</span></p>
+      <div><h3><span class="t-fr">Évolution de la puissance</span><span class="t-en">Power trend</span><span class="t-de">Machtentwicklung</span></h3><p class="note"><span class="t-fr">Un point par relevé ; la courbe se dessine à partir du deuxième.</span><span class="t-en">One point per survey; the line appears from the second one.</span><span class="t-de">Ein Punkt pro Erfassung; die Kurve erscheint ab der zweiten.</span></p>
         <div class="chart" data-draw="fiche-courbe" data-source="releves"></div></div>
-      <div><h3><span class="t-fr">Participation aux événements</span><span class="t-en">Event participation</span><span class="t-es">Participación en eventos</span></h3><p class="note"><span class="t-fr">Tous les événements relevés, du plus récent au plus ancien.</span><span class="t-en">All recorded events, newest first.</span><span class="t-es">Todos los eventos registrados, del más reciente al más antiguo.</span></p>
+      <div><h3><span class="t-fr">Participation aux événements</span><span class="t-en">Event participation</span><span class="t-de">Event-Teilnahme</span></h3><p class="note"><span class="t-fr">Tous les événements relevés, du plus récent au plus ancien.</span><span class="t-en">All recorded events, newest first.</span><span class="t-de">Alle erfassten Events, vom neuesten zum ältesten.</span></p>
         <div class="tbox"><table data-source="participations" data-row-key="membre,evenement">
-          <thead><tr><th data-field="titre"><span class="t-fr">Événement</span><span class="t-en">Event</span><span class="t-es">Evento</span></th><th class="num" data-field="classement"><span class="t-fr">Rang</span><span class="t-en">Rank</span><span class="t-es">Rango</span></th><th class="num" data-field="score"><span class="t-fr">Score</span><span class="t-en">Score</span><span class="t-es">Puntuación</span></th><th data-field="statut"><span class="t-fr">Statut</span><span class="t-en">Status</span><span class="t-es">Estado</span></th></tr></thead>
+          <thead><tr><th data-field="titre"><span class="t-fr">Événement</span><span class="t-en">Event</span><span class="t-de">Event</span></th><th class="num" data-field="classement"><span class="t-fr">Rang</span><span class="t-en">Rank</span><span class="t-de">Rang</span></th><th class="num" data-field="score"><span class="t-fr">Score</span><span class="t-en">Score</span><span class="t-de">Punktzahl</span></th><th data-field="statut"><span class="t-fr">Statut</span><span class="t-en">Status</span><span class="t-de">Status</span></th></tr></thead>
           <tbody data-draw="fiche-ev"></tbody>
         </table></div></div>
     </div>
-    <div class="fiche-signature"><span><b>&lt;DiDe&gt; DieDeutschen</b> · Last Beacon · <span class="t-fr">relevé du</span><span class="t-en">survey of</span><span class="t-es">registro del</span> <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b></span><span>pulpeorange.github.io/rfg</span></div>
+    <div class="fiche-signature"><span><b>&lt;DiDe&gt; DieDeutschen</b> · Last Beacon · <span class="t-fr">relevé du</span><span class="t-en">survey of</span><span class="t-de">Erfassung vom</span> <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b></span><span>pulpeorange.github.io/rfg</span></div>
   </section>
 
 
   <section class="card">
-    <h2 class="ancre" id="territoires"><span class="t-fr">Carte des territoires</span><span class="t-en">Territory map</span><span class="t-es">Mapa de territorios</span></h2>
-    <p class="t-fr note">Zone maritime #17 · relevé du <b data-draw="val" data-source="terr_resume" data-field="date" data-row="0" data-fmt="date">—</b>. Chaque point est un territoire, placé comme sur la carte du jeu ; sa taille indique le niveau.</p><p class="t-en note">Sea Zone #17 · survey of <b data-draw="val" data-source="terr_resume" data-field="date" data-row="0" data-fmt="date">—</b>. Each dot is a territory, placed as on the in-game map; its size shows its level.</p><p class="t-es note">Zona marítima #17 · registro del <b data-draw="val" data-source="terr_resume" data-field="date" data-row="0" data-fmt="date">—</b>. Cada punto es un territorio, situado como en el mapa del juego; su tamaño indica el nivel.</p>
+    <h2 class="ancre" id="territoires"><span class="t-fr">Carte des territoires</span><span class="t-en">Territory map</span><span class="t-de">Gebietskarte</span></h2>
+    <p class="t-fr note">Zone maritime #17 · relevé du <b data-draw="val" data-source="terr_resume" data-field="date" data-row="0" data-fmt="date">—</b>. Chaque point est un territoire, placé comme sur la carte du jeu ; sa taille indique le niveau.</p><p class="t-en note">Sea Zone #17 · survey of <b data-draw="val" data-source="terr_resume" data-field="date" data-row="0" data-fmt="date">—</b>. Each dot is a territory, placed as on the in-game map; its size shows its level.</p><p class="t-de note">Seezone #17 · Erfassung vom <b data-draw="val" data-source="terr_resume" data-field="date" data-row="0" data-fmt="date">—</b>. Jeder Punkt ist ein Gebiet, platziert wie auf der Spielkarte; seine Größe zeigt die Stufe.</p>
     <div class="ev-tete">
-      <div class="card"><span class="kpi-l"><span class="t-fr">Territoires</span><span class="t-en">Territories</span><span class="t-es">Territorios</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="total" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">sur la zone</span><span class="t-en">in the zone</span><span class="t-es">en la zona</span></span></div>
-      <div class="card"><span class="kpi-l">DiDe</span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="rfg" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">territoire(s) tenu(s)</span><span class="t-en">territories held</span><span class="t-es">territorio(s) ocupado(s)</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Alliés</span><span class="t-en">Allies</span><span class="t-es">Aliados</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="allies" data-row="0" data-fmt="int">—</span><span class="kpi-d">moon</span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Autres alliances</span><span class="t-en">Other alliances</span><span class="t-es">Otras alianzas</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="autres" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">territoires</span><span class="t-en">territories</span><span class="t-es">territorios</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Libres</span><span class="t-en">Free</span><span class="t-es">Libres</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="libres" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">sans alliance</span><span class="t-en">no alliance</span><span class="t-es">sin alianza</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Territoires</span><span class="t-en">Territories</span><span class="t-de">Gebiete</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="total" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">sur la zone</span><span class="t-en">in the zone</span><span class="t-de">in der Zone</span></span></div>
+      <div class="card"><span class="kpi-l">DiDe</span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="rfg" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">territoire(s) tenu(s)</span><span class="t-en">territories held</span><span class="t-de">gehaltene(s) Gebiet(e)</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Alliés</span><span class="t-en">Allies</span><span class="t-de">Verbündete</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="allies" data-row="0" data-fmt="int">—</span><span class="kpi-d">moon</span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Autres alliances</span><span class="t-en">Other alliances</span><span class="t-de">Andere Allianzen</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="autres" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">territoires</span><span class="t-en">territories</span><span class="t-de">Gebiete</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Libres</span><span class="t-en">Free</span><span class="t-de">Frei</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="libres" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">sans alliance</span><span class="t-en">no alliance</span><span class="t-de">ohne Allianz</span></span></div>
     </div>
     <div class="deux">
-      <div><h3><span class="t-fr">Carte de la zone</span><span class="t-en">Zone map</span><span class="t-es">Mapa de la zona</span></h3><div class="chart carte" data-draw="carte" data-source="territoires"></div></div>
-      <div><h3><span class="t-fr">Territoires par alliance</span><span class="t-en">Territories by alliance</span><span class="t-es">Territorios por alianza</span></h3><div class="chart" data-draw="terr-barres" data-source="terr_alliances"></div></div>
+      <div><h3><span class="t-fr">Carte de la zone</span><span class="t-en">Zone map</span><span class="t-de">Karte der Zone</span></h3><div class="chart carte" data-draw="carte" data-source="territoires"></div></div>
+      <div><h3><span class="t-fr">Territoires par alliance</span><span class="t-en">Territories by alliance</span><span class="t-de">Gebiete pro Allianz</span></h3><div class="chart" data-draw="terr-barres" data-source="terr_alliances"></div></div>
     </div>
-    <h3 class="sous"><span class="t-fr">Évolution du nombre de territoires</span><span class="t-en">Territory count over time</span><span class="t-es">Evolución del número de territorios</span></h3>
-    <p class="note" data-empty="terr_evol" hidden><span class="t-fr">La courbe apparaîtra dès le deuxième relevé de la carte.</span><span class="t-en">The chart will appear from the second map survey.</span><span class="t-es">La curva aparecerá a partir del segundo registro del mapa.</span></p>
+    <h3 class="sous"><span class="t-fr">Évolution du nombre de territoires</span><span class="t-en">Territory count over time</span><span class="t-de">Entwicklung der Gebietszahl</span></h3>
+    <p class="note" data-empty="terr_evol" hidden><span class="t-fr">La courbe apparaîtra dès le deuxième relevé de la carte.</span><span class="t-en">The chart will appear from the second map survey.</span><span class="t-de">Die Kurve erscheint ab der zweiten Kartenerfassung.</span></p>
     <div class="chart" data-draw="terr-evol" data-source="terr_evol" data-evol hidden></div>
   </section>
 
   <section class="card">
-    <h2 class="ancre" id="technologies"><span class="t-fr">Technologies d'alliance</span><span class="t-en">Alliance technologies</span><span class="t-es">Tecnologías de la alianza</span></h2>
-<p class="t-fr note">Avancement des recherches de l'alliance (menu Alliance &gt; Tech) au relevé du <b data-draw="val" data-source="tech_resume" data-field="date" data-row="0" data-fmt="date">—</b>. 👍 : technologie recommandée par les officiers.</p><p class="t-en note">Progress of the alliance research (Alliance &gt; Tech menu) as of <b data-draw="val" data-source="tech_resume" data-field="date" data-row="0" data-fmt="date">—</b>. 👍: technology recommended by the officers.</p><p class="t-es note">Avance de las investigaciones de la alianza (menú Alianza &gt; Tec.) según el registro del <b data-draw="val" data-source="tech_resume" data-field="date" data-row="0" data-fmt="date">—</b>. 👍: tecnología recomendada por los oficiales.</p>
+    <h2 class="ancre" id="technologies"><span class="t-fr">Technologies d'alliance</span><span class="t-en">Alliance technologies</span><span class="t-de">Allianztechnologien</span></h2>
+<p class="t-fr note">Avancement des recherches de l'alliance (menu Alliance &gt; Tech) au relevé du <b data-draw="val" data-source="tech_resume" data-field="date" data-row="0" data-fmt="date">—</b>. 👍 : technologie recommandée par les officiers.</p><p class="t-en note">Progress of the alliance research (Alliance &gt; Tech menu) as of <b data-draw="val" data-source="tech_resume" data-field="date" data-row="0" data-fmt="date">—</b>. 👍: technology recommended by the officers.</p><p class="t-de note">Forschungsstand der Allianz (Menü Allianz &gt; Tech) laut Erfassung vom <b data-draw="val" data-source="tech_resume" data-field="date" data-row="0" data-fmt="date">—</b>. 👍: von den Offizieren empfohlene Technologie.</p>
     <div class="ev-tete">
-      <div class="card"><span class="kpi-l"><span class="t-fr">Terminées</span><span class="t-en">Completed</span><span class="t-es">Completadas</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="terminees" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">niveau maximum atteint</span><span class="t-en">max level reached</span><span class="t-es">nivel máximo alcanzado</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">En progression</span><span class="t-en">In progress</span><span class="t-es">En progreso</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="en_cours" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">niveaux en partie débloqués</span><span class="t-en">partly upgraded</span><span class="t-es">mejoradas en parte</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">À démarrer</span><span class="t-en">Not started</span><span class="t-es">Por empezar</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="disponibles" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">disponibles, niveau 0</span><span class="t-en">available, level 0</span><span class="t-es">disponibles, nivel 0</span></span></div>
-      <div class="card"><span class="kpi-l"><span class="t-fr">Verrouillées</span><span class="t-en">Locked</span><span class="t-es">Bloqueadas</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="verrouillees" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">prérequis manquants</span><span class="t-en">prerequisites missing</span><span class="t-es">faltan requisitos</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Terminées</span><span class="t-en">Completed</span><span class="t-de">Abgeschlossen</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="terminees" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">niveau maximum atteint</span><span class="t-en">max level reached</span><span class="t-de">Maximalstufe erreicht</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">En progression</span><span class="t-en">In progress</span><span class="t-de">In Arbeit</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="en_cours" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">niveaux en partie débloqués</span><span class="t-en">partly upgraded</span><span class="t-de">teilweise verbessert</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">À démarrer</span><span class="t-en">Not started</span><span class="t-de">Noch zu starten</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="disponibles" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">disponibles, niveau 0</span><span class="t-en">available, level 0</span><span class="t-de">verfügbar, Stufe 0</span></span></div>
+      <div class="card"><span class="kpi-l"><span class="t-fr">Verrouillées</span><span class="t-en">Locked</span><span class="t-de">Gesperrt</span></span><span class="kpi-v" data-draw="val" data-source="tech_resume" data-field="verrouillees" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">prérequis manquants</span><span class="t-en">prerequisites missing</span><span class="t-de">Voraussetzungen fehlen</span></span></div>
     </div>
     <div class="tech-grille" data-draw="tech" data-source="tech_dernier"></div>
   </section>
 
   <section class="card">
     <div class="cl-tete">
-      <h2 class="ancre" id="classement"><span class="t-fr">Classement de la semaine</span><span class="t-en">Weekly ranking</span><span class="t-es">Clasificación semanal</span></h2>
-      <select aria-label="Choisir une semaine" data-aria-fr="Choisir une semaine" data-aria-en="Choose a week" data-aria-es="Elegir una semana" data-draw="cl-choix" data-source="classement" hidden></select>
+      <h2 class="ancre" id="classement"><span class="t-fr">Classement de la semaine</span><span class="t-en">Weekly ranking</span><span class="t-de">Wochenrangliste</span></h2>
+      <select aria-label="Choisir une semaine" data-aria-fr="Choisir une semaine" data-aria-en="Choose a week" data-aria-de="Woche wählen" data-draw="cl-choix" data-source="classement" hidden></select>
     </div>
-    <p class="note"><span class="t-fr">Top 4 des membres hors R4 et R5, établi chaque vendredi sur 100 points. Clique sur un pseudo pour ouvrir sa fiche.</span><span class="t-en">Top 4 members excluding R4 and R5, scored out of 100 every Friday. Click a name to open their profile.</span><span class="t-es">Top 4 de miembros sin contar R4 y R5, calculado cada viernes sobre 100 puntos. Haz clic en un nombre para abrir su ficha.</span></p>
-    <p class="cl-bareme"><span><i style="background:#f2c94c"></i><span class="t-fr">Progression de puissance</span><span class="t-en">Power growth</span><span class="t-es">Progreso de poder</span> · 40 pts</span><span><i style="background:#a985ff"></i><span class="t-fr">Piège Léviathan</span><span class="t-en">Leviathan Trap</span><span class="t-es">Trampa del Leviatán</span> · 30 pts</span><span><i style="background:#40a0ff"></i><span class="t-fr">Guerre d'Oasis</span><span class="t-en">Oasis War</span><span class="t-es">Guerra del Oasis</span> · 30 pts</span></p>
+    <p class="note"><span class="t-fr">Top 4 des membres hors R4 et R5, établi chaque vendredi sur 100 points. Clique sur un pseudo pour ouvrir sa fiche.</span><span class="t-en">Top 4 members excluding R4 and R5, scored out of 100 every Friday. Click a name to open their profile.</span><span class="t-de">Top 4 der Mitglieder ohne R4 und R5, jeden Freitag auf 100 Punkte berechnet. Klicke auf einen Namen, um das Profil zu öffnen.</span></p>
+    <p class="cl-bareme"><span><i style="background:#f2c94c"></i><span class="t-fr">Progression de puissance</span><span class="t-en">Power growth</span><span class="t-de">Machtzuwachs</span> · 40 pts</span><span><i style="background:#a985ff"></i><span class="t-fr">Piège Léviathan</span><span class="t-en">Leviathan Trap</span><span class="t-de">Leviathan-Falle</span> · 30 pts</span><span><i style="background:#40a0ff"></i><span class="t-fr">Guerre d'Oasis</span><span class="t-en">Oasis War</span><span class="t-de">Oasenkrieg</span> · 30 pts</span></p>
     <div class="ev-vue" data-draw="classement" data-source="classement membres"></div>
   </section>
 
   <section class="card">
-    <h2 class="ancre" id="evenements"><span class="t-fr">Classements des événements</span><span class="t-en">Event rankings</span><span class="t-es">Clasificaciones de eventos</span></h2>
-    <p class="note"><span class="t-fr">Classements officiels lus dans le courrier d'alliance du jeu (Piège Léviathan, Guerre d'Oasis).</span><span class="t-en">Official rankings read from the in-game alliance mail (Leviathan Trap, Oasis War).</span><span class="t-es">Clasificaciones oficiales leídas en el correo de alianza del juego (Trampa del Leviatán, Guerra del Oasis).</span></p>
-    <div class="tools"><select class="rfg-ev-choix" aria-label="Choisir un événement" data-aria-fr="Choisir un événement" data-aria-en="Choose an event" data-aria-es="Elegir un evento" data-draw="ev-choix" data-source="ev_resume"></select></div>
+    <h2 class="ancre" id="evenements"><span class="t-fr">Classements des événements</span><span class="t-en">Event rankings</span><span class="t-de">Event-Ranglisten</span></h2>
+    <p class="note"><span class="t-fr">Classements officiels lus dans le courrier d'alliance du jeu (Piège Léviathan, Guerre d'Oasis).</span><span class="t-en">Official rankings read from the in-game alliance mail (Leviathan Trap, Oasis War).</span><span class="t-de">Offizielle Ranglisten aus der Allianzpost im Spiel (Leviathan-Falle, Oasenkrieg).</span></p>
+    <div class="tools"><select class="rfg-ev-choix" aria-label="Choisir un événement" data-aria-fr="Choisir un événement" data-aria-en="Choose an event" data-aria-de="Event wählen" data-draw="ev-choix" data-source="ev_resume"></select></div>
     <div class="ev-vue" data-draw="ev-vue" data-source="ev_resume evenements membres"></div>
   </section>
 
   <section class="card">
-    <h2 class="ancre" id="oasis"><span class="t-fr">Guerre d'Oasis : inscrits et participants</span><span class="t-en">Oasis War: registered vs. participants</span><span class="t-es">Guerra del Oasis: inscritos y participantes</span></h2>
-    <p class="note"><span class="t-fr">Comparaison entre la liste des inscrits (courrier « Inscriptions clôturées ») et les membres ayant marqué des points d'Oasis pendant la bataille.</span><span class="t-en">Comparison between the registration list (“Registration closed” mail) and the members who scored Oasis points during the battle.</span><span class="t-es">Comparación entre la lista de inscritos (correo «Inscripciones cerradas») y los miembros que sumaron puntos del Oasis durante la batalla.</span></p>
+    <h2 class="ancre" id="oasis"><span class="t-fr">Guerre d'Oasis : inscrits et participants</span><span class="t-en">Oasis War: registered vs. participants</span><span class="t-de">Oasenkrieg: Angemeldete und Teilnehmer</span></h2>
+    <p class="note"><span class="t-fr">Comparaison entre la liste des inscrits (courrier « Inscriptions clôturées ») et les membres ayant marqué des points d'Oasis pendant la bataille.</span><span class="t-en">Comparison between the registration list (“Registration closed” mail) and the members who scored Oasis points during the battle.</span><span class="t-de">Vergleich der Anmeldeliste (Post „Anmeldung geschlossen“) mit den Mitgliedern, die in der Schlacht Oasenpunkte erzielt haben.</span></p>
     <div class="ev-vue" data-draw="oasis" data-source="oasis_ecart ev_resume membres"></div>
   </section>
-  <p class="pied"><span class="t-fr">Relevé automatique chaque jour à 17h · Données lues dans l'écran Membres de l'alliance · Puissances arrondies à 0,1 M</span><span class="t-en">Automatic survey every day at 5 pm (Paris time) · Data read from the alliance Members screen · Power rounded to 0.1 M</span><span class="t-es">Registro automático cada día a las 17 h (hora de París) · Datos leídos en la pantalla Miembros de la alianza · Poder redondeado a 0,1 M</span></p>
+  <p class="pied"><span class="t-fr">Relevé automatique chaque jour à 17h · Données lues dans l'écran Membres de l'alliance · Puissances arrondies à 0,1 M</span><span class="t-en">Automatic survey every day at 5 pm (Paris time) · Data read from the alliance Members screen · Power rounded to 0.1 M</span><span class="t-de">Automatische Erfassung täglich um 17 Uhr (Pariser Zeit) · Daten aus dem Mitgliederbildschirm der Allianz · Macht auf 0,1 M gerundet</span></p>
 </div>
 
 <script>
 
 window.RFG_I18N = (() => {
   const P = [
-    ['Échec du chargement', 'Failed to load', 'Error de carga'],
-    ['Premier relevé', 'First survey', 'Primer registro'],
-    [' depuis le relevé précédent', ' since the previous survey', ' desde el registro anterior'],
-    ['Avant', 'Before', 'Antes'], ['Après', 'After', 'Después'],
-    ['Moins de 24 h', 'Under 24 h', 'Menos de 24 h'], ['1 à 3 jours', '1 to 3 days', '1 a 3 días'], ['3 à 7 jours', '3 to 7 days', '3 a 7 días'],
-    ['7 à 30 jours', '7 to 30 days', '7 a 30 días'], ['Plus de 30 jours', 'Over 30 days', 'Más de 30 días'],
-    ['Actif', 'Active', 'Activo'], ['À surveiller', 'To watch', 'A vigilar'], ['Absent', 'Absent', 'Ausente'],
-    ['En ligne', 'Online', 'En línea'], ['j', 'd', 'd'], ['1 mois et +', '1 month +', '1 mes o más'],
-    ['Arrivée', 'Arrival', 'Llegada'], ['Départ', 'Departure', 'Salida'],
-    ['Date', 'Date', 'Fecha'], [' (alliance)', ' (alliance)', ' (alianza)'],
-    ['Dégâts infligés', 'Damage dealt', 'Daño infligido'], ["Points d'Oasis", 'Oasis points', 'Puntos del Oasis'],
-    ['Participants', 'Participants', 'Participantes'], ['sur', 'out of', 'de'], ['inscrits', 'registered', 'inscritos'],
-    ['des', 'of the', 'de los'], ['membres actuels', 'current members', 'miembros actuales'],
-    ['Résultat', 'Result', 'Resultado'], ['Victoire', 'Victory', 'Victoria'], ['Défaite', 'Defeat', 'Derrota'],
-    ['contre', 'vs', 'contra'], ['à', 'to', 'a'], ['palier', 'tier', 'nivel'],
-    ['Meilleur score', 'Top score', 'Mejor puntuación'], ['Rang', 'Rank', 'Rango'], ['Membre', 'Member', 'Miembro'],
-    ['Rang alliance', 'Alliance rank', 'Rango en la alianza'], ['Puissance actuelle', 'Current power', 'Poder actual'],
-    [' (a quitté l’alliance)', ' (left the alliance)', ' (dejó la alianza)'],
-    ["Aucune Guerre d'Oasis relevée pour l'instant.", 'No Oasis War recorded yet.', 'Todavía no se ha registrado ninguna Guerra del Oasis.'],
-    ['Inscrits', 'Registered', 'Inscritos'], ['Ont participé', 'Took part', 'Participaron'], ['ont marqué des points', 'scored points', 'sumaron puntos'],
-    ['Taux de présence', 'Attendance rate', 'Tasa de asistencia'], ['des inscrits', 'of those registered', 'de los inscritos'],
-    ['Inscrits absents', 'Registered but absent', 'Inscritos ausentes'], ['inscrits sans aucun point', 'registered, no points', 'inscritos sin ningún punto'],
-    ['Personne.', 'Nobody.', 'Nadie.'], ['Puissance', 'Power', 'Poder'], ['Dernière connexion', 'Last login', 'Última conexión'],
-    ['Présents', 'Present', 'Presentes'], [' (non inscrit)', ' (not registered)', ' (no inscrito)'],
-    ['Semaine du', 'Week of', 'Semana del'], ['Du vendredi', 'From Friday', 'Del viernes'], ['au vendredi', 'to Friday', 'al viernes'],
-    ["Pas de Guerre d'Oasis cette semaine : ses points sont répartis sur les autres critères.", 'No Oasis War this week: its points are shared out among the other criteria.', 'Sin Guerra del Oasis esta semana: sus puntos se reparten entre los demás criterios.'],
-    ['Pas de Piège Léviathan cette semaine : ses points sont répartis sur les autres critères.', 'No Leviathan Trap this week: its points are shared out among the other criteria.', 'Sin Trampa del Leviatán esta semana: sus puntos se reparten entre los demás criterios.'],
-    ['Le premier classement sera publié vendredi.', 'The first ranking will be published on Friday.', 'La primera clasificación se publicará el viernes.'],
-    ['Léviathan', 'Leviathan', 'Leviatán'], ['Oasis', 'Oasis', 'Oasis'], ['Puissance :', 'Power:', 'Poder:'],
-    [' sur la semaine', ' over the week', ' en la semana'], ['Phare', 'Beacon', 'Faro'], ['Éliminations', 'Kills', 'Eliminaciones'],
-    ['Badge', 'Badge', 'Insignia'], ['niv.', 'lv.', 'niv.'], ['Popularité', 'Popularity', 'Popularidad'],
-    ['Arche', 'Ark', 'Arca'], ['Arche Suprême', 'Supreme Ark', 'Arca Suprema'], ['Libre', 'Free', 'Libre'], ['Allié', 'Ally', 'Aliado'],
-    ['Autre alliance', 'Other alliance', 'Otra alianza'], ['niveau', 'level', 'nivel'], ['Contour doré : allié', 'Gold outline: ally', 'Contorno dorado: aliado'],
-    ['Village de Pêcheurs', 'Fishing Village', 'Aldea de Pescadores'], ['Port logistique', 'Logistics Port', 'Puerto Logístico'],
-    ['Usine chimique', 'Chemical Plant', 'Planta Química'], ['Station de comms', 'Comms Station', 'Estación de Comunicaciones'],
-    ['Armurerie', 'Armory', 'Armería'], ['Base aérienne', 'Air Base', 'Base Aérea'], ['Base de missiles', 'Missile Base', 'Base de Misiles'],
-    ['Base Navale', 'Naval Base', 'Base Naval'],
-    ['Inscrit et présent', 'Registered & present', 'Inscrito y presente'], ['Inscrit absent', 'Registered, absent', 'Inscrito ausente'],
-    ['Présent sans inscription', 'Present, not registered', 'Presente sin inscripción'], ['Non inscrit', 'Not registered', 'No inscrito'],
-    ['Classé', 'Ranked', 'Clasificado'], ['Absent du classement', 'Not ranked', 'Fuera de la clasificación'],
-    ['⏳ Préparation…', '⏳ Preparing…', '⏳ Preparando…'],
-    ["L'export en image n'a pas pu se faire. Réessaie, ou fais une capture d'écran de la fiche.", 'The image export failed. Try again, or take a screenshot of the profile.', 'No se pudo exportar la imagen. Inténtalo de nuevo o haz una captura de pantalla de la ficha.'],
-    ['Croissance', 'Growth', 'Crecimiento'], ['Territoire', 'Territory', 'Territorio'], ['Guerre', 'War', 'Guerra'],
-    ['terminées', 'completed', 'completadas'], ['Pas encore de relevé des technologies.', 'No technology survey yet.', 'Todavía no hay registro de tecnologías.'],
-    ['Recommandée par les officiers', 'Recommended by the officers', 'Recomendada por los oficiales'],
-    ["Extension d'Alliance", 'Alliance Expansion', 'Expansión de la Alianza'], ['Construction Rapide', 'Rapid Construction', 'Construcción Rápida'],
-    ['Extension du Territoire', 'Territory Expansion', 'Expansión del Territorio'], ['Pacte Amical', 'Friendship Pact', 'Pacto Amistoso'],
-    ['Recherche Efficace', 'Efficient Research', 'Investigación Eficiente'], ["Accélération d'Entraînement", 'Training Acceleration', 'Aceleración de Entrenamiento'],
-    ['Trousse de Soins', 'Medical Kit', 'Botiquín'], ['Récolte Rapide', 'Rapid Harvesting', 'Cosecha Rápida'],
-    ['Bûcheronnage Rapide', 'Rapid Logging', 'Tala Rápida'], ['Minage Rapide', 'Rapid Mining', 'Minería Rápida'], ['Forage Rapide', 'Rapid Drilling', 'Perforación Rápida'],
-    ["Soutien d'Attaque", 'Attack Support', 'Apoyo de Ataque'], ['Marche Rapide', 'Rapid March', 'Marcha Rápida'],
-    ['Soutien de Défense', 'Defense Support', 'Apoyo de Defensa'], ['Chasseur de Léviathan', 'Leviathan Hunter', 'Cazador de Leviatanes'],
-    ['Soutien de Létalité', 'Lethality Support', 'Apoyo de Letalidad'], ['Soutien de PV', 'HP Support', 'Apoyo de PV'],
-    ['Assaut Conjoint', 'Joint Assault', 'Asalto Conjunto'], ['Prouesse Martiale', 'Martial Prowess', 'Destreza Marcial'],
-    ['Assaut des Cavaliers', 'Cavalry Assault', 'Asalto de Caballería'], ["Maîtrise du Tir à l'Arc", 'Archery Mastery', 'Maestría en Tiro con Arco'],
-    ['Amélioration de Puissance de Feu', 'Firepower Upgrade', 'Mejora de Potencia de Fuego'], ['Armure Renforcée', 'Reinforced Armor', 'Armadura Reforzada'],
-    ['Armure Légère', 'Light Armor', 'Armadura Ligera'], ['Bouclier Furtif', 'Stealth Shield', 'Escudo Sigiloso'],
-    ['Rocher Inébranlable', 'Unshakable Rock', 'Roca Inquebrantable'], ['Entaille Lourde', 'Heavy Slash', 'Tajo Pesado'],
-    ['Ruée en Hors-bord', 'Speedboat Rush', 'Embestida en Lancha'], ['Munitions hautement explosives', 'High-Explosive Ammo', 'Munición Altamente Explosiva'],
-    ['Tout Écraser', 'Crush All', 'Aplastarlo Todo'], ['Physique Robuste', 'Robust Physique', 'Físico Robusto'],
-    ['Maîtrise Aquatique', 'Aquatic Mastery', 'Maestría Acuática'], ['Volonté Inébranlable', 'Unbreakable Will', 'Voluntad Inquebrantable'],
-    ['Constitution Robuste', 'Sturdy Constitution', 'Constitución Robusta'], ['Durabilité', 'Durability', 'Durabilidad'],
+    ['Échec du chargement', 'Failed to load', 'Laden fehlgeschlagen'],
+    ['Premier relevé', 'First survey', 'Erste Erfassung'],
+    [' depuis le relevé précédent', ' since the previous survey', ' seit der letzten Erfassung'],
+    ['Avant', 'Before', 'Vorher'], ['Après', 'After', 'Nachher'],
+    ['Moins de 24 h', 'Under 24 h', 'Unter 24 Std.'], ['1 à 3 jours', '1 to 3 days', '1 bis 3 Tage'], ['3 à 7 jours', '3 to 7 days', '3 bis 7 Tage'],
+    ['7 à 30 jours', '7 to 30 days', '7 bis 30 Tage'], ['Plus de 30 jours', 'Over 30 days', 'Über 30 Tage'],
+    ['Actif', 'Active', 'Aktiv'], ['À surveiller', 'To watch', 'Beobachten'], ['Absent', 'Absent', 'Abwesend'],
+    ['En ligne', 'Online', 'Online'], ['j', 'd', 'T'], ['1 mois et +', '1 month +', '1 Monat +'],
+    ['Arrivée', 'Arrival', 'Beitritt'], ['Départ', 'Departure', 'Austritt'],
+    ['Date', 'Date', 'Datum'], [' (alliance)', ' (alliance)', ' (Allianz)'],
+    ['Dégâts infligés', 'Damage dealt', 'Verursachter Schaden'], ["Points d'Oasis", 'Oasis points', 'Oasenpunkte'],
+    ['Participants', 'Participants', 'Teilnehmer'], ['sur', 'out of', 'von'], ['inscrits', 'registered', 'angemeldet'],
+    ['des', 'of the', 'der'], ['membres actuels', 'current members', 'aktuellen Mitglieder'],
+    ['Résultat', 'Result', 'Ergebnis'], ['Victoire', 'Victory', 'Sieg'], ['Défaite', 'Defeat', 'Niederlage'],
+    ['contre', 'vs', 'gegen'], ['à', 'to', 'zu'], ['palier', 'tier', 'Stufe'],
+    ['Meilleur score', 'Top score', 'Bestwert'], ['Rang', 'Rank', 'Rang'], ['Membre', 'Member', 'Mitglied'],
+    ['Rang alliance', 'Alliance rank', 'Allianzrang'], ['Puissance actuelle', 'Current power', 'Aktuelle Macht'],
+    [' (a quitté l’alliance)', ' (left the alliance)', ' (hat die Allianz verlassen)'],
+    ["Aucune Guerre d'Oasis relevée pour l'instant.", 'No Oasis War recorded yet.', 'Noch kein Oasenkrieg erfasst.'],
+    ['Inscrits', 'Registered', 'Angemeldet'], ['Ont participé', 'Took part', 'Teilgenommen'], ['ont marqué des points', 'scored points', 'haben Punkte erzielt'],
+    ['Taux de présence', 'Attendance rate', 'Anwesenheitsquote'], ['des inscrits', 'of those registered', 'der Angemeldeten'],
+    ['Inscrits absents', 'Registered but absent', 'Angemeldet, aber abwesend'], ['inscrits sans aucun point', 'registered, no points', 'Angemeldete ohne Punkte'],
+    ['Personne.', 'Nobody.', 'Niemand.'], ['Puissance', 'Power', 'Macht'], ['Dernière connexion', 'Last login', 'Letzter Login'],
+    ['Présents', 'Present', 'Anwesend'], [' (non inscrit)', ' (not registered)', ' (nicht angemeldet)'],
+    ['Semaine du', 'Week of', 'Woche vom'], ['Du vendredi', 'From Friday', 'Von Freitag,'], ['au vendredi', 'to Friday', 'bis Freitag,'],
+    ["Pas de Guerre d'Oasis cette semaine : ses points sont répartis sur les autres critères.", 'No Oasis War this week: its points are shared out among the other criteria.', 'Diese Woche kein Oasenkrieg: Seine Punkte werden auf die anderen Kriterien verteilt.'],
+    ['Pas de Piège Léviathan cette semaine : ses points sont répartis sur les autres critères.', 'No Leviathan Trap this week: its points are shared out among the other criteria.', 'Diese Woche keine Leviathan-Falle: Ihre Punkte werden auf die anderen Kriterien verteilt.'],
+    ['Le premier classement sera publié vendredi.', 'The first ranking will be published on Friday.', 'Die erste Rangliste wird am Freitag veröffentlicht.'],
+    ['Léviathan', 'Leviathan', 'Leviathan'], ['Oasis', 'Oasis', 'Oase'], ['Puissance :', 'Power:', 'Macht:'],
+    [' sur la semaine', ' over the week', ' in der Woche'], ['Phare', 'Beacon', 'Leuchtturm'], ['Éliminations', 'Kills', 'Kills'],
+    ['Badge', 'Badge', 'Abzeichen'], ['niv.', 'lv.', 'Lv.'], ['Popularité', 'Popularity', 'Beliebtheit'],
+    ['Arche', 'Ark', 'Arche'], ['Arche Suprême', 'Supreme Ark', 'Höchste Arche'], ['Libre', 'Free', 'Frei'], ['Allié', 'Ally', 'Verbündet'],
+    ['Autre alliance', 'Other alliance', 'Andere Allianz'], ['niveau', 'level', 'Stufe'], ['Contour doré : allié', 'Gold outline: ally', 'Goldrand: verbündet'],
+    ['Village de Pêcheurs', 'Fishing Village', 'Fischerdorf'], ['Port logistique', 'Logistics Port', 'Logistikhafen'],
+    ['Usine chimique', 'Chemical Plant', 'Chemiefabrik'], ['Station de comms', 'Comms Station', 'Funkstation'],
+    ['Armurerie', 'Armory', 'Waffenkammer'], ['Base aérienne', 'Air Base', 'Luftwaffenstützpunkt'], ['Base de missiles', 'Missile Base', 'Raketenbasis'],
+    ['Base Navale', 'Naval Base', 'Marinebasis'],
+    ['Inscrit et présent', 'Registered & present', 'Angemeldet & anwesend'], ['Inscrit absent', 'Registered, absent', 'Angemeldet, abwesend'],
+    ['Présent sans inscription', 'Present, not registered', 'Anwesend ohne Anmeldung'], ['Non inscrit', 'Not registered', 'Nicht angemeldet'],
+    ['Classé', 'Ranked', 'Platziert'], ['Absent du classement', 'Not ranked', 'Nicht platziert'],
+    ['⏳ Préparation…', '⏳ Preparing…', '⏳ Wird vorbereitet…'],
+    ["L'export en image n'a pas pu se faire. Réessaie, ou fais une capture d'écran de la fiche.", 'The image export failed. Try again, or take a screenshot of the profile.', 'Der Bildexport ist fehlgeschlagen. Versuche es erneut oder mach einen Screenshot des Profils.'],
+    ['Croissance', 'Growth', 'Wachstum'], ['Territoire', 'Territory', 'Territorium'], ['Guerre', 'War', 'Krieg'],
+    ['terminées', 'completed', 'abgeschlossen'], ['Pas encore de relevé des technologies.', 'No technology survey yet.', 'Noch keine Erfassung der Technologien.'],
+    ['Recommandée par les officiers', 'Recommended by the officers', 'Von den Offizieren empfohlen'],
+    ["Extension d'Alliance", 'Alliance Expansion', 'Allianzerweiterung'], ['Construction Rapide', 'Rapid Construction', 'Schnellbau'],
+    ['Extension du Territoire', 'Territory Expansion', 'Gebietserweiterung'], ['Pacte Amical', 'Friendship Pact', 'Freundschaftspakt'],
+    ['Recherche Efficace', 'Efficient Research', 'Effiziente Forschung'], ["Accélération d'Entraînement", 'Training Acceleration', 'Trainingsbeschleunigung'],
+    ['Trousse de Soins', 'Medical Kit', 'Verbandskasten'], ['Récolte Rapide', 'Rapid Harvesting', 'Schnelle Ernte'],
+    ['Bûcheronnage Rapide', 'Rapid Logging', 'Schnelles Holzfällen'], ['Minage Rapide', 'Rapid Mining', 'Schneller Bergbau'], ['Forage Rapide', 'Rapid Drilling', 'Schnelles Bohren'],
+    ["Soutien d'Attaque", 'Attack Support', 'Angriffsunterstützung'], ['Marche Rapide', 'Rapid March', 'Schnellmarsch'],
+    ['Soutien de Défense', 'Defense Support', 'Verteidigungsunterstützung'], ['Chasseur de Léviathan', 'Leviathan Hunter', 'Leviathan-Jäger'],
+    ['Soutien de Létalité', 'Lethality Support', 'Letalitätsunterstützung'], ['Soutien de PV', 'HP Support', 'LP-Unterstützung'],
+    ['Assaut Conjoint', 'Joint Assault', 'Gemeinsamer Angriff'], ['Prouesse Martiale', 'Martial Prowess', 'Kampfkunst'],
+    ['Assaut des Cavaliers', 'Cavalry Assault', 'Kavallerieangriff'], ["Maîtrise du Tir à l'Arc", 'Archery Mastery', 'Meisterschaft im Bogenschießen'],
+    ['Amélioration de Puissance de Feu', 'Firepower Upgrade', 'Feuerkraftverbesserung'], ['Armure Renforcée', 'Reinforced Armor', 'Verstärkte Rüstung'],
+    ['Armure Légère', 'Light Armor', 'Leichte Rüstung'], ['Bouclier Furtif', 'Stealth Shield', 'Tarnschild'],
+    ['Rocher Inébranlable', 'Unshakable Rock', 'Unerschütterlicher Fels'], ['Entaille Lourde', 'Heavy Slash', 'Schwerer Hieb'],
+    ['Ruée en Hors-bord', 'Speedboat Rush', 'Schnellboot-Ansturm'], ['Munitions hautement explosives', 'High-Explosive Ammo', 'Hochexplosive Munition'],
+    ['Tout Écraser', 'Crush All', 'Alles zermalmen'], ['Physique Robuste', 'Robust Physique', 'Robuster Körperbau'],
+    ['Maîtrise Aquatique', 'Aquatic Mastery', 'Wassermeisterschaft'], ['Volonté Inébranlable', 'Unbreakable Will', 'Unbeugsamer Wille'],
+    ['Constitution Robuste', 'Sturdy Constitution', 'Robuste Konstitution'], ['Durabilité', 'Durability', 'Haltbarkeit'],
   ];
-  const en = {}, es = {};
-  for (const [f, e, s] of P) { en[f] = e; es[f] = s; }
+  const en = {}, de = {};
+  for (const [f, e, s] of P) { en[f] = e; de[f] = s; }
   const re = {
     en: [[/^Piège Léviathan du (\d\d\/\d\d)$/, (d) => 'Leviathan Trap – ' + d], [/^Guerre d'Oasis du (\d\d\/\d\d) \(Légion (\d)\)$/, (d, n) => 'Oasis War – ' + d + ' (Legion ' + n + ')']],
-    es: [[/^Piège Léviathan du (\d\d\/\d\d)$/, (d) => 'Trampa del Leviatán del ' + d], [/^Guerre d'Oasis du (\d\d\/\d\d) \(Légion (\d)\)$/, (d, n) => 'Guerra del Oasis del ' + d + ' (Legión ' + n + ')']],
+    de: [[/^Piège Léviathan du (\d\d\/\d\d)$/, (d) => 'Leviathan-Falle vom ' + d], [/^Guerre d'Oasis du (\d\d\/\d\d) \(Légion (\d)\)$/, (d, n) => 'Oasenkrieg vom ' + d + ' (Legion ' + n + ')']],
   };
-  return {en, es, re};
+  return {en, de, re};
 })();
 
 const RFG_C = {or: '#f2c94c', violet: '#6a3fd1', violetClair: '#a985ff', texte: '#eaf2ff', muet: '#9fb6d6', axe: 'rgba(242,201,76,.35)', nuit: '#0b1f3a'};
@@ -612,7 +612,7 @@ dash.calc('mouvements', {
 
 
 window.rfg = (() => {
-  const LOC = {fr: {d: ',', t: '\u202f', md: ' Md', date: 'fr-FR'}, en: {d: '.', t: ',', md: ' B', date: 'en-GB'}, es: {d: ',', t: '.', md: ' MM', date: 'es-ES'}};
+  const LOC = {fr: {d: ',', t: '\u202f', md: ' Md', date: 'fr-FR'}, en: {d: '.', t: ',', md: ' B', date: 'en-GB'}, de: {d: ',', t: '.', md: ' Mrd.', date: 'de-DE'}};
   const lang = () => { const l = dash.params().lang; return LOC[l] ? l : 'fr'; };
   const cache = {};
   const F = () => {
@@ -1265,8 +1265,8 @@ dash.draw('tech', (el) => {
   }
 });
 
-const RFG_LANGUES = ['fr', 'en', 'es'];
-const RFG_TITRES = {fr: "<DiDe> DieDeutschen · Suivi de l'alliance", en: '<DiDe> DieDeutschen · Alliance tracker', es: '<DiDe> DieDeutschen · Seguimiento de la alianza'};
+const RFG_LANGUES = ['fr', 'en', 'de'];
+const RFG_TITRES = {fr: "<DiDe> DieDeutschen · Suivi de l'alliance", en: '<DiDe> DieDeutschen · Alliance tracker', de: '<DiDe> DieDeutschen · Allianz-Tracker'};
 document.querySelectorAll('.rfg .langues a[data-lang]').forEach((a) => a.addEventListener('click', (ev) => {
   ev.preventDefault();
   const l = a.dataset.lang;
@@ -1274,11 +1274,11 @@ document.querySelectorAll('.rfg .langues a[data-lang]').forEach((a) => a.addEven
   if (window.RFG_SITE) { try { history.replaceState(null, '', l === 'fr' ? location.pathname + location.hash : '?lang=' + l + location.hash); } catch (e) { /* ignore */ } }
 }));
 if (window.RFG_SITE && !dash.params().lang) {
-  try { const l = new URLSearchParams(location.search).get('lang'); if (l === 'en' || l === 'es') dash.setParams({lang: l}); } catch (e) { /* ignore */ }
+  try { const l = new URLSearchParams(location.search).get('lang'); if (l === 'en' || l === 'de') dash.setParams({lang: l}); } catch (e) { /* ignore */ }
 }
 dash.onData(() => {
   const l = rfg.lang();
-  document.querySelectorAll('.rfg').forEach((n) => { n.classList.toggle('l-en', l === 'en'); n.classList.toggle('l-es', l === 'es'); });
+  document.querySelectorAll('.rfg').forEach((n) => { n.classList.toggle('l-en', l === 'en'); n.classList.toggle('l-de', l === 'de'); });
   document.querySelectorAll('.rfg .langues a[data-lang]').forEach((a) => {
     a.classList.toggle('actif', a.dataset.lang === l);
     if (a.dataset.lang === l) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
