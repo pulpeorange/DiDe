@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>&lt;DiDe&gt; DieDeutschen · Suivi de l'alliance</title>
 <meta name="description" content="Tableau de bord de l'alliance <DiDe> DieDeutschen sur Last Beacon : effectif, puissance, activité des membres.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="&lt;DiDe&gt; DieDeutschen">
+<meta property="og:title" content="&lt;DiDe&gt; DieDeutschen · Last Beacon">
+<meta property="og:description" content="Allianz-Dashboard: Macht, Aktivität, Leviathan, Rekorde und Wochenzeitung · Tableau de bord de l'alliance.">
+<meta property="og:url" content="https://pulpeorange.github.io/DiDe/">
+<meta property="og:image" content="https://pulpeorange.github.io/DiDe/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ff4fd8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800;900&display=swap">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 150'><path d='M18 17 H102 V128 L60 112 L18 128 Z' fill='%236a3fd1' stroke='%23f2c94c' stroke-width='6'/><circle cx='60' cy='62' r='27' fill='none' stroke='white' stroke-width='6'/></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <style>
@@ -43,7 +54,7 @@ window.dash = (() => {
   window.addEventListener('DOMContentLoaded', () => {
     all();
     const files = {releves: 'data/releves.json', evenements: 'data/evenements.json', ev_resume: 'data/evenements_resume.json', territoires: 'data/territoires.json'};
-    const optionnels = {classement: 'data/classement.json', tech: 'data/tech.json'};
+    const optionnels = {classement: 'data/classement.json', tech: 'data/tech.json', serveur: 'data/serveur.json'};
     const charges = Object.entries(files).map(([id, f]) => fetch(f, {cache: 'no-store'}).then((r) => r.json()).then((j) => { store[id] = j.rows || j; }));
     const charges2 = Object.entries(optionnels).map(([id, f]) => fetch(f, {cache: 'no-store'}).then((r) => r.ok ? r.json() : {rows: []}).catch(() => ({rows: []})).then((j) => { store[id] = j.rows || j; }));
     Promise.all([...charges, ...charges2]).then(() => {
@@ -57,6 +68,7 @@ window.dash = (() => {
 </script>
 </head>
 <body>
+<canvas id="neon-fond" aria-hidden="true"></canvas>
 <div id="dash-root">
 <style>
   
@@ -171,7 +183,7 @@ window.dash = (() => {
   .rfg .fiche.export-en-cours .fiche-actions { display: none; }
   .rfg .fiche.export-en-cours .fiche-signature { display: flex; }
   .rfg .fiche.export-en-cours .tbox { max-height: none; overflow: visible; }
-  .rfg .fiche.export-en-cours .card { backdrop-filter: none; box-shadow: none; background: #12305a; }
+  .rfg .fiche.export-en-cours .card { backdrop-filter: none; box-shadow: none; background: #2a1260; }
   .rfg .fiche .pill { display: inline-block; white-space: nowrap; }
   .rfg .fiche.export-en-cours td { white-space: normal; }
   .rfg .fiche.export-en-cours td:last-child { white-space: nowrap; }
@@ -229,6 +241,211 @@ window.dash = (() => {
   .rfg .tech-item.fini .tech-niv { color: var(--or); font-weight: 600; }
   .rfg .tech-item.verrou { opacity: .5; }
 </style>
+<style>
+  /* ===== Thème « jeu mobile néon » ===== */
+  html, body { background: #0b0420; }
+  body { background:
+      radial-gradient(900px 600px at 10% -5%, rgba(255, 79, 216, .22), transparent 60%),
+      radial-gradient(900px 700px at 100% 10%, rgba(62, 240, 255, .18), transparent 60%),
+      radial-gradient(1000px 800px at 50% 110%, rgba(157, 107, 255, .25), transparent 60%),
+      #0b0420; background-attachment: fixed; }
+  #neon-fond { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  #dash-root { position: relative; z-index: 1; }
+  .rfg {
+    --or: #ffe14d; --or-pale: #fff3a8; --violet: #9d6bff; --violet-clair: #c9a8ff; --rose: #ff4fd8; --cyan: #3ef0ff;
+    --texte: #f4efff; --muet: #b9a8e8; --bord: rgba(62, 240, 255, .32); --carte: linear-gradient(160deg, rgba(52, 22, 112, .88), rgba(20, 10, 58, .92));
+    --ok: #4dffa6; --warn: #ffb84d; --bad: #ff5c8a;
+    --titre: "Lilita One", "Baloo 2", "Arial Rounded MT Bold", system-ui, sans-serif;
+    font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 600;
+    background: linear-gradient(180deg, rgba(30, 12, 74, .78), rgba(14, 6, 40, .86));
+    border-radius: 28px; box-shadow: 0 0 0 2px rgba(255, 79, 216, .35), 0 0 60px rgba(157, 107, 255, .35), inset 0 0 80px rgba(62, 240, 255, .06);
+  }
+  .rfg::after { opacity: .9; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='40' viewBox='0 0 240 40'><path d='M0 20 Q30 5 60 20 T120 20 T180 20 T240 20' fill='none' stroke='%23ff4fd8' stroke-opacity='.25' stroke-width='2'/><path d='M0 32 Q30 17 60 32 T120 32 T180 32 T240 32' fill='none' stroke='%233ef0ff' stroke-opacity='.2' stroke-width='2'/></svg>"); }
+  .rfg h1, .rfg h2, .rfg .kpi-v, .rfg .cl-score b, .rfg .fiche-nom, .rfg .cl-nom { font-family: var(--titre); font-weight: 400; letter-spacing: .01em; }
+  .rfg h1 { font-size: clamp(2.3rem, 6.5vw, 4.4rem); background: linear-gradient(180deg, #fff 0%, #fff3a8 45%, #ffb84d 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 3px 0 #7a1fa8) drop-shadow(0 0 18px rgba(255, 79, 216, .55)); }
+  .rfg h1 .tag { background: linear-gradient(180deg, #ff9df0, #ff4fd8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .rfg .surtitre { color: var(--cyan); text-shadow: 0 0 10px rgba(62, 240, 255, .7); }
+  .rfg .blason { filter: drop-shadow(0 0 22px rgba(255, 79, 216, .75)); animation: flotte 5s ease-in-out infinite; }
+  @keyframes flotte { 50% { transform: translateY(-6px) rotate(-2deg); } }
+  .rfg .puce { border: 2px solid rgba(255, 79, 216, .5); background: rgba(255, 79, 216, .12); color: #ffd6f6; font-weight: 700; }
+  .rfg .lead { border-left: 4px solid var(--rose); background: linear-gradient(90deg, rgba(255, 79, 216, .18), rgba(62, 240, 255, .06)); border-radius: 0 16px 16px 0; }
+  .rfg .lead b { color: var(--or); text-shadow: 0 0 8px rgba(255, 225, 77, .5); }
+  .rfg h2 { font-size: clamp(1.25rem, 2.6vw, 1.6rem); color: #fff; text-shadow: 0 2px 0 #4a1680, 0 0 14px rgba(157, 107, 255, .8); }
+  .rfg .ancre::before { content: ""; width: .9em; height: .9em; flex: none; border-radius: 4px; transform: rotate(45deg) scale(.8);
+    background: linear-gradient(135deg, #fff 0%, var(--cyan) 35%, var(--rose) 100%); box-shadow: 0 0 12px var(--cyan); }
+  .rfg h3 { color: var(--or-pale); font-weight: 800; }
+  .rfg .note { color: var(--muet); }
+  .rfg .card { background: var(--carte); border: 2px solid var(--bord); border-radius: 22px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .04), 0 12px 32px rgba(5, 0, 20, .55), 0 0 26px rgba(62, 240, 255, .12), inset 0 2px 0 rgba(255, 255, 255, .12);
+    transition: transform .25s, box-shadow .25s, border-color .25s; }
+  .rfg section.card:hover { border-color: rgba(255, 79, 216, .55); box-shadow: 0 12px 32px rgba(5, 0, 20, .55), 0 0 34px rgba(255, 79, 216, .25), inset 0 2px 0 rgba(255, 255, 255, .12); }
+  .rfg .tiles .card, .rfg .ev-tete .card { position: relative; overflow: hidden; border-top-width: 2px; }
+  .rfg .tiles .card::before, .rfg .ev-tete .card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px;
+    background: linear-gradient(90deg, var(--rose), var(--or), var(--cyan), var(--rose)); background-size: 300% 100%; animation: defile 6s linear infinite; }
+  .rfg .tiles .card:hover, .rfg .ev-tete .card:hover { transform: translateY(-4px) scale(1.02); }
+  @keyframes defile { to { background-position: 300% 0; } }
+  .rfg .kpi-v { font-size: clamp(1.8rem, 3.6vw, 2.5rem); background: linear-gradient(180deg, #fff 0%, #ffe14d 55%, #ff9f1a 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 2px 0 rgba(122, 31, 168, .9)); }
+  .rfg .tiles .card:nth-child(2n) .kpi-v, .rfg .ev-tete .card:nth-child(2n) .kpi-v { background-image: linear-gradient(180deg, #fff 0%, #3ef0ff 60%, #2b8cff 100%); }
+  .rfg .tiles .card:nth-child(3n) .kpi-v, .rfg .ev-tete .card:nth-child(3n) .kpi-v { background-image: linear-gradient(180deg, #fff 0%, #ff9df0 55%, #ff4fd8 100%); }
+  .rfg .kpi-l { color: var(--cyan); font-weight: 800; }
+  @media (max-width: 520px) { .rfg .kpi-l { font-size: .68rem; letter-spacing: .04em; overflow-wrap: anywhere; } }
+  .rfg .up { color: var(--ok); text-shadow: 0 0 8px rgba(77, 255, 166, .5); } .rfg .down { color: var(--bad); }
+  /* Tableaux */
+  .rfg .tbox { border-radius: 16px; border: 1px solid rgba(62, 240, 255, .18); }
+  .rfg th { background: linear-gradient(180deg, #5b22b5, #3a1480); color: #fff; border-bottom: 2px solid var(--cyan); }
+  .rfg td { border-bottom: 1px solid rgba(185, 168, 232, .12); }
+  .rfg tbody tr:nth-child(2n) td { background: rgba(255, 255, 255, .025); }
+  .rfg tbody tr:hover td { background: rgba(255, 79, 216, .12); }
+  .rfg td.lien { color: #ffd6f6; text-decoration-color: rgba(255, 79, 216, .7); }
+  .rfg input[type=search], .rfg select { border: 2px solid rgba(62, 240, 255, .4); border-radius: 14px; background: rgba(14, 6, 40, .85); color: var(--texte); font-weight: 700; }
+  .rfg input[type=search]:focus, .rfg select:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(255, 79, 216, .25), 0 0 16px rgba(255, 79, 216, .4); }
+  .rfg .pill { font-weight: 800; background: rgba(0, 0, 0, .25); }
+  /* Boutons en relief */
+  .rfg .btn3d, .rfg .fiche-fermer, .rfg .carte-zoom button { font: inherit; font-weight: 800; font-size: .9rem; cursor: pointer; padding: 9px 16px; border-radius: 14px; border: 0;
+    color: #3a1500; background: linear-gradient(180deg, #fff3a8 0%, #ffd23d 45%, #ff9f1a 100%); box-shadow: 0 5px 0 #b35c00, 0 8px 18px rgba(255, 159, 26, .35), inset 0 2px 0 rgba(255, 255, 255, .7);
+    transition: transform .08s, box-shadow .08s, filter .2s; text-shadow: 0 1px 0 rgba(255, 255, 255, .5); }
+  .rfg .btn3d:hover, .rfg .fiche-fermer:hover, .rfg .carte-zoom button:hover { filter: brightness(1.08) saturate(1.1); }
+  .rfg .btn3d:active, .rfg .fiche-fermer:active, .rfg .carte-zoom button:active { transform: translateY(4px); box-shadow: 0 1px 0 #b35c00, inset 0 2px 0 rgba(255, 255, 255, .7); }
+  .rfg .btn3d.sec, .rfg .fiche-fermer:not(.fiche-export), .rfg .carte-zoom button:not(.actif) { color: #fff; text-shadow: 0 1px 0 rgba(0, 0, 0, .4); background: linear-gradient(180deg, #c9a8ff 0%, #9d6bff 45%, #6a2ee0 100%); box-shadow: 0 5px 0 #3d1490, 0 8px 18px rgba(157, 107, 255, .35), inset 0 2px 0 rgba(255, 255, 255, .45); }
+  .rfg .fiche-export { color: #003a42 !important; background: linear-gradient(180deg, #b8fbff 0%, #3ef0ff 45%, #12a8d6 100%) !important; box-shadow: 0 5px 0 #0a6680, 0 8px 18px rgba(62, 240, 255, .35), inset 0 2px 0 rgba(255, 255, 255, .7) !important; text-shadow: none; }
+  .rfg .btn3d.ok { background: linear-gradient(180deg, #c8ffe0, #4dffa6 50%, #13c46b); box-shadow: 0 5px 0 #0a7a40; color: #00361a; }
+  .rfg .btn3d[disabled] { opacity: .7; cursor: progress; }
+  /* Médailles brillantes */
+  .rfg .medaille { position: relative; overflow: hidden; box-shadow: 0 2px 0 rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .8); }
+  .rfg .medaille.m1, .rfg .medaille.m2, .rfg .medaille.m3 { animation: brille 3.5s ease-in-out infinite; }
+  .rfg .medaille.m1::after, .rfg .medaille.m2::after, .rfg .medaille.m3::after { content: ""; position: absolute; inset: -40%; background: linear-gradient(120deg, transparent 40%, rgba(255, 255, 255, .85) 50%, transparent 60%); transform: translateX(-100%); animation: reflet 3.5s ease-in-out infinite; }
+  .rfg .m1 { background: radial-gradient(circle at 35% 30%, #fffbe0, #ffd23d 45%, #c98a00); color: #4a2a00; }
+  .rfg .m2 { background: radial-gradient(circle at 35% 30%, #fff, #d7e3f2 45%, #8ea3bd); }
+  .rfg .m3 { background: radial-gradient(circle at 35% 30%, #ffe0c8, #e89a5e 45%, #9c5420); }
+  .rfg .medaille:not(.m1):not(.m2):not(.m3) { background: rgba(185, 168, 232, .2); color: var(--texte); }
+  @keyframes reflet { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  @keyframes brille { 50% { filter: drop-shadow(0 0 6px rgba(255, 225, 77, .8)); } }
+  .rfg .cl-carte { border: 2px solid rgba(62, 240, 255, .25); border-radius: 20px; background: linear-gradient(170deg, rgba(62, 22, 130, .7), rgba(20, 10, 58, .8)); }
+  .rfg .cl-carte.p1 { border-color: var(--or); box-shadow: 0 0 28px rgba(255, 225, 77, .3); }
+  .rfg .cl-score b { background: linear-gradient(180deg, #fff, #ffe14d 60%, #ff9f1a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  /* Langues + menu */
+  .rfg .langues a { border: 2px solid rgba(62, 240, 255, .35); font-weight: 800; color: #e6dcff; }
+  .rfg .langues a.actif { background: linear-gradient(180deg, #ff9df0, #ff4fd8); border-color: #ff9df0; color: #2a0030; box-shadow: 0 0 16px rgba(255, 79, 216, .6); }
+  .rfg .menu { position: sticky; top: 8px; z-index: 5; display: flex; gap: 8px; overflow-x: auto; padding: 8px; margin: 0 -6px; border-radius: 18px; scrollbar-width: none;
+    background: rgba(20, 8, 52, .82); backdrop-filter: blur(10px); box-shadow: 0 0 0 2px rgba(157, 107, 255, .35), 0 10px 26px rgba(0, 0, 0, .45); }
+  .rfg .menu::-webkit-scrollbar { display: none; }
+  .rfg .menu a { flex: none; text-decoration: none; color: #fff; font-weight: 800; font-size: .85rem; padding: 7px 13px; border-radius: 12px; white-space: nowrap;
+    background: linear-gradient(180deg, rgba(157, 107, 255, .55), rgba(90, 40, 190, .55)); box-shadow: 0 3px 0 #2c0d6e, inset 0 1px 0 rgba(255, 255, 255, .3); transition: transform .1s; }
+  .rfg .menu a:hover { transform: translateY(-2px); background: linear-gradient(180deg, #ff9df0, #ff4fd8); box-shadow: 0 3px 0 #8a0f6f; }
+  .rfg .menu a.nouveau::after { content: "NEW"; margin-left: 6px; font-size: .62rem; padding: 1px 5px; border-radius: 6px; background: var(--or); color: #3a1500; vertical-align: 2px; }
+  .rfg [id] { scroll-margin-top: 70px; }
+  /* Apparition */
+  .rfg .reveal { opacity: 0; transform: translateY(22px) scale(.985); transition: opacity .6s ease, transform .6s cubic-bezier(.2, .8, .2, 1.2); }
+  .rfg .reveal.vu { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .rfg *, .rfg .reveal { animation: none !important; transition: none !important; opacity: 1; transform: none; } }
+  /* Barres horizontales */
+  .rfg .hbars { display: flex; flex-direction: column; gap: 10px; }
+  .rfg .hbar { display: grid; grid-template-columns: 4.5em 1fr auto; gap: 10px; align-items: center; font-size: .85rem; }
+  .rfg .hbar .b { height: 14px; border-radius: 7px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+  .rfg .hbar .f { display: block; height: 100%; border-radius: 7px; background: linear-gradient(90deg, #9d6bff, #ff4fd8); box-shadow: 0 0 12px rgba(255, 79, 216, .6); }
+  .rfg .hbar.manque .f { background: repeating-linear-gradient(45deg, rgba(255, 92, 138, .35) 0 6px, transparent 6px 12px); box-shadow: none; }
+  .rfg .hbar .v { font-variant-numeric: tabular-nums; color: #fff; }
+  .rfg .hbar.manque .v { color: var(--bad); }
+  /* Grille du Léviathan */
+  .rfg .lev-scroll { overflow-x: auto; padding: 6px 2px 10px; }
+  .rfg .lev-g { display: grid; grid-template-columns: repeat(11, minmax(64px, 1fr)); grid-auto-rows: minmax(70px, auto); gap: 5px; min-width: 760px; }
+  .rfg .lev-cell { position: relative; border-radius: 12px; padding: 14px 3px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden;
+    border: 2px solid rgba(185, 168, 232, .3); background: rgba(20, 10, 58, .8); transition: transform .15s; }
+  .rfg .lev-cell:hover { transform: scale(1.08); z-index: 2; }
+  .rfg .lev-cell i { position: absolute; top: 2px; left: 5px; font-style: normal; font-size: .7rem; font-weight: 800; opacity: .9; }
+  .rfg .lev-cell b { font-size: .78rem; line-height: 1.1; white-space: nowrap; color: #fff; }
+  .rfg .lev-cell b.l { font-size: .68rem; } .rfg .lev-cell b.xl { font-size: .6rem; }
+  .rfg .lev-cell span { font-size: .68rem; color: var(--muet); }
+  .rfg .lev-cell.r2 { border-color: var(--or); background: linear-gradient(180deg, rgba(255, 225, 77, .28), rgba(20, 10, 58, .85)); } .rfg .lev-cell.r2 i { color: var(--or); }
+  .rfg .lev-cell.r3 { border-color: var(--cyan); background: linear-gradient(180deg, rgba(62, 240, 255, .2), rgba(20, 10, 58, .85)); } .rfg .lev-cell.r3 i { color: var(--cyan); }
+  .rfg .lev-cell.r4 { border-color: var(--violet); background: linear-gradient(180deg, rgba(157, 107, 255, .22), rgba(20, 10, 58, .85)); } .rfg .lev-cell.r4 i { color: var(--violet-clair); }
+  .rfg .lev-cell.r5 { border-color: rgba(185, 168, 232, .45); }
+  .rfg .lev-cell.vide { background: transparent; border: 2px dashed rgba(185, 168, 232, .15); }
+  .rfg .lev-cell.moi { box-shadow: 0 0 0 3px #fff, 0 0 18px rgba(255, 255, 255, .6); }
+  .rfg .lev-cell.trouve { border-color: #fff; background: linear-gradient(180deg, #ff9df0, #ff4fd8); animation: pulse 1s ease-in-out infinite; z-index: 3; }
+  .rfg .lev-cell.trouve span, .rfg .lev-cell.trouve i { color: #2a0030; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(255, 255, 255, .9), 0 0 30px #ff4fd8; transform: scale(1.1); } }
+  .rfg .lev-c { border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(circle, #ff4fd8 0%, #7a2a9e 55%, #2a0f4a 100%); border: 3px solid #ff9df0; box-shadow: 0 0 40px rgba(255, 79, 216, .55); }
+  .rfg .lev-i { font-size: 3.4rem; line-height: 1; animation: flotte 4s ease-in-out infinite; }
+  .rfg .lev-c b { font-family: var(--titre); font-weight: 400; font-size: 1.25rem; letter-spacing: .1em; }
+  .rfg .lev-c span { font-size: .8rem; }
+  .rfg .legende i.lg { border-radius: 3px; }
+  .rfg .legende i.r2 { background: var(--or); } .rfg .legende i.r3 { background: var(--cyan); } .rfg .legende i.r4 { background: var(--violet); } .rfg .legende i.r5 { background: #8a7ab8; }
+  .rfg .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .rfg .chip { font-size: .8rem; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(185, 168, 232, .35); background: rgba(255, 255, 255, .05); color: var(--texte); }
+  .rfg .chip.trouve { background: var(--rose); color: #2a0030; }
+  .rfg .chip.dide { border-color: var(--rose); background: rgba(255, 79, 216, .2); color: #ffd6f6; } .rfg .chip.moon { border-color: var(--or); background: rgba(255, 225, 77, .12); color: var(--or-pale); }
+  .rfg .pastille { display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em; border-radius: 50%; font-size: .8rem; font-weight: 800; }
+  .rfg .pastille.ok { background: radial-gradient(circle at 35% 30%, #c8ffe0, #13c46b); color: #00361a; box-shadow: 0 0 8px rgba(77, 255, 166, .6); }
+  .rfg .pastille.ko { background: radial-gradient(circle at 35% 30%, #ffc2d4, #e0245e); color: #fff; }
+  .rfg .pastille.na { color: var(--muet); }
+  /* Officiers */
+  .rfg .off-liste { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 14px; }
+  .rfg .off-carte { padding: 16px; border-radius: 18px; border: 2px solid rgba(255, 184, 77, .45); background: linear-gradient(170deg, rgba(80, 30, 110, .65), rgba(20, 10, 58, .85)); display: flex; flex-direction: column; gap: 8px; }
+  .rfg .off-carte.absent { border-color: rgba(255, 92, 138, .6); }
+  .rfg .off-haut { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .rfg .off-msg { margin: 0; padding: 10px 12px; border-radius: 12px; background: rgba(0, 0, 0, .3); border: 1px dashed rgba(62, 240, 255, .35); font-size: .82rem; color: #e6dcff; font-weight: 600; }
+  .rfg .off-carte .tools { margin: 0; }
+  /* Records et podiums */
+  .rfg .rec-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 14px; }
+  .rfg .rec-carte { position: relative; padding: 18px 16px 14px; border-radius: 20px; border: 2px solid rgba(255, 225, 77, .4); overflow: hidden;
+    background: radial-gradient(400px 160px at 50% -40%, rgba(255, 225, 77, .25), transparent 70%), linear-gradient(170deg, rgba(62, 22, 130, .75), rgba(20, 10, 58, .9)); }
+  .rfg .rec-ic { font-size: 2.2rem; line-height: 1; filter: drop-shadow(0 0 10px rgba(255, 225, 77, .7)); margin-bottom: 6px; }
+  .rfg .rec-carte h3 { font-size: .95rem; margin-bottom: 10px; }
+  .rfg .rec-top { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  .rfg .rec-top li { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; font-size: .88rem; }
+  .rfg .rec-top li.dide { background: rgba(255, 79, 216, .16); border-radius: 10px; padding: 2px 6px; margin: 0 -6px; }
+  .rfg .rec-nom { all: unset; cursor: pointer; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  button.rec-nom:hover { color: var(--or-pale); text-decoration: underline; }
+  .rfg .rec-top b { color: var(--or); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* Serveur */
+  .rfg .srv-bloc { display: flex; flex-direction: column; gap: 7px; }
+  .rfg .srv-l { display: grid; grid-template-columns: 2.4em minmax(7em, 11em) 1fr auto; gap: 8px; align-items: center; font-size: .82rem; padding: 3px 6px; border-radius: 10px; }
+  .rfg .srv-r { color: var(--muet); font-weight: 800; } .rfg .srv-n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rfg .srv-b { height: 12px; border-radius: 6px; background: rgba(255, 255, 255, .07); overflow: hidden; }
+  .rfg .srv-b .f { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #4a3a8a, #8a7ab8); }
+  .rfg .srv-v { font-variant-numeric: tabular-nums; }
+  .rfg .srv-l.dide { background: rgba(255, 79, 216, .18); box-shadow: inset 0 0 0 1px rgba(255, 79, 216, .6); } .rfg .srv-l.dide .f { background: linear-gradient(90deg, #ff4fd8, #ff9df0); box-shadow: 0 0 10px #ff4fd8; }
+  .rfg .srv-l.moon .f { background: linear-gradient(90deg, #ff9f1a, #ffe14d); }
+  @media (max-width: 520px) { .rfg .srv-l { grid-template-columns: 2.2em 1fr auto; } .rfg .srv-l .srv-b { display: none; } }
+  .rfg .chart:has(> .hbars), .rfg .chart:has(> .vide) { min-height: 0; }
+  @media (max-width: 520px) { .rfg .ev-tete, .rfg .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .rfg .ev-tete .card, .rfg .tiles .card { padding: 12px; } .rfg .kpi-v { font-size: 1.5rem; } }
+  .rfg .carte-zoom { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .rfg .carte-zoom button { padding: 7px 13px; font-size: .82rem; }
+  /* Gazette */
+  .rfg .gz-outils { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .gz { position: relative; overflow: hidden; border-radius: 26px; padding: clamp(18px, 4vw, 34px) clamp(12px, 3vw, 30px) 22px; color: #f4efff; font-family: "Nunito", system-ui, sans-serif; font-weight: 600;
+    background: radial-gradient(600px 300px at 15% 0%, rgba(255, 79, 216, .45), transparent 70%), radial-gradient(600px 340px at 100% 30%, rgba(62, 240, 255, .3), transparent 70%), linear-gradient(170deg, #3a1490, #12062e 70%);
+    border: 3px solid #ff9df0; box-shadow: 0 0 40px rgba(255, 79, 216, .4); }
+  .gz .bi { display: inline-flex; flex-direction: column; line-height: 1.15; } .gz .bi .fr { font-size: .78em; opacity: .7; font-weight: 600; }
+  .gz-mast { text-align: center; margin-bottom: 20px; }
+  .gz-tag { display: inline-block; padding: 4px 14px; border-radius: 999px; background: #ff4fd8; color: #2a0030; font-weight: 900; letter-spacing: .05em; }
+  .gz-titre { font-family: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif; font-size: clamp(3rem, 11vw, 6rem); line-height: 1; margin: 10px 0 4px; letter-spacing: .06em;
+    color: #ffe14d; text-shadow: 0 4px 0 #b35c00, 0 8px 0 #5a1d8a, 0 0 30px rgba(255, 225, 77, .6); }
+  .gz-date { font-size: 1.15rem; font-weight: 800; color: #3ef0ff; }
+  .gz-sous { margin-top: 6px; font-size: 1rem; }
+  .gz-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr)); gap: 12px; margin-bottom: 18px; }
+  .gz-k { text-align: center; padding: 14px 8px; border-radius: 18px; background: rgba(0, 0, 0, .28); border: 2px solid rgba(62, 240, 255, .4); }
+  .gz-k b { display: block; font-family: "Lilita One", system-ui, sans-serif; font-weight: 400; font-size: clamp(1.5rem, 6vw, 2.2rem); color: #ffe14d; text-shadow: 0 3px 0 #7a1fa8; }
+  .gz-k i { display: block; font-style: normal; color: #4dffa6; font-weight: 800; margin-top: 4px; }
+  .gz-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 14px; }
+  .gz-bloc { padding: 14px 16px; border-radius: 18px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(255, 79, 216, .4); }
+  .gz-bloc h4 { margin: 0 0 10px; display: flex; gap: 10px; align-items: center; font-size: 1.05rem; color: #fff3a8; }
+  .gz-bloc h4 .ic { font-size: 1.7rem; }
+  .gz-ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .gz-ol li { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; }
+  .gz-ol .n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .gz-ol b { color: #4dffa6; }
+  .gz .medaille { display: inline-flex; align-items: center; justify-content: center; width: 1.7em; height: 1.7em; border-radius: 50%; font-weight: 900; font-size: .85em; background: rgba(255, 255, 255, .15); }
+  .gz .m1 { background: radial-gradient(circle at 35% 30%, #fffbe0, #ffd23d 45%, #c98a00); color: #4a2a00; } .gz .m2 { background: radial-gradient(circle at 35% 30%, #fff, #d7e3f2 45%, #8ea3bd); color: #1c2a3a; } .gz .m3 { background: radial-gradient(circle at 35% 30%, #ffe0c8, #e89a5e 45%, #9c5420); color: #3a1a06; }
+  .gz-big { display: flex; flex-direction: column; gap: 2px; margin: 0 0 10px; } .gz-big b { font-family: "Lilita One", system-ui, sans-serif; font-weight: 400; font-size: 2rem; color: #3ef0ff; }
+  .gz-note, .gz-mv { margin: 6px 0 0; font-size: .9rem; } .gz .up { color: #4dffa6; } .gz .down { color: #ff5c8a; }
+  .gz-pied { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: space-between; margin-top: 18px; padding-top: 12px; border-top: 2px dashed rgba(255, 255, 255, .2); font-size: .85rem; color: #b9a8e8; }
+  .gz.gz-export { border-radius: 0; padding: 50px 46px 30px; font-size: 22px; }
+  .gz.gz-export .gz-titre { font-size: 8rem; } .gz.gz-export .gz-k b { font-size: 3rem; } .gz.gz-export .gz-big { flex-direction: row; align-items: center; gap: 14px; } .gz.gz-export .gz-kpis { grid-template-columns: repeat(4, 1fr); } .gz.gz-export .gz-cols { grid-template-columns: 1fr 1fr; }
+</style>
 
 <div class="rfg">
   <nav class="langues" aria-label="Langue / Language / Sprache">
@@ -257,6 +474,7 @@ window.dash = (() => {
       </div>
     </div>
   </header>
+  <nav class="menu" aria-label="Sections"><a href="#progres" class="nouveau"><span class="t-fr">Mes progrès</span><span class="t-en">My progress</span><span class="t-de">Mein Fortschritt</span></a><a href="#membres"><span class="t-fr">Membres</span><span class="t-en">Members</span><span class="t-de">Mitglieder</span></a><a href="#leviathan" class="nouveau"><span class="t-fr">Léviathan</span><span class="t-en">Leviathan</span><span class="t-de">Leviathan</span></a><a href="#officiers" class="nouveau"><span class="t-fr">Officiers</span><span class="t-en">Officers</span><span class="t-de">Offiziere</span></a><a href="#records" class="nouveau"><span class="t-fr">Records</span><span class="t-en">Records</span><span class="t-de">Rekorde</span></a><a href="#serveur" class="nouveau"><span class="t-fr">Serveur</span><span class="t-en">Server</span><span class="t-de">Server</span></a><a href="#territoires"><span class="t-fr">Carte</span><span class="t-en">Map</span><span class="t-de">Karte</span></a><a href="#classement"><span class="t-fr">Top 4</span><span class="t-en">Top 4</span><span class="t-de">Top 4</span></a><a href="#evenements"><span class="t-fr">Événements</span><span class="t-en">Events</span><span class="t-de">Events</span></a><a href="#gazette" class="nouveau"><span class="t-fr">Gazette</span><span class="t-en">Gazette</span><span class="t-de">Zeitung</span></a></nav>
 
   <p class="t-fr lead">Relevé du <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b> : <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> membres à bord, dont <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> absents depuis plus de 7 jours, à relancer ou à remplacer en priorité.</p><p class="t-en lead">Survey of <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b>: <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> members aboard, including <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> absent for more than 7 days, to nudge or replace first.</p><p class="t-de lead">Erfassung vom <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b>: <b data-draw="kpi" data-source="dernier" data-field="membres" data-row="0" data-fmt="int">—</b> Mitglieder an Bord, davon <b data-draw="kpi" data-source="dernier" data-field="inactifs_7j" data-row="0" data-fmt="int">—</b> seit über 7 Tagen abwesend – zuerst ansprechen oder ersetzen.</p>
 
@@ -297,6 +515,12 @@ window.dash = (() => {
       <div class="chart" data-draw="barres" data-source="rangs" data-label="rang"></div></div>
     <div class="card"><h2 class="ancre" id="assiduite"><span class="t-fr">Dernière connexion</span><span class="t-en">Last login</span><span class="t-de">Letzter Login</span></h2><p class="note"><span class="t-fr">Dernier relevé : membres par ancienneté de dernière connexion</span><span class="t-en">Latest survey: members by time since last login</span><span class="t-de">Letzte Erfassung: Mitglieder nach letztem Login</span></p>
       <div class="chart" data-draw="barres" data-source="activite" data-label="tranche"></div></div>
+  </section>
+
+  <section class="card">
+    <h2 class="ancre" id="progres"><span class="t-fr">Mes progrès</span><span class="t-en">My progress</span><span class="t-de">Mein Fortschritt</span></h2>
+    <p class="note"><span class="t-fr">Ta page perso : choisis ton pseudo une fois, le site s'en souvient sur ton téléphone ou ton PC.</span><span class="t-en">Your personal page: pick your name once and the site remembers it on your phone or PC.</span><span class="t-de">Deine persönliche Seite: Wähle einmal deinen Namen, die Seite merkt ihn sich auf Handy oder PC.</span></p>
+    <div class="ev-vue" data-draw="progres" data-source="membres lev_assiduite progression7 series serveur"></div>
   </section>
 
   <section class="card">
@@ -379,9 +603,41 @@ window.dash = (() => {
           <tbody data-draw="fiche-ev"></tbody>
         </table></div></div>
     </div>
-    <div class="fiche-signature"><span><b>&lt;DiDe&gt; DieDeutschen</b> · Last Beacon · <span class="t-fr">relevé du</span><span class="t-en">survey of</span><span class="t-de">Erfassung vom</span> <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b></span><span>pulpeorange.github.io/rfg</span></div>
+    <div class="fiche-signature"><span><b>&lt;DiDe&gt; DieDeutschen</b> · Last Beacon · <span class="t-fr">relevé du</span><span class="t-en">survey of</span><span class="t-de">Erfassung vom</span> <b data-draw="dernier-date" data-source="dernier" data-field="date" data-row="0">—</b></span><span>pulpeorange.github.io/DiDe</span></div>
   </section>
 
+
+  <section class="card">
+    <h2 class="ancre" id="leviathan"><span class="t-fr">Placement autour du Léviathan</span><span class="t-en">Leviathan placement</span><span class="t-de">Aufstellung um den Leviathan</span></h2>
+    <p class="note"><span class="t-fr">Grille mise à jour à chaque relevé : les plus puissants au plus près du Léviathan. Les absents depuis plus de 3 jours sont mis de côté.</span><span class="t-en">Grid updated at every survey: the strongest closest to the Leviathan. Members offline for more than 3 days are set aside.</span><span class="t-de">Bei jeder Erfassung aktualisiert: die Stärksten am nächsten am Leviathan. Wer seit über 3 Tagen offline ist, wird zurückgestellt.</span></p>
+    <div class="tools">
+      <input type="search" class="t-fr lev-recherche" placeholder="Trouver ma place (pseudo)" aria-label="Trouver ma place">
+      <input type="search" class="t-en lev-recherche" placeholder="Find my spot (name)" aria-label="Find my spot">
+      <input type="search" class="t-de lev-recherche" placeholder="Meinen Platz finden (Name)" aria-label="Meinen Platz finden">
+    </div>
+    <div data-draw="lev-grille" data-source="membres"></div>
+    <h3 class="sous"><span class="t-fr">Participation au Piège Léviathan</span><span class="t-en">Leviathan Trap attendance</span><span class="t-de">Teilnahme an der Leviathan-Falle</span></h3>
+    <p class="note"><span class="t-fr">Pour chaque membre : pièges joués sur ceux où il était déjà dans l'alliance. ✔ classé · ✖ absent du classement.</span><span class="t-en">For each member: traps played out of those since they joined. ✔ ranked · ✖ missing from the ranking.</span><span class="t-de">Für jedes Mitglied: gespielte Fallen seit dem Beitritt. ✔ in der Rangliste · ✖ fehlt in der Rangliste.</span></p>
+    <div class="ev-vue" data-draw="lev-assiduite" data-source="lev_assiduite ev_resume"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="ancre" id="officiers"><span class="t-fr">Espace officiers</span><span class="t-en">Officers corner</span><span class="t-de">Offiziersbereich</span></h2>
+    <p class="note"><span class="t-fr">Membres à relancer ou à exclure : absents depuis plus de 7 jours, ou qui ne jouent pas le Léviathan. Message en allemand prêt à copier dans le jeu (R5 exclus).</span><span class="t-en">Members to remind or kick: absent for more than 7 days, or not playing the Leviathan. German message ready to paste in the game (R5 excluded).</span><span class="t-de">Mitglieder zum Erinnern oder Entfernen: seit über 7 Tagen abwesend oder ohne Leviathan-Teilnahme. Nachricht zum Kopieren ins Spiel (ohne R5).</span></p>
+    <div class="ev-vue" data-draw="officiers" data-source="lev_assiduite"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="ancre" id="records"><span class="t-fr">Tableau des records</span><span class="t-en">Hall of records</span><span class="t-de">Rekordtafel</span></h2>
+    <p class="note"><span class="t-fr">Les meilleurs de l'alliance, recalculés à chaque relevé. Clique sur un pseudo pour ouvrir sa fiche.</span><span class="t-en">The alliance's best, recalculated at every survey. Click a name to open their profile.</span><span class="t-de">Die Besten der Allianz, bei jeder Erfassung neu berechnet. Klicke auf einen Namen für das Profil.</span></p>
+    <div class="ev-vue" data-draw="records" data-source="progression7 lev_assiduite serveur evenements"></div>
+  </section>
+
+  <section class="card">
+    <h2 class="ancre" id="serveur"><span class="t-fr">Classements du serveur</span><span class="t-en">Server rankings</span><span class="t-de">Server-Ranglisten</span></h2>
+    <p class="note"><span class="t-fr">Lus dans le jeu (Profil &gt; Classements, zone maritime actuelle) : où se situe DiDe face aux autres alliances, et nos joueurs dans le top 100.</span><span class="t-en">Read in the game (Profile &gt; Rankings, current sea zone): where DiDe stands against other alliances, and our players in the top 100.</span><span class="t-de">Im Spiel gelesen (Profil &gt; Ranglisten, aktuelle Seezone): wo DiDe im Vergleich steht und unsere Spieler in den Top 100.</span></p>
+    <div class="ev-vue" data-draw="serveur" data-source="serveur"></div>
+  </section>
 
   <section class="card">
     <h2 class="ancre" id="territoires"><span class="t-fr">Carte des territoires</span><span class="t-en">Territory map</span><span class="t-de">Gebietskarte</span></h2>
@@ -394,12 +650,15 @@ window.dash = (() => {
       <div class="card"><span class="kpi-l"><span class="t-fr">Libres</span><span class="t-en">Free</span><span class="t-de">Frei</span></span><span class="kpi-v" data-draw="val" data-source="terr_resume" data-field="libres" data-row="0" data-fmt="int">—</span><span class="kpi-d"><span class="t-fr">sans alliance</span><span class="t-en">no alliance</span><span class="t-de">ohne Allianz</span></span></div>
     </div>
     <div class="deux">
-      <div><h3><span class="t-fr">Carte de la zone</span><span class="t-en">Zone map</span><span class="t-de">Karte der Zone</span></h3><div class="chart carte" data-draw="carte" data-source="territoires"></div></div>
+      <div><h3><span class="t-fr">Carte de la zone</span><span class="t-en">Zone map</span><span class="t-de">Karte der Zone</span></h3><div class="carte-zoom"><button type="button" data-zoom="dide" class="actif">🔍 <span class="t-fr">Zone DiDe et moon</span><span class="t-en">DiDe and moon area</span><span class="t-de">Gebiet DiDe und moon</span></button><button type="button" data-zoom="tout">🗺️ <span class="t-fr">Toute la zone</span><span class="t-en">Whole zone</span><span class="t-de">Ganze Zone</span></button></div><div class="chart carte" data-draw="carte" data-source="territoires"></div></div>
       <div><h3><span class="t-fr">Territoires par alliance</span><span class="t-en">Territories by alliance</span><span class="t-de">Gebiete pro Allianz</span></h3><div class="chart" data-draw="terr-barres" data-source="terr_alliances"></div></div>
     </div>
     <h3 class="sous"><span class="t-fr">Évolution du nombre de territoires</span><span class="t-en">Territory count over time</span><span class="t-de">Entwicklung der Gebietszahl</span></h3>
     <p class="note" data-empty="terr_evol" hidden><span class="t-fr">La courbe apparaîtra dès le deuxième relevé de la carte.</span><span class="t-en">The chart will appear from the second map survey.</span><span class="t-de">Die Kurve erscheint ab der zweiten Kartenerfassung.</span></p>
     <div class="chart" data-draw="terr-evol" data-source="terr_evol" data-evol hidden></div>
+    <h3 class="sous"><span class="t-fr">Historique jour par jour</span><span class="t-en">Day-by-day history</span><span class="t-de">Tagesverlauf</span></h3>
+    <p class="note"><span class="t-fr">Territoires gagnés ▲ et perdus ▼ par DiDe et moon entre deux relevés de la carte.</span><span class="t-en">Territories gained ▲ and lost ▼ by DiDe and moon between two map surveys.</span><span class="t-de">Von DiDe und moon gewonnene ▲ und verlorene ▼ Gebiete zwischen zwei Kartenerfassungen.</span></p>
+    <div data-draw="terr-histo" data-source="terr_histo"></div>
   </section>
 
   <section class="card">
@@ -436,6 +695,13 @@ window.dash = (() => {
     <p class="note"><span class="t-fr">Comparaison entre la liste des inscrits (courrier « Inscriptions clôturées ») et les membres ayant marqué des points d'Oasis pendant la bataille.</span><span class="t-en">Comparison between the registration list (“Registration closed” mail) and the members who scored Oasis points during the battle.</span><span class="t-de">Vergleich der Anmeldeliste (Post „Anmeldung geschlossen“) mit den Mitgliedern, die in der Schlacht Oasenpunkte erzielt haben.</span></p>
     <div class="ev-vue" data-draw="oasis" data-source="oasis_ecart ev_resume membres"></div>
   </section>
+  <section class="card">
+    <h2 class="ancre" id="gazette"><span class="t-fr">La Gazette de la semaine</span><span class="t-en">The weekly Gazette</span><span class="t-de">Die Wochenzeitung</span></h2>
+    <p class="note"><span class="t-fr">Le résumé des 7 derniers jours en allemand et en français, à exporter en image pour le chat du jeu ou Discord.</span><span class="t-en">The last 7 days in German and French, to export as an image for the in-game chat or Discord.</span><span class="t-de">Die letzten 7 Tage auf Deutsch und Französisch, als Bild für den Spiel-Chat oder Discord.</span></p>
+    <div class="gz-outils"><button type="button" class="btn3d gazette-export">🖼️ <span class="t-fr">Exporter la gazette en image</span><span class="t-en">Export the gazette as an image</span><span class="t-de">Zeitung als Bild exportieren</span></button></div>
+    <div data-draw="gazette" data-source="dernier synthese progression7 ev_resume evenements serveur releves lev_assiduite"></div>
+  </section>
+
   <p class="pied"><span class="t-fr">Relevé automatique chaque jour à 17h · Données lues dans l'écran Membres de l'alliance · Puissances arrondies à 0,1 M</span><span class="t-en">Automatic survey every day at 5 pm (Paris time) · Data read from the alliance Members screen · Power rounded to 0.1 M</span><span class="t-de">Automatische Erfassung täglich um 17 Uhr (Pariser Zeit) · Daten aus dem Mitgliederbildschirm der Allianz · Macht auf 0,1 M gerundet</span></p>
 </div>
 
@@ -1029,19 +1295,23 @@ dash.draw('carte', (el) => {
   const d = g.data.reduce((m, r) => r.date > m ? r.date : m, '');
   const rows = g.data.filter((r) => r.date === d);
   (ga.status === 'ok' ? ga.data : []).forEach((a) => rfgCoul(a.alliance, a.statut));
-  const W = Math.max(260, el.clientWidth), xs = d3.extent(rows, (r) => r.x), ys = d3.extent(rows, (r) => r.y);
-  const pad = 18, H = Math.round((W - 2 * pad) * (ys[1] - ys[0]) / (xs[1] - xs[0]) + 2 * pad);
+  let vue = rows;
+  if (window.rfgCarteZoom === 'dide') {
+    const nous = rows.filter((r) => r.statut === 'Notre alliance' || r.statut === 'Le Refuge' || r.statut === 'Allié');
+    if (nous.length) { const ex = d3.extent(nous, (r) => r.x), ey = d3.extent(nous, (r) => r.y), mg = 170; vue = rows.filter((r) => r.x >= ex[0] - mg && r.x <= ex[1] + mg && r.y >= ey[0] - mg && r.y <= ey[1] + mg); }
+  }
+  const W = Math.max(260, el.clientWidth), xs = d3.extent(vue, (r) => r.x), ys = d3.extent(vue, (r) => r.y);
+  const r0 = Math.max(4, W / (vue === rows ? 70 : 48)), pad = vue === rows ? 18 : Math.round(r0 * 3.2 + 10), H = Math.round((W - 2 * pad) * (ys[1] - ys[0]) / (xs[1] - xs[0]) + 2 * pad);
   const x = d3.scaleLinear(xs, [pad, W - pad]), y = d3.scaleLinear(ys, [pad, H - pad]);
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).style('display', 'block');
   svg.append('rect').attr('x', 2).attr('y', 2).attr('width', W - 4).attr('height', H - 4).attr('rx', 12).style('fill', 'rgba(8,23,51,.55)').style('stroke', 'rgba(242,201,76,.25)');
-  const r0 = Math.max(4, W / 70);
-  const g1 = svg.selectAll('g.t').data(rows).join('g').attr('class', 't').attr('transform', (r) => `translate(${x(r.x)},${y(r.y)})`);
+  const g1 = svg.selectAll('g.t').data(vue).join('g').attr('class', 't').attr('transform', (r) => `translate(${x(r.x)},${y(r.y)})`);
   g1.append('circle').attr('r', (r) => r0 * (0.75 + Number(r.niveau) * 0.18))
     .style('fill', (r) => r.type === 'Arche Suprême' ? '#ffffff' : rfgCoul(r.alliance, r.statut))
     .style('fill-opacity', (r) => r.type === 'Arche Suprême' ? 1 : r.statut === 'Libre' ? 0.35 : 0.9)
     .style('stroke', (r) => (r.statut === 'Notre alliance' || r.statut === 'Le Refuge') ? '#fff' : r.statut === 'Allié' ? '#f2c94c' : 'rgba(0,0,0,.35)')
     .attr('stroke-width', (r) => (r.statut === 'Notre alliance' || r.statut === 'Le Refuge') ? 3 : r.statut === 'Allié' ? 2 : 1);
-  if (W > 420) g1.filter((r) => r.statut !== 'Libre' || r.type === 'Arche Suprême').append('text').attr('y', (r) => -r0 * (0.75 + Number(r.niveau) * 0.18) - 3).attr('text-anchor', 'middle')
+  if (W > 420 || vue !== rows) g1.filter((r) => r.statut !== 'Libre' || r.type === 'Arche Suprême').append('text').attr('y', (r) => -r0 * (0.75 + Number(r.niveau) * 0.18) - 3).attr('text-anchor', 'middle')
     .style('fill', RFG_C.texte).style('font-size', '9px').style('opacity', .85).text((r) => r.type === 'Arche Suprême' ? rfg.t('Arche') : r.alliance);
   const tip = rfgEl('div', 'tip'); tip.hidden = true; el.append(tip);
   g1.on('pointerenter', (ev, r) => {
@@ -1338,7 +1608,7 @@ document.querySelectorAll('.fiche-export').forEach((b) => b.addEventListener('cl
     const etroit = fiche.clientWidth < 900;
     if (etroit) { fiche.style.width = '1040px'; fiche.style.maxWidth = 'none'; dash.draw('fiche-courbe'); }
     await new Promise((ok) => requestAnimationFrame(() => requestAnimationFrame(ok)));
-    const canvas = await h2c(fiche, {backgroundColor: '#0b2246', scale: 2, useCORS: true, logging: false, windowWidth: Math.max(window.innerWidth, 1200)});
+    const canvas = await h2c(fiche, {backgroundColor: '#1a0b48', scale: 2, useCORS: true, logging: false, windowWidth: Math.max(window.innerWidth, 1200)});
     const blob = await new Promise((ok) => canvas.toBlob(ok, 'image/png'));
     const fichier = 'DiDe-fiche-' + nom.normalize('NFKD').replace(/[^\w-]+/g, '_').replace(/^_+|_+$/g, '') + '.png';
     const lien = document.createElement('a');
@@ -1353,6 +1623,540 @@ document.querySelectorAll('.fiche-export').forEach((b) => b.addEventListener('cl
     if (fiche.style.width) { fiche.style.width = ''; fiche.style.maxWidth = ''; dash.draw('fiche-courbe'); }
     b.disabled = false; b.innerHTML = libelle;
   }
+}));
+
+/* ====== Nouveautés : thème néon, Mes progrès, Léviathan, Officiers, Records, Serveur, Carte, Gazette ====== */
+const T = (fr, en, de) => { const l = rfg.lang(); return l === 'en' ? en : l === 'de' ? de : fr; };
+const rfgJour = (s, n) => { const d = new Date(s + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+const rfgCourt = (s) => { const d = new Date(s + 'T00:00:00Z'); return d.toLocaleDateString(rfg.lang() === 'en' ? 'en-GB' : rfg.lang() === 'de' ? 'de-DE' : 'fr-FR', {day: 'numeric', month: 'short', timeZone: 'UTC'}); };
+const rfgCopier = async (txt, btn) => {
+  try { await navigator.clipboard.writeText(txt); }
+  catch (e) { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed;opacity:0'; document.body.append(ta); ta.select(); try { document.execCommand('copy'); } catch (e2) { /* ignore */ } ta.remove(); }
+  if (btn) { const o = btn.textContent; btn.textContent = '✔ ' + T('Copié', 'Copied', 'Kopiert'); btn.classList.add('ok'); setTimeout(() => { btn.textContent = o; btn.classList.remove('ok'); }, 1600); }
+};
+const rfgBtn = (txt, cls) => { const b = rfgEl('button', 'btn3d' + (cls ? ' ' + cls : ''), txt); b.type = 'button'; return b; };
+
+/* --- Séries par membre --- */
+dash.calc('series', {
+  title: 'Puissance de chaque membre par jour',
+  description: 'Pour chaque membre, sa puissance à chaque date de relevé.',
+  inputs: ['releves'],
+  fn: (releves) => {
+    const m = new Map();
+    for (const r of releves) {
+      const d = String(r.date).slice(0, 10);
+      if (!m.has(r.membre)) m.set(r.membre, new Map());
+      m.get(r.membre).set(d, Number(r.puissance));
+    }
+    return [...m.entries()].map(([membre, s]) => ({membre, points: [...s.entries()].sort((a, b) => a[0] < b[0] ? -1 : 1)}));
+  }
+});
+
+dash.calc('lev_assiduite', {
+  title: 'Assiduité au Piège Léviathan',
+  description: "Pour chaque membre : pièges auxquels il pouvait participer (présent dans l'alliance ce jour-là), participations, série en cours et meilleure série, meilleurs dégâts.",
+  inputs: ['membres', 'ev_resume', 'evenements', 'series'],
+  fn: (membres, ev_resume, evenements, series) => {
+    const lev = ev_resume.filter((e) => e.type === 'Piège Léviathan').sort((a, b) => a.date < b.date ? -1 : 1);
+    const idx = new Map(evenements.map((r) => [r.evenement + '|' + r.membre, r]));
+    const premier = new Map(series.map((s) => [s.membre, s.points.length ? s.points[0][0] : null]));
+    const d0 = series.reduce((m, s) => s.points.length && (!m || s.points[0][0] < m) ? s.points[0][0] : m, null);
+    return membres.map((m) => {
+      const p = premier.get(m.membre);
+      const elig = lev.filter((e) => !p || p <= e.date || p === d0);
+      const det = elig.map((e) => { const r = idx.get(e.evenement + '|' + m.membre); return {date: e.date, titre: e.titre, ok: !!(r && r.participe), score: r && r.participe ? Number(r.score) || 0 : 0, rang: r && r.participe ? r.classement : null}; });
+      let serie = 0, best = 0, cur = 0;
+      for (const x of det) { cur = x.ok ? cur + 1 : 0; best = Math.max(best, cur); }
+      for (let i = det.length - 1; i >= 0 && det[i].ok; i--) serie++;
+      const der3 = det.slice(-3);
+      return {membre: m.membre, rang: m.rang, puissance: m.puissance, connexion_h: m.connexion_h,
+        eligibles: det.length, participations: det.filter((x) => x.ok).length,
+        der3_ok: der3.filter((x) => x.ok).length, der3_n: der3.length,
+        serie, meilleure_serie: best, meilleurs_degats: det.reduce((a, x) => Math.max(a, x.score), 0), detail: det};
+    });
+  }
+});
+
+dash.calc('progression7', {
+  title: 'Progression de puissance sur 7 jours',
+  description: 'Gain de puissance de chaque membre entre le relevé d\'il y a 7 jours (ou son premier relevé) et le dernier.',
+  inputs: ['series', 'membres'],
+  fn: (series, membres) => {
+    const s = new Map(series.map((x) => [x.membre, x.points]));
+    const der = series.reduce((m, x) => x.points.length && x.points[x.points.length - 1][0] > m ? x.points[x.points.length - 1][0] : m, '');
+    const debut = rfgJour(der, -7);
+    return membres.map((m) => {
+      const pts = s.get(m.membre) || [];
+      const base = pts.find((p) => p[0] >= debut) || pts[0];
+      let saut = 0;
+      for (let i = 1; i < pts.length; i++) saut = Math.max(saut, pts[i][1] - pts[i - 1][1]);
+      return {membre: m.membre, rang: m.rang, gain: base ? m.puissance - base[1] : 0, depuis: base ? base[0] : null, pct: base && base[1] ? (m.puissance - base[1]) / base[1] : 0, saut_jour: saut};
+    }).sort((a, b) => b.gain - a.gain);
+  }
+});
+
+/* --- Menu, particules, apparitions --- */
+(() => {
+  const c = document.getElementById('neon-fond');
+  if (!c || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = c.getContext('2d'); let W, H, pts = [];
+  const couleurs = ['#ff4fd8', '#3ef0ff', '#ffe14d', '#9d6bff'];
+  const init = () => { W = c.width = innerWidth; H = c.height = innerHeight; pts = Array.from({length: Math.min(70, Math.round(W / 22))}, () => ({x: Math.random() * W, y: Math.random() * H, r: 0.6 + Math.random() * 2.2, v: 0.15 + Math.random() * 0.45, c: couleurs[Math.floor(Math.random() * 4)], p: Math.random() * 6.28})); };
+  const tick = () => {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      p.y -= p.v; p.p += 0.02; if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+      ctx.globalAlpha = 0.35 + 0.35 * Math.sin(p.p); ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.arc(p.x + Math.sin(p.p) * 6, p.y, p.r, 0, 6.28); ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  };
+  init(); addEventListener('resize', init); tick();
+})();
+(() => {
+  const vus = document.querySelectorAll('.rfg > section, .rfg > .lead');
+  vus.forEach((n) => n.classList.add('reveal'));
+  if (!('IntersectionObserver' in window)) { vus.forEach((n) => n.classList.add('vu')); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } }), {rootMargin: '0px 0px -40px 0px'});
+  vus.forEach((n) => io.observe(n));
+  setTimeout(() => vus.forEach((n) => n.classList.add('vu')), 4000);
+})();
+
+/* --- Mes progrès --- */
+window.rfgMoi = (() => { try { return localStorage.getItem('dide-moi') || ''; } catch (e) { return ''; } })();
+dash.draw('progres', (el) => {
+  const gm = dash.data('membres'), ga = dash.data('lev_assiduite'), gp = dash.data('progression7'), gs = dash.data('series'), gv = dash.data('serveur');
+  el.replaceChildren();
+  if (gm.status === 'error') return rfgFail(el);
+  if (gm.status !== 'ok') { el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  const noms = gm.data.map((m) => m.membre).sort((a, b) => a.localeCompare(b, 'de', {sensitivity: 'base'}));
+  const outils = rfgEl('div', 'tools');
+  const sel = rfgEl('select'); sel.setAttribute('aria-label', T('Choisis ton pseudo', 'Pick your name', 'Wähle deinen Namen'));
+  sel.append(new Option(T('— Choisis ton pseudo —', '— Pick your name —', '— Wähle deinen Namen —'), ''));
+  noms.forEach((n) => sel.append(new Option(n, n)));
+  sel.value = noms.includes(rfgMoi) ? rfgMoi : '';
+  sel.onchange = () => { rfgMoi = sel.value; try { localStorage.setItem('dide-moi', rfgMoi); } catch (e) { /* ignore */ } ['progres', 'lev-grille', 'serveur'].forEach((d) => dash.draw(d)); };
+  outils.append(sel);
+  el.append(outils);
+  const moi = gm.data.find((m) => m.membre === sel.value);
+  if (!moi) { el.append(rfgEl('p', 'vide', T('Choisis ton pseudo : le site s\'en souviendra sur cet appareil.', 'Pick your name: the site will remember it on this device.', 'Wähle deinen Namen: Die Seite merkt ihn sich auf diesem Gerät.'))); return; }
+  const tri = [...gm.data].sort((a, b) => b.puissance - a.puissance);
+  const rangAll = tri.findIndex((m) => m.membre === moi.membre) + 1;
+  const prog = gp.status === 'ok' ? gp.data : [], pi = prog.findIndex((p) => p.membre === moi.membre), pr = prog[pi];
+  const lev = ga.status === 'ok' ? ga.data.find((a) => a.membre === moi.membre) : null;
+  const srv = gv.status === 'ok' ? gv.data : [];
+  const sp = srv.find((r) => r.classement === 'puissance' && r.alliance === 'DiDe' && r.nom === moi.membre);
+  const sk = srv.find((r) => r.classement === 'eliminations' && r.alliance === 'DiDe' && r.nom === moi.membre);
+  const tiles = rfgEl('div', 'ev-tete');
+  tiles.append(
+    rfgTuile(T('Puissance', 'Power', 'Macht'), rfg.fmt(moi.puissance, 'm'), '#' + rangAll + ' ' + T('sur', 'of', 'von') + ' ' + tri.length + ' ' + T('dans DiDe', 'in DiDe', 'in DiDe')),
+    rfgTuile(T('Progression 7 j', '7-day growth', 'Zuwachs 7 T.'), pr ? rfg.signed(pr.gain, 'm') : '—', pr ? '#' + (pi + 1) + ' ' + T('de l\'alliance', 'in the alliance', 'der Allianz') : ''),
+    rfgTuile(T('Rang serveur', 'Server rank', 'Server-Rang'), sp ? '#' + sp.rang : T('hors top 100', 'outside top 100', 'außerhalb Top 100'), T('puissance personnelle', 'personal power', 'persönliche Macht')),
+    rfgTuile(T('Éliminations', 'Kills', 'Abschüsse'), sk ? rfg.fmt(sk.valeur, 'm') : '—', sk ? '#' + sk.rang + ' ' + T('du serveur', 'on the server', 'auf dem Server') : T('hors top 100', 'outside top 100', 'außerhalb Top 100')),
+    rfgTuile(T('Piège Léviathan', 'Leviathan Trap', 'Leviathan-Falle'), lev ? lev.participations + ' ' + T('sur', 'of', 'von') + ' ' + lev.eligibles : '—', lev && lev.serie ? T('série en cours : ', 'current streak: ', 'aktuelle Serie: ') + lev.serie : T('participations', 'participations', 'Teilnahmen')),
+    rfgTuile(T('Meilleurs dégâts', 'Best damage', 'Bester Schaden'), lev && lev.meilleurs_degats ? rfg.fmt(lev.meilleurs_degats, 'm') : '—', T('sur un piège', 'in one trap', 'in einer Falle')));
+  el.append(tiles);
+  const deux = rfgEl('div', 'deux');
+  const c1 = rfgEl('div'); c1.append(rfgEl('h3', '', T('Ma puissance', 'My power', 'Meine Macht')));
+  const ch1 = rfgEl('div', 'chart'); c1.append(ch1);
+  const c2 = rfgEl('div'); c2.append(rfgEl('h3', '', T('Mes dégâts au Léviathan', 'My Leviathan damage', 'Mein Leviathan-Schaden')));
+  const ch2 = rfgEl('div', 'chart'); c2.append(ch2);
+  deux.append(c1, c2); el.append(deux);
+  const b = rfgBtn('📋 ' + T('Ouvrir ma fiche complète', 'Open my full profile', 'Mein komplettes Profil öffnen'));
+  b.onclick = () => rfgOuvrir(moi.membre);
+  const pied = rfgEl('div', 'tools'); pied.style.marginTop = '14px'; pied.append(b); el.append(pied);
+  requestAnimationFrame(() => {
+    const s = gs.status === 'ok' ? gs.data.find((x) => x.membre === moi.membre) : null;
+    rfgMiniLigne(ch1, s ? s.points.map(([d, v]) => ({d, v})) : [], '#3ef0ff');
+    rfgMiniBarres(ch2, lev ? lev.detail.map((x) => ({l: rfgCourt(x.date), v: x.score, ok: x.ok})) : []);
+  });
+});
+
+const rfgMiniLigne = (el, pts, coul) => {
+  el.replaceChildren();
+  if (pts.length < 2) { el.append(rfgEl('p', 'vide', T('La courbe apparaîtra dès le deuxième relevé.', 'The line will appear from the second survey.', 'Die Kurve erscheint ab der zweiten Erfassung.'))); return; }
+  const W = Math.max(260, el.clientWidth), H = 190, m = {l: 54, r: 28, t: 14, b: 26};
+  const x = d3.scalePoint(pts.map((p) => p.d), [m.l, W - m.r]);
+  const ext = d3.extent(pts, (p) => p.v), pad = (ext[1] - ext[0]) * 0.15 || ext[0] * 0.01;
+  const y = d3.scaleLinear([ext[0] - pad, ext[1] + pad], [H - m.b, m.t]);
+  const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('width', '100%');
+  const id = 'g' + Math.random().toString(36).slice(2);
+  const gr = svg.append('defs').append('linearGradient').attr('id', id).attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
+  gr.append('stop').attr('offset', 0).attr('stop-color', coul).attr('stop-opacity', .45); gr.append('stop').attr('offset', 1).attr('stop-color', coul).attr('stop-opacity', 0);
+  y.ticks(4).forEach((t) => { svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(t)).attr('y2', y(t)).style('stroke', 'rgba(255,255,255,.08)'); svg.append('text').attr('x', m.l - 6).attr('y', y(t) + 4).attr('text-anchor', 'end').style('fill', '#b9a8e8').style('font-size', '11px').text(rfg.fmt(t, 'm')); });
+  pts.forEach((p, i) => { if (pts.length <= 8 || i % Math.ceil(pts.length / 6) === 0 || i === pts.length - 1) svg.append('text').attr('x', x(p.d)).attr('y', H - 6).attr('text-anchor', 'middle').style('fill', '#b9a8e8').style('font-size', '11px').text(rfgCourt(p.d)); });
+  svg.append('path').attr('d', d3.area().x((p) => x(p.d)).y0(H - m.b).y1((p) => y(p.v)).curve(d3.curveMonotoneX)(pts)).style('fill', `url(#${id})`);
+  svg.append('path').attr('d', d3.line().x((p) => x(p.d)).y((p) => y(p.v)).curve(d3.curveMonotoneX)(pts)).style('fill', 'none').style('stroke', coul).style('stroke-width', 3).style('filter', `drop-shadow(0 0 6px ${coul})`);
+  svg.selectAll('circle').data(pts).join('circle').attr('cx', (p) => x(p.d)).attr('cy', (p) => y(p.v)).attr('r', 4.5).style('fill', '#fff').style('stroke', coul).style('stroke-width', 2.5).append('title').text((p) => rfgCourt(p.d) + ' · ' + rfg.fmt(p.v, 'm'));
+};
+const rfgMiniBarres = (el, data) => {
+  el.replaceChildren();
+  if (!data.length) { el.append(rfgEl('p', 'vide', T('Aucun piège relevé depuis ton arrivée.', 'No trap recorded since you joined.', 'Seit deinem Beitritt wurde keine Falle erfasst.'))); return; }
+  const max = Math.max(1, ...data.map((d) => d.v));
+  const box = rfgEl('div', 'hbars');
+  for (const d of data) {
+    const row = rfgEl('div', 'hbar' + (d.ok ? '' : ' manque'));
+    const f = rfgEl('span', 'f'); f.style.width = (d.ok ? Math.max(4, d.v / max * 100) : 100) + '%';
+    const bb = rfgEl('span', 'b'); bb.append(f);
+    row.append(rfgEl('span', 'l', d.l), bb, rfgEl('span', 'v', d.ok ? rfg.fmt(d.v, 'm') : T('absent', 'missed', 'gefehlt')));
+    box.append(row);
+  }
+  el.append(box);
+};
+
+/* --- Léviathan : grille de placement --- */
+window.rfgLevCherche = '';
+dash.draw('lev-grille', (el) => {
+  const gm = dash.data('membres');
+  el.replaceChildren();
+  if (gm.status === 'error') return rfgFail(el);
+  if (gm.status !== 'ok') { el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  const actifs = gm.data.filter((m) => m.connexion_h <= 72).sort((a, b) => b.puissance - a.puissance);
+  const absents = gm.data.filter((m) => m.connexion_h > 72).sort((a, b) => b.puissance - a.puissance);
+  const N = 11, c = 5;
+  const cells = [];
+  for (let yy = 0; yy < N; yy++) for (let xx = 0; xx < N; xx++) if (Math.max(Math.abs(xx - c), Math.abs(yy - c)) > 1) cells.push([xx, yy]);
+  const ring = (p) => Math.max(Math.abs(p[0] - c), Math.abs(p[1] - c));
+  cells.sort((a, b) => ring(a) - ring(b) || Math.hypot(a[0] - c, a[1] - c) - Math.hypot(b[0] - c, b[1] - c) || Math.atan2(a[1] - c, a[0] - c) - Math.atan2(b[1] - c, b[0] - c));
+  const g = rfgEl('div', 'lev-g');
+  const q = rfgLevCherche.trim().toLowerCase();
+  const lev = rfgEl('div', 'lev-c'); lev.style.gridArea = `${c}/${c}/span 3/span 3`;
+  lev.append(rfgEl('div', 'lev-i', '🐋'), rfgEl('b', '', 'LEVIATHAN'), rfgEl('span', '', T('Piège', 'Trap', 'Falle')));
+  g.append(lev);
+  let trouve = null;
+  cells.forEach((p, i) => {
+    const m = actifs[i], d = rfgEl('div', 'lev-cell ' + (m ? 'r' + ring(p) : 'vide'));
+    d.style.gridColumn = p[0] + 1; d.style.gridRow = p[1] + 1;
+    if (m) {
+      d.append(rfgEl('i', '', String(i + 1)), rfgEl('b', m.membre.length > 12 ? 'xl' : m.membre.length > 9 ? 'l' : '', m.membre), rfgEl('span', '', rfg.fmt(m.puissance, 'm')));
+      d.title = '#' + (i + 1) + ' · ' + m.membre + ' · ' + rfg.fmt(m.puissance, 'm');
+      if (q && m.membre.toLowerCase().includes(q)) { d.classList.add('trouve'); trouve = trouve || d; }
+      if (m.membre === rfgMoi) d.classList.add('moi');
+    }
+    g.append(d);
+  });
+  const scr = rfgEl('div', 'lev-scroll'); scr.append(g); el.append(scr);
+  const leg = rfgEl('div', 'legende');
+  const bornes = [[2, 16], [3, 40], [4, 72], [5, 112]];
+  let a = 1;
+  for (const [k, b] of bornes) { if (a > actifs.length) break; const s = rfgEl('span'); const ic = rfgEl('i'); ic.className = 'lg r' + k; s.append(ic, document.createTextNode(T('Cercle ', 'Ring ', 'Ring ') + (k - 1) + ' · n° ' + a + '–' + Math.min(b, actifs.length))); leg.append(s); a = b + 1; }
+  el.append(leg);
+  if (absents.length) {
+    const h = rfgEl('h3', 'sous', T('Mis de côté : absents depuis plus de 3 jours', 'Set aside: offline for more than 3 days', 'Zurückgestellt: seit über 3 Tagen offline') + ' (' + absents.length + ')');
+    const ul = rfgEl('div', 'chips');
+    absents.forEach((m) => { const s = rfgEl('span', 'chip' + (q && m.membre.toLowerCase().includes(q) ? ' trouve' : ''), m.membre + ' · ' + rfg.depuis(m.connexion_h)); ul.append(s); });
+    el.append(h, ul);
+  }
+  if (trouve) requestAnimationFrame(() => { const s = scr; s.scrollLeft = Math.max(0, trouve.offsetLeft - s.clientWidth / 2 + trouve.offsetWidth / 2); });
+});
+document.querySelectorAll('.lev-recherche').forEach((n) => n.addEventListener('input', () => { rfgLevCherche = n.value; dash.draw('lev-grille'); }));
+
+dash.draw('lev-assiduite', (el) => {
+  const g = dash.data('lev_assiduite'), gr = dash.data('ev_resume');
+  el.replaceChildren();
+  if (g.status === 'error') return rfgFail(el);
+  if (g.status !== 'ok') { el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  const lev = (gr.status === 'ok' ? gr.data : []).filter((e) => e.type === 'Piège Léviathan').sort((a, b) => a.date < b.date ? -1 : 1);
+  const tete = rfgEl('div', 'ev-tete');
+  const tous = g.data.filter((a) => a.eligibles > 0);
+  tete.append(
+    rfgTuile(T('Pièges relevés', 'Traps recorded', 'Erfasste Fallen'), String(lev.length), lev.length ? T('dernier : ', 'last: ', 'zuletzt: ') + rfgCourt(lev[lev.length - 1].date) : ''),
+    rfgTuile(T('Toujours présents', 'Never missed', 'Immer dabei'), String(tous.filter((a) => a.participations === a.eligibles).length), T('membres', 'members', 'Mitglieder')),
+    rfgTuile(T('Jamais présents', 'Never joined', 'Nie dabei'), String(tous.filter((a) => a.participations === 0).length), T('membres', 'members', 'Mitglieder')));
+  el.append(tete);
+  const tools = rfgEl('div', 'tools');
+  const f = rfgEl('select'); f.setAttribute('aria-label', T('Filtrer', 'Filter', 'Filtern'));
+  [['', T('Tous les membres', 'All members', 'Alle Mitglieder')], ['manque', T('Ont manqué au moins un piège', 'Missed at least one trap', 'Mindestens eine Falle verpasst')], ['zero', T('Aucune participation', 'No participation', 'Keine Teilnahme')]].forEach(([v, t]) => f.append(new Option(t, v)));
+  f.value = el.dataset.filtre || '';
+  f.onchange = () => { el.dataset.filtre = f.value; dash.draw('lev-assiduite'); };
+  tools.append(f); el.append(tools);
+  let rows = [...g.data];
+  if (f.value === 'manque') rows = rows.filter((a) => a.participations < a.eligibles);
+  if (f.value === 'zero') rows = rows.filter((a) => a.eligibles > 0 && a.participations === 0);
+  rows.sort((a, b) => (a.participations / (a.eligibles || 1)) - (b.participations / (b.eligibles || 1)) || b.puissance - a.puissance);
+  const box = rfgEl('div', 'tbox'), t = rfgEl('table'), th = rfgEl('thead'), trh = rfgEl('tr');
+  [T('Membre', 'Member', 'Mitglied'), T('Rang', 'Rank', 'Rang'), T('Participation', 'Attendance', 'Teilnahme'), ...lev.map((e) => rfgCourt(e.date)), T('Série', 'Streak', 'Serie')].forEach((x, i) => { const h = rfgEl('th', i >= 2 ? 'num' : '', x); trh.append(h); });
+  th.append(trh); t.append(th);
+  const tb = rfgEl('tbody');
+  for (const a of rows) {
+    const tr = rfgEl('tr');
+    const n = rfgCell(tr, a.membre, 'lien'); n.style.cursor = 'pointer'; n.onclick = () => rfgOuvrir(a.membre);
+    rfgCell(tr, a.rang);
+    const p = rfgCell(tr, '', 'num');
+    const pill = rfgEl('span', 'pill ' + (a.eligibles === 0 ? '' : a.participations === a.eligibles ? 'ok' : a.participations === 0 ? 'bad' : 'warn'), a.eligibles === 0 ? T('nouveau', 'new', 'neu') : a.participations + ' ' + T('sur', 'of', 'von') + ' ' + a.eligibles);
+    p.append(pill);
+    const det = new Map(a.detail.map((x) => [x.date, x]));
+    for (const e of lev) {
+      const x = det.get(e.date), td = rfgCell(tr, '', 'num');
+      td.append(rfgEl('span', 'pastille ' + (!x ? 'na' : x.ok ? 'ok' : 'ko'), !x ? '·' : x.ok ? '✔' : '✖'));
+      if (x && x.ok) td.title = rfg.fmt(x.score, 'm') + ' · #' + x.rang;
+    }
+    rfgCell(tr, a.serie ? '🔥 ' + a.serie : '—', 'num');
+    tb.append(tr);
+  }
+  t.append(tb); box.append(t); el.append(box);
+});
+
+/* --- Officiers --- */
+const RFG_MSG = {
+  absent: {de: (n, j) => `Hallo ${n}! 👋 Du warst seit ${j} Tagen nicht mehr online. Ist alles in Ordnung? Bitte melde dich kurz bei uns – sonst müssen wir deinen Platz bald für aktive Spieler freigeben. Danke! – Die Offiziere von <DiDe>`,
+    fr: (n, j) => `Salut ${n} ! 👋 Tu n'es pas venu depuis ${j} jours. Tout va bien ? Donne-nous un signe, sinon nous devrons bientôt libérer ta place pour un joueur actif. Merci ! – Les officiers <DiDe>`},
+  lev: {de: (n, a, b) => `Hallo ${n}! 🐋 Du warst bei ${b - a} von ${b} Leviathan-Fallen nicht dabei. Jeder Treffer zählt für die Allianz – sei bitte beim nächsten Mal dabei! Danke! – Die Offiziere von <DiDe>`,
+    fr: (n, a, b) => `Salut ${n} ! 🐋 Tu as manqué ${b - a} des ${b} derniers Pièges Léviathan. Chaque coup compte pour l'alliance : on compte sur toi au prochain ! – Les officiers <DiDe>`},
+};
+dash.draw('officiers', (el) => {
+  const g = dash.data('lev_assiduite');
+  el.replaceChildren();
+  if (g.status === 'error') return rfgFail(el);
+  if (g.status !== 'ok') { el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  const cas = [];
+  for (const a of g.data) {
+    if (a.rang === 'R5') continue;
+    if (a.connexion_h >= 168) cas.push({...a, motif: 'absent', prio: 0});
+    else if (a.eligibles >= 2 && a.participations === 0) cas.push({...a, motif: 'lev', prio: 1});
+    else if (a.der3_n >= 2 && a.der3_ok <= a.der3_n - 2) cas.push({...a, motif: 'lev', prio: 2});
+  }
+  cas.sort((a, b) => a.prio - b.prio || b.connexion_h - a.connexion_h);
+  const tete = rfgEl('div', 'ev-tete');
+  tete.append(rfgTuile(T('À relancer', 'To remind', 'Erinnern'), String(cas.length), T('membres', 'members', 'Mitglieder')),
+    rfgTuile(T('Absents > 7 jours', 'Absent > 7 days', 'Abwesend > 7 Tage'), String(cas.filter((x) => x.motif === 'absent').length), T('à exclure si pas de réponse', 'kick if no answer', 'ohne Antwort entfernen')),
+    rfgTuile(T('Léviathan manqué', 'Leviathan missed', 'Leviathan verpasst'), String(cas.filter((x) => x.motif === 'lev').length), T('aucune ou peu de participation', 'no or little attendance', 'keine oder wenig Teilnahme')));
+  el.append(tete);
+  if (!cas.length) { el.append(rfgEl('p', 'vide', T('Personne à relancer : bravo l\'équipe !', 'Nobody to remind: well done team!', 'Niemand zu erinnern: Super, Team!'))); return; }
+  const tools = rfgEl('div', 'tools');
+  const tousDe = rfgBtn('📋 ' + T('Copier la liste des pseudos', 'Copy the list of names', 'Namensliste kopieren'));
+  tousDe.onclick = () => rfgCopier(cas.map((x) => x.membre).join(', '), tousDe);
+  tools.append(tousDe); el.append(tools);
+  const liste = rfgEl('div', 'off-liste');
+  for (const x of cas) {
+    const card = rfgEl('div', 'off-carte ' + x.motif);
+    const haut = rfgEl('div', 'off-haut');
+    const nom = rfgEl('button', 'cl-nom', x.membre); nom.type = 'button'; nom.onclick = () => rfgOuvrir(x.membre);
+    haut.append(nom, rfgEl('span', 'pill ' + (x.motif === 'absent' ? 'bad' : 'warn'), x.motif === 'absent' ? T('Absent ', 'Absent ', 'Abwesend ') + rfg.depuis(x.connexion_h) : T('Léviathan ', 'Leviathan ', 'Leviathan ') + x.participations + '/' + x.eligibles));
+    card.append(haut, rfgEl('div', 'cl-sous', x.rang + ' · ' + rfg.fmt(x.puissance, 'm') + ' · ' + T('dernière connexion : ', 'last login: ', 'letzter Login: ') + rfg.depuis(x.connexion_h)));
+    const j = Math.max(7, Math.round(x.connexion_h / 24));
+    const msgDe = x.motif === 'absent' ? RFG_MSG.absent.de(x.membre, j) : RFG_MSG.lev.de(x.membre, x.participations, x.eligibles);
+    const msgFr = x.motif === 'absent' ? RFG_MSG.absent.fr(x.membre, j) : RFG_MSG.lev.fr(x.membre, x.participations, x.eligibles);
+    card.append(rfgEl('p', 'off-msg', msgDe));
+    const act = rfgEl('div', 'tools');
+    const b1 = rfgBtn('🇩🇪 ' + T('Copier le message', 'Copy message', 'Nachricht kopieren')); b1.onclick = () => rfgCopier(msgDe, b1);
+    const b2 = rfgBtn('🇫🇷 ' + T('Version française', 'French version', 'Französisch'), 'sec'); b2.onclick = () => rfgCopier(msgFr, b2);
+    act.append(b1, b2); card.append(act);
+    liste.append(card);
+  }
+  el.append(liste);
+});
+
+/* --- Records --- */
+dash.draw('records', (el) => {
+  const gp = dash.data('progression7'), ga = dash.data('lev_assiduite'), gv = dash.data('serveur'), ge = dash.data('evenements');
+  el.replaceChildren();
+  if (gp.status === 'error') return rfgFail(el);
+  if (gp.status !== 'ok' || ga.status !== 'ok') { el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  const ev = ge.status === 'ok' ? ge.data.filter((r) => r.type === 'Piège Léviathan' && r.participe) : [];
+  const srv = gv.status === 'ok' ? gv.data : [];
+  const kills = srv.filter((r) => r.classement === 'eliminations' && r.alliance === 'DiDe');
+  const defs = [
+    ['🚀', T('Plus grosse progression sur 7 jours', 'Biggest 7-day growth', 'Größter Zuwachs in 7 Tagen'), [...gp.data].sort((a, b) => b.gain - a.gain).slice(0, 3).map((p) => [p.membre, rfg.signed(p.gain, 'm')])],
+    ['⚡', T('Plus gros bond en un jour', 'Biggest one-day jump', 'Größter Sprung an einem Tag'), [...gp.data].sort((a, b) => b.saut_jour - a.saut_jour).slice(0, 3).map((p) => [p.membre, rfg.signed(p.saut_jour, 'm')])],
+    ['🐋', T('Meilleurs dégâts sur un Léviathan', 'Best damage in one Leviathan', 'Bester Schaden an einem Leviathan'), [...ev].sort((a, b) => b.score - a.score).slice(0, 3).map((r) => [r.membre, rfg.fmt(r.score, 'm') + ' · ' + rfgCourt(r.date)])],
+    ['🔥', T('Plus longue série de Pièges', 'Longest Trap streak', 'Längste Fallen-Serie'), [...ga.data].sort((a, b) => b.meilleure_serie - a.meilleure_serie || b.puissance - a.puissance).slice(0, 3).map((a) => [a.membre, a.meilleure_serie + ' ' + T('d\'affilée', 'in a row', 'in Folge')])],
+    ['⚔️', T('Éliminations (serveur)', 'Kills (server)', 'Abschüsse (Server)'), kills.slice(0, 3).map((r) => [r.nom, rfg.fmt(r.valeur, 'm') + ' · #' + r.rang])],
+  ];
+  const grille = rfgEl('div', 'rec-grille');
+  for (const [ic, titre, top] of defs) {
+    if (!top.length) continue;
+    const c = rfgEl('div', 'rec-carte');
+    c.append(rfgEl('div', 'rec-ic', ic), rfgEl('h3', '', titre));
+    const ol = rfgEl('ol', 'rec-top');
+    top.forEach(([n, v], i) => { const li = rfgEl('li', 'p' + (i + 1)); const md = rfgEl('span', 'medaille m' + (i + 1), String(i + 1)); const nb = rfgEl('button', 'rec-nom', n); nb.type = 'button'; nb.onclick = () => rfgOuvrir(n); li.append(md, nb, rfgEl('b', '', v)); ol.append(li); });
+    c.append(ol); grille.append(c);
+  }
+  el.append(grille);
+});
+
+/* --- Classements du serveur --- */
+dash.draw('serveur', (el) => {
+  const g = dash.data('serveur');
+  el.replaceChildren();
+  if (g.status === 'error') return rfgFail(el);
+  if (g.status !== 'ok') { el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  if (!g.data.length) { el.append(rfgEl('p', 'vide', T('Pas encore de relevé des classements du serveur.', 'No server ranking survey yet.', 'Noch keine Erfassung der Server-Ranglisten.'))); return; }
+  const date = g.data.reduce((m, r) => r.date > m ? r.date : m, '');
+  const rows = g.data.filter((r) => r.date === date), de = (c) => rows.filter((r) => r.classement === c);
+  el.append(rfgEl('p', 'note', T('Classements de la zone maritime #17 relevés le ', 'Sea Zone #17 rankings recorded on ', 'Ranglisten der Seezone #17, erfasst am ') + rfg.dateFr(date) + '.'));
+  const coul = (a) => a === 'DiDe' ? 'dide' : a === 'moon' ? 'moon' : '';
+  const barres = (titre, c, f) => {
+    const box = rfgEl('div', 'srv-bloc'); box.append(rfgEl('h3', '', titre));
+    const lst = de(c), max = Math.max(...lst.map((r) => r.valeur));
+    for (const r of lst) {
+      const l = rfgEl('div', 'srv-l ' + coul(r.alliance));
+      const b = rfgEl('span', 'srv-b'); const fi = rfgEl('span', 'f'); fi.style.width = (r.valeur / max * 100) + '%'; b.append(fi);
+      l.append(rfgEl('span', 'srv-r', '#' + r.rang), rfgEl('span', 'srv-n', '[' + r.alliance + '] ' + r.nom), b, rfgEl('span', 'srv-v', rfg.fmt(r.valeur, f)));
+      box.append(l);
+    }
+    return box;
+  };
+  const d1 = rfgEl('div', 'deux');
+  d1.append(barres(T('Puissance d\'alliance', 'Alliance power', 'Allianzmacht'), 'alliance_puissance', 'md'), barres(T('Éliminations d\'alliance', 'Alliance kills', 'Allianz-Abschüsse'), 'alliance_eliminations', 'm'));
+  el.append(d1);
+  const pp = de('puissance'), pk = de('eliminations');
+  const parAll = d3.rollups(pp, (v) => v.length, (r) => r.alliance || '—').sort((a, b) => b[1] - a[1]);
+  const h = rfgEl('h3', 'sous', T('Joueurs dans le top 100 du serveur (puissance)', 'Players in the server top 100 (power)', 'Spieler in den Server-Top-100 (Macht)'));
+  const chips = rfgEl('div', 'chips');
+  parAll.forEach(([a, n]) => chips.append(rfgEl('span', 'chip ' + coul(a), '[' + a + '] ' + n)));
+  el.append(h, chips);
+  const nos = pp.filter((r) => r.alliance === 'DiDe');
+  const kmap = new Map(pk.filter((r) => r.alliance === 'DiDe').map((r) => [r.nom, r]));
+  const noms = [...new Set([...nos.map((r) => r.nom), ...kmap.keys()])];
+  const h2 = rfgEl('h3', 'sous', T('Nos joueurs classés sur le serveur', 'Our players ranked on the server', 'Unsere Spieler in den Server-Ranglisten'));
+  const box = rfgEl('div', 'tbox'), t = rfgEl('table'), th = rfgEl('thead'), tr0 = rfgEl('tr');
+  [T('Membre', 'Member', 'Mitglied'), T('Rang puissance', 'Power rank', 'Macht-Rang'), T('Puissance', 'Power', 'Macht'), T('Rang éliminations', 'Kills rank', 'Abschuss-Rang'), T('Éliminations', 'Kills', 'Abschüsse')].forEach((x, i) => tr0.append(rfgEl('th', i ? 'num' : '', x)));
+  th.append(tr0); t.append(th);
+  const tb = rfgEl('tbody');
+  noms.map((n) => ({n, p: nos.find((r) => r.nom === n), k: kmap.get(n)})).sort((a, b) => (a.p ? a.p.rang : 999) - (b.p ? b.p.rang : 999)).forEach(({n, p, k}) => {
+    const tr = rfgEl('tr'); if (n === rfgMoi) tr.className = 'moi';
+    const c = rfgCell(tr, n, 'lien'); c.style.cursor = 'pointer'; c.onclick = () => rfgOuvrir(n);
+    rfgCell(tr, p ? '#' + p.rang : '—', 'num'); rfgCell(tr, p ? rfg.fmt(p.valeur, 'm') : '—', 'num');
+    rfgCell(tr, k ? '#' + k.rang : '—', 'num'); rfgCell(tr, k ? rfg.fmt(k.valeur, 'm') : '—', 'num');
+    tb.append(tr);
+  });
+  t.append(tb); box.append(t); el.append(h2, box);
+  const podiums = rfgEl('div', 'rec-grille');
+  for (const [c, titre, f] of [['phare', T('Niveau du Phare', 'Beacon level', 'Leuchtturmstufe'), 'int'], ['etape', T('Classement d\'Étape', 'Stage ranking', 'Etappen-Rangliste'), 'int'], ['heros', T('Puissance totale de héros', 'Total hero power', 'Gesamte Heldenmacht'), 'm']]) {
+    const lst = de(c); if (!lst.length) continue;
+    const card = rfgEl('div', 'rec-carte'); card.append(rfgEl('h3', '', titre));
+    const ol = rfgEl('ol', 'rec-top');
+    lst.filter((r) => r.rang <= 3 || r.alliance === 'DiDe').forEach((r) => { const li = rfgEl('li', r.alliance === 'DiDe' ? 'dide' : ''); li.append(rfgEl('span', 'medaille ' + (r.rang <= 3 ? 'm' + r.rang : ''), String(r.rang)), rfgEl('span', 'rec-nom', '[' + r.alliance + '] ' + r.nom), rfgEl('b', '', rfg.fmt(r.valeur, f))); ol.append(li); });
+    card.append(ol); podiums.append(card);
+  }
+  const h3 = rfgEl('h3', 'sous', T('Autres classements (top 10 et nos joueurs visibles)', 'Other rankings (top 10 and our visible players)', 'Weitere Ranglisten (Top 10 und unsere sichtbaren Spieler)'));
+  el.append(h3, podiums);
+});
+
+/* --- Carte : historique des gains et pertes --- */
+dash.calc('terr_histo', {
+  title: 'Historique quotidien des territoires',
+  description: 'Pour chaque relevé de la carte : territoires gagnés et perdus par DiDe et par moon depuis le relevé précédent.',
+  inputs: ['territoires'],
+  fn: (territoires) => {
+    const dates = [...new Set(territoires.map((r) => r.date))].sort();
+    const par = new Map(dates.map((d) => [d, new Map(territoires.filter((r) => r.date === d).map((r) => [r.territoire, r]))]));
+    const out = [];
+    for (let i = 1; i < dates.length; i++) {
+      const a = par.get(dates[i - 1]), b = par.get(dates[i]);
+      const diff = (st) => ({g: [...b.values()].filter((r) => r.statut === st && (!a.get(r.territoire) || a.get(r.territoire).statut !== st)).map((r) => r.territoire),
+        p: [...a.values()].filter((r) => r.statut === st && (!b.get(r.territoire) || b.get(r.territoire).statut !== st)).map((r) => r.territoire)});
+      const n = diff('Notre alliance'), m = diff('Allié');
+      out.push({date: dates[i], dide_gains: n.g.join(', '), dide_pertes: n.p.join(', '), moon_gains: m.g.join(', '), moon_pertes: m.p.join(', '),
+        dide_total: [...b.values()].filter((r) => r.statut === 'Notre alliance').length, moon_total: [...b.values()].filter((r) => r.statut === 'Allié').length});
+    }
+    return out.reverse();
+  }
+});
+dash.draw('terr-histo', (el) => {
+  const g = dash.data('terr_histo');
+  el.replaceChildren();
+  if (g.status === 'error') return rfgFail(el);
+  if (g.status !== 'ok') return;
+  if (!g.data.length) { el.append(rfgEl('p', 'vide', T('L\'historique apparaîtra dès le deuxième relevé de la carte.', 'History will appear from the second map survey.', 'Der Verlauf erscheint ab der zweiten Kartenerfassung.'))); return; }
+  const box = rfgEl('div', 'tbox'), t = rfgEl('table'), th = rfgEl('thead'), tr0 = rfgEl('tr');
+  [T('Date', 'Date', 'Datum'), 'DiDe', T('Gains DiDe', 'DiDe gains', 'DiDe-Gewinne'), T('Pertes DiDe', 'DiDe losses', 'DiDe-Verluste'), 'moon', T('Gains moon', 'moon gains', 'moon-Gewinne'), T('Pertes moon', 'moon losses', 'moon-Verluste')].forEach((x, i) => tr0.append(rfgEl('th', i === 1 || i === 4 ? 'num' : '', x)));
+  th.append(tr0); t.append(th);
+  const tb = rfgEl('tbody');
+  for (const r of g.data) {
+    const tr = rfgEl('tr');
+    rfgCell(tr, rfgCourt(r.date)); rfgCell(tr, String(r.dide_total), 'num');
+    rfgCell(tr, r.dide_gains ? '▲ ' + r.dide_gains : '—', r.dide_gains ? 'up' : ''); rfgCell(tr, r.dide_pertes ? '▼ ' + r.dide_pertes : '—', r.dide_pertes ? 'down' : '');
+    rfgCell(tr, String(r.moon_total), 'num');
+    rfgCell(tr, r.moon_gains ? '▲ ' + r.moon_gains : '—', r.moon_gains ? 'up' : ''); rfgCell(tr, r.moon_pertes ? '▼ ' + r.moon_pertes : '—', r.moon_pertes ? 'down' : '');
+    tb.append(tr);
+  }
+  t.append(tb); box.append(t); el.append(box);
+});
+window.rfgCarteZoom = 'dide';
+document.querySelectorAll('.carte-zoom button[data-zoom]').forEach((b) => b.addEventListener('click', () => {
+  rfgCarteZoom = b.dataset.zoom;
+  document.querySelectorAll('.carte-zoom button[data-zoom]').forEach((x) => x.classList.toggle('actif', x.dataset.zoom === rfgCarteZoom));
+  dash.draw('carte');
+}));
+
+/* --- Gazette de la semaine --- */
+dash.draw('gazette', (el) => {
+  const gd = dash.data('dernier'), gs = dash.data('synthese'), gp = dash.data('progression7'), gr = dash.data('ev_resume'), ge = dash.data('evenements'), gv = dash.data('serveur'), gl = dash.data('releves'), ga = dash.data('lev_assiduite');
+  el.replaceChildren();
+  if (gd.status === 'error') return rfgFail(el);
+  if (gd.status !== 'ok' || !gd.data[0]) { el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  const d = gd.data[0], fin = d.date, debut = rfgJour(fin, -7);
+  const syn = gs.data, base = syn.find((s) => s.date >= debut) || syn[0];
+  const B = (fr, de) => { const s = rfgEl('span', 'bi'); s.append(rfgEl('span', 'de', de), rfgEl('span', 'fr', fr)); return s; };
+  const g = rfgEl('div', 'gz');
+  const mast = rfgEl('div', 'gz-mast');
+  mast.append(rfgEl('div', 'gz-tag', '<DiDe> DieDeutschen'), rfgEl('div', 'gz-titre', 'GAZETTE'), rfgEl('div', 'gz-date', rfgCourt(base.date) + ' → ' + rfgCourt(fin) + ' · ' + new Date(fin + 'T00:00:00Z').getUTCFullYear()));
+  const s1 = rfgEl('div', 'gz-sous'); s1.append(B('L\'hebdo de l\'alliance', 'Die Allianz-Wochenzeitung')); mast.append(s1);
+  g.append(mast);
+  const srv = gv.status === 'ok' ? gv.data : [];
+  const rangAll = srv.find((r) => r.classement === 'alliance_puissance' && r.alliance === 'DiDe');
+  const kAll = srv.find((r) => r.classement === 'alliance_eliminations' && r.alliance === 'DiDe');
+  const kpis = rfgEl('div', 'gz-kpis');
+  const K = (v, fr, de, sous) => { const c = rfgEl('div', 'gz-k'); c.append(rfgEl('b', '', v), B(fr, de)); if (sous) c.append(rfgEl('i', '', sous)); kpis.append(c); };
+  K(String(d.membres), 'membres', 'Mitglieder', d.membres - base.membres ? rfg.signed(d.membres - base.membres, 'int') : '');
+  K(rfg.fmt(d.puissance_totale, 'md'), 'puissance', 'Macht', rfg.signed(d.puissance_totale - base.puissance_totale, 'm'));
+  if (rangAll) K('#' + rangAll.rang, 'au serveur', 'auf dem Server', rfg.fmt(rangAll.valeur, 'md'));
+  if (kAll) K(rfg.fmt(kAll.valeur, 'm'), 'éliminations', 'Abschüsse', '#' + kAll.rang);
+  g.append(kpis);
+  const cols = rfgEl('div', 'gz-cols');
+  const bloc = (ic, fr, de) => { const b = rfgEl('div', 'gz-bloc'); const h = rfgEl('h4'); h.append(rfgEl('span', 'ic', ic), B(fr, de)); b.append(h); cols.append(b); return b; };
+  const top = (gp.status === 'ok' ? gp.data : []).slice(0, 5);
+  const b1 = bloc('🚀', 'Meilleures progressions', 'Top-Aufsteiger');
+  const ol = rfgEl('ol', 'gz-ol'); top.forEach((p, i) => { const li = rfgEl('li'); li.append(rfgEl('span', 'medaille ' + (i < 3 ? 'm' + (i + 1) : ''), String(i + 1)), rfgEl('span', 'n', p.membre), rfgEl('b', '', rfg.signed(p.gain, 'm'))); ol.append(li); }); b1.append(ol);
+  const levs = (gr.status === 'ok' ? gr.data : []).filter((e) => e.type === 'Piège Léviathan' && e.date >= debut).sort((a, b) => a.date < b.date ? 1 : -1);
+  const b2 = bloc('🐋', 'Piège Léviathan', 'Leviathan-Falle');
+  if (levs.length) {
+    const tot = levs.reduce((a, e) => a + (e.total || 0), 0);
+    const p = rfgEl('p', 'gz-big'); p.append(rfgEl('b', '', rfg.fmt(tot, 'md')), B(levs.length + ' piège(s) · dégâts', levs.length + ' Falle(n) · Schaden')); b2.append(p);
+    const best = (ge.status === 'ok' ? ge.data : []).filter((r) => r.type === 'Piège Léviathan' && r.participe && r.date >= debut).sort((a, b) => b.score - a.score).slice(0, 3);
+    const ol2 = rfgEl('ol', 'gz-ol'); best.forEach((r, i) => { const li = rfgEl('li'); li.append(rfgEl('span', 'medaille m' + (i + 1), String(i + 1)), rfgEl('span', 'n', r.membre), rfgEl('b', '', rfg.fmt(r.score, 'm'))); ol2.append(li); }); b2.append(ol2);
+    if (levs.length > 1) best.forEach((r, i) => { ol2.children[i].querySelector('.n').textContent = r.membre + ' · ' + rfgCourt(r.date); });
+    const part = levs.map((e) => e.participants).filter((x) => x != null);
+    if (part.length) { const pn = rfgEl('p', 'gz-note'); pn.append(B('Participants : ' + part.join(' · '), 'Teilnehmer: ' + part.join(' · '))); b2.append(pn); }
+  } else b2.append(B('Aucun piège cette semaine', 'Keine Falle diese Woche'));
+  const b3 = bloc('🔥', 'Toujours au rendez-vous', 'Immer dabei');
+  const fid = (ga.status === 'ok' ? ga.data : []).filter((a) => a.eligibles >= 1 && a.participations === a.eligibles).sort((a, b) => b.puissance - a.puissance);
+  const p3 = rfgEl('p', 'gz-big'); p3.append(rfgEl('b', '', String(fid.length)), B('membres présents à tous les pièges', 'Mitglieder bei jeder Falle dabei')); b3.append(p3);
+  const rel = gl.status === 'ok' ? gl.data : [];
+  const avant = new Set(rel.filter((r) => r.date === base.date).map((r) => r.membre)), now = new Set(rel.filter((r) => r.date === fin).map((r) => r.membre));
+  const arr = [...now].filter((n) => !avant.has(n)), dep = [...avant].filter((n) => !now.has(n));
+  const b4 = bloc('⚓', 'Arrivées et départs', 'Neu und Abgänge');
+  const pa = rfgEl('p', 'gz-mv'); pa.append(rfgEl('b', 'up', '▲ ' + arr.length + ' '), document.createTextNode(arr.slice(0, 8).join(', ') || '—')); b4.append(pa);
+  const pd = rfgEl('p', 'gz-mv'); pd.append(rfgEl('b', 'down', '▼ ' + dep.length + ' '), document.createTextNode(dep.slice(0, 8).join(', ') || '—')); b4.append(pd);
+  g.append(cols);
+  const pied = rfgEl('div', 'gz-pied'); pied.append(rfgEl('span', '', 'Last Beacon · Seezone / Zone #17'), rfgEl('span', '', 'pulpeorange.github.io/DiDe'));
+  g.append(pied);
+  el.append(g);
+});
+document.querySelectorAll('.gazette-export').forEach((b) => b.addEventListener('click', async () => {
+  const src = document.querySelector('.gz'); if (!src) return;
+  const libelle = b.innerHTML; b.disabled = true; b.textContent = rfg.t('⏳ Préparation…');
+  const hote = rfgEl('div', 'rfg gz-hote'); hote.style.cssText = 'position:fixed;left:-20000px;top:0;width:1080px;padding:0;border-radius:0';
+  const clone = src.cloneNode(true); clone.classList.add('gz-export'); hote.append(clone); document.body.append(hote);
+  try {
+    const h2c = await rfgChargerH2C();
+    await new Promise((ok) => requestAnimationFrame(() => requestAnimationFrame(ok)));
+    const canvas = await h2c(clone, {backgroundColor: '#12062e', scale: 1, width: 1080, windowWidth: 1200, logging: false});
+    const blob = await new Promise((ok) => canvas.toBlob(ok, 'image/png'));
+    const d = (dash.data('dernier').data[0] || {}).date || 'semaine';
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'DiDe-gazette-' + d + '.png';
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  } catch (e) { console.error(e); alert(rfg.t("L'export en image n'a pas pu se faire. Réessaie, ou fais une capture d'écran de la fiche.")); }
+  finally { hote.remove(); b.disabled = false; b.innerHTML = libelle; }
 }));
 </script>
 
