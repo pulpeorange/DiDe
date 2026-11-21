@@ -13,10 +13,10 @@
 <meta property="og:image" content="https://pulpeorange.github.io/DiDe/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#ff4fd8">
+<meta name="theme-color" content="#4fc4ff">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800;900&display=swap">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 150'><path d='M18 17 H102 V128 L60 112 L18 128 Z' fill='%236a3fd1' stroke='%23f2c94c' stroke-width='6'/><circle cx='60' cy='62' r='27' fill='none' stroke='white' stroke-width='6'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 150'><path d='M18 17 H102 V128 L60 112 L18 128 Z' fill='%233fa0d1' stroke='%23f2c94c' stroke-width='6'/><circle cx='60' cy='62' r='27' fill='none' stroke='white' stroke-width='6'/></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <style>
   :root {
@@ -40,7 +40,7 @@ window.dash = (() => {
   const runDraw = (name) => document.querySelectorAll(`[data-draw="${name}"]`).forEach((el) => { try { draws[name](el); } catch (e) { console.error(e); } });
   const all = () => { onDatas.forEach((f) => { try { f(); } catch (e) { console.error(e); } }); Object.keys(draws).forEach(runDraw); };
   const api = {
-    colors: ['#f2c94c', '#a985ff', '#40a0ff', '#5ee3a1', '#ff7a7a', '#ffc857', '#6a3fd1', '#9fb6d6'],
+    colors: ['#f2c94c', '#85d6ff', '#40a0ff', '#5ee3a1', '#ff7a7a', '#ffc857', '#3fa0d1', '#9fb6d6'],
     calc(id, o) { calcs.push({id, ...o}); },
     loader() {},
     data(id) { return id in store ? {status: 'ok', data: store[id], columns: [], meta: []} : {status: state === 'error' ? 'error' : 'loading', data: [], columns: [], meta: []}; },
@@ -73,14 +73,14 @@ window.dash = (() => {
 <style>
   
   .rfg {
-    --or: #f2c94c; --or-pale: #f7e3a1; --violet: #6a3fd1; --violet-clair: #a985ff;
+    --or: #f2c94c; --or-pale: #f7e3a1; --violet: #3fa0d1; --violet-clair: #85d6ff;
     --texte: #eaf2ff; --muet: #9fb6d6; --bord: rgba(242, 201, 76, .28); --carte: rgba(14, 38, 74, .72);
     --ok: #5ee3a1; --warn: #ffc857; --bad: #ff7a7a;
     font-family: var(--font-anthropic-sans); color: var(--texte);
     display: flex; flex-direction: column; gap: var(--cds-gap-lg);
     padding: clamp(14px, 3vw, 36px); border-radius: 20px; overflow: hidden; position: relative;
     background:
-      radial-gradient(1200px 400px at 85% -10%, rgba(169, 133, 255, .28), transparent 60%),
+      radial-gradient(1200px 400px at 85% -10%, rgba(133, 214, 255, .28), transparent 60%),
       radial-gradient(900px 500px at -10% 10%, rgba(64, 160, 255, .22), transparent 60%),
       linear-gradient(180deg, #0d2a52 0%, #0b2246 45%, #081733 100%);
     box-shadow: inset 0 0 0 1px rgba(242, 201, 76, .18);
@@ -93,7 +93,7 @@ window.dash = (() => {
 
   /* En-tête */
   .rfg .hero { display: grid; grid-template-columns: auto 1fr; gap: clamp(14px, 3vw, 32px); align-items: center; }
-  .rfg .blason { width: clamp(72px, 12vw, 120px); filter: drop-shadow(0 8px 18px rgba(106, 63, 209, .55)); }
+  .rfg .blason { width: clamp(72px, 12vw, 120px); filter: drop-shadow(0 8px 18px rgba(63, 160, 209, .55)); }
   .rfg .surtitre { color: var(--or); letter-spacing: .18em; text-transform: uppercase; font-size: var(--cds-font-size-caption); font-weight: 600; margin: 0 0 6px; }
   .rfg h1 { font-family: var(--font-anthropic-serif); font-weight: 400; margin: 0; line-height: 1.05;
     font-size: clamp(2rem, 5.5vw, 3.6rem); color: #fff; text-shadow: 0 2px 18px rgba(242, 201, 76, .25); }
@@ -151,7 +151,7 @@ window.dash = (() => {
   .rfg .m1 { background: linear-gradient(180deg, #f7e3a1, #c99a2e); color: #3a2a00; }
   .rfg .m2 { background: linear-gradient(180deg, #eef3f8, #9fb0c4); color: #1c2a3a; }
   .rfg .m3 { background: linear-gradient(180deg, #f2c1a0, #b06d3c); color: #3a1a06; }
-  .rfg .moi td { background: rgba(169, 133, 255, .12); }
+  .rfg .moi td { background: rgba(133, 214, 255, .12); }
   .rfg .barre { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--violet), var(--violet-clair)); }
   .rfg .deux { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--cds-gap-md); }
   .rfg h3 { font-size: var(--cds-font-size-body); margin: 0 0 8px; color: var(--or-pale); font-weight: 600; }
@@ -168,14 +168,14 @@ window.dash = (() => {
   .rfg table[data-source="membres"] tbody tr { cursor: pointer; }
   .rfg table[data-source="membres"] tbody tr:focus-visible td { outline: none; background: rgba(242, 201, 76, .12); }
   .rfg td.lien { color: var(--or-pale); text-decoration: underline dotted rgba(242, 201, 76, .6); text-underline-offset: 3px; }
-  .rfg tbody tr.choisi td { background: rgba(169, 133, 255, .2); }
-  .rfg .fiche { border-color: var(--violet-clair); box-shadow: 0 0 0 1px rgba(169, 133, 255, .35), 0 10px 30px rgba(0, 0, 0, .35); scroll-margin-top: 16px; }
+  .rfg tbody tr.choisi td { background: rgba(133, 214, 255, .2); }
+  .rfg .fiche { border-color: var(--violet-clair); box-shadow: 0 0 0 1px rgba(133, 214, 255, .35), 0 10px 30px rgba(0, 0, 0, .35); scroll-margin-top: 16px; }
   .rfg .fiche-tete { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cds-gap-md); flex-wrap: wrap; margin-bottom: var(--cds-gap-sm); }
   .rfg .fiche-nom { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: clamp(1.5rem, 4vw, 2.2rem); color: #fff; margin: 0; }
   .rfg .fiche-fermer { font: inherit; font-size: var(--cds-font-size-caption); cursor: pointer; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--bord); background: rgba(8, 23, 51, .8); color: var(--or-pale); }
   .rfg .fiche-fermer:hover { border-color: var(--or); }
   .rfg .fiche-actions { display: flex; gap: var(--cds-gap-sm); flex-wrap: wrap; }
-  .rfg .fiche-export { border-color: var(--violet-clair); color: #fff; background: linear-gradient(180deg, rgba(139, 92, 246, .55), rgba(91, 47, 192, .55)); }
+  .rfg .fiche-export { border-color: var(--violet-clair); color: #fff; background: linear-gradient(180deg, rgba(92, 195, 246, .55), rgba(47, 144, 192, .55)); }
   .rfg .fiche-export:hover { border-color: #fff; }
   .rfg .fiche-export[disabled] { opacity: .6; cursor: progress; }
   .rfg .fiche-signature { display: none; justify-content: space-between; gap: var(--cds-gap-md); flex-wrap: wrap; margin-top: var(--cds-gap-md); padding-top: var(--cds-gap-sm); border-top: 1px solid var(--bord); color: var(--muet); font-size: var(--cds-font-size-caption); }
@@ -183,7 +183,7 @@ window.dash = (() => {
   .rfg .fiche.export-en-cours .fiche-actions { display: none; }
   .rfg .fiche.export-en-cours .fiche-signature { display: flex; }
   .rfg .fiche.export-en-cours .tbox { max-height: none; overflow: visible; }
-  .rfg .fiche.export-en-cours .card { backdrop-filter: none; box-shadow: none; background: #2a1260; }
+  .rfg .fiche.export-en-cours .card { backdrop-filter: none; box-shadow: none; background: #124660; }
   .rfg .fiche .pill { display: inline-block; white-space: nowrap; }
   .rfg .fiche.export-en-cours td { white-space: normal; }
   .rfg .fiche.export-en-cours td:last-child { white-space: nowrap; }
@@ -243,64 +243,64 @@ window.dash = (() => {
 </style>
 <style>
   /* ===== Thème « jeu mobile néon » ===== */
-  html, body { background: #0b0420; }
+  html, body { background: #041720; }
   body { background:
-      radial-gradient(900px 600px at 10% -5%, rgba(255, 79, 216, .22), transparent 60%),
+      radial-gradient(900px 600px at 10% -5%, rgba(79, 196, 255, .22), transparent 60%),
       radial-gradient(900px 700px at 100% 10%, rgba(62, 240, 255, .18), transparent 60%),
-      radial-gradient(1000px 800px at 50% 110%, rgba(157, 107, 255, .25), transparent 60%),
-      #0b0420; background-attachment: fixed; }
+      radial-gradient(1000px 800px at 50% 110%, rgba(107, 206, 255, .25), transparent 60%),
+      #041720; background-attachment: fixed; }
   #neon-fond { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
   #dash-root { position: relative; z-index: 1; }
   .rfg {
-    --or: #ffe14d; --or-pale: #fff3a8; --violet: #9d6bff; --violet-clair: #c9a8ff; --rose: #ff4fd8; --cyan: #3ef0ff;
-    --texte: #f4efff; --muet: #b9a8e8; --bord: rgba(62, 240, 255, .32); --carte: linear-gradient(160deg, rgba(52, 22, 112, .88), rgba(20, 10, 58, .92));
+    --or: #ffe14d; --or-pale: #fff3a8; --violet: #6bceff; --violet-clair: #a8e2ff; --rose: #4fc4ff; --cyan: #3ef0ff;
+    --texte: #effaff; --muet: #a8d3e8; --bord: rgba(62, 240, 255, .32); --carte: linear-gradient(160deg, rgba(22, 82, 112, .88), rgba(10, 42, 58, .92));
     --ok: #4dffa6; --warn: #ffb84d; --bad: #ff5c8a;
     --titre: "Lilita One", "Baloo 2", "Arial Rounded MT Bold", system-ui, sans-serif;
     font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 600;
-    background: linear-gradient(180deg, rgba(30, 12, 74, .78), rgba(14, 6, 40, .86));
-    border-radius: 28px; box-shadow: 0 0 0 2px rgba(255, 79, 216, .35), 0 0 60px rgba(157, 107, 255, .35), inset 0 0 80px rgba(62, 240, 255, .06);
+    background: linear-gradient(180deg, rgba(12, 53, 74, .78), rgba(6, 29, 40, .86));
+    border-radius: 28px; box-shadow: 0 0 0 2px rgba(79, 196, 255, .35), 0 0 60px rgba(107, 206, 255, .35), inset 0 0 80px rgba(62, 240, 255, .06);
   }
-  .rfg::after { opacity: .9; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='40' viewBox='0 0 240 40'><path d='M0 20 Q30 5 60 20 T120 20 T180 20 T240 20' fill='none' stroke='%23ff4fd8' stroke-opacity='.25' stroke-width='2'/><path d='M0 32 Q30 17 60 32 T120 32 T180 32 T240 32' fill='none' stroke='%233ef0ff' stroke-opacity='.2' stroke-width='2'/></svg>"); }
+  .rfg::after { opacity: .9; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='40' viewBox='0 0 240 40'><path d='M0 20 Q30 5 60 20 T120 20 T180 20 T240 20' fill='none' stroke='%234fc4ff' stroke-opacity='.25' stroke-width='2'/><path d='M0 32 Q30 17 60 32 T120 32 T180 32 T240 32' fill='none' stroke='%233ef0ff' stroke-opacity='.2' stroke-width='2'/></svg>"); }
   .rfg h1, .rfg h2, .rfg .kpi-v, .rfg .cl-score b, .rfg .fiche-nom, .rfg .cl-nom { font-family: var(--titre); font-weight: 400; letter-spacing: .01em; }
   .rfg h1 { font-size: clamp(2.3rem, 6.5vw, 4.4rem); background: linear-gradient(180deg, #fff 0%, #fff3a8 45%, #ffb84d 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 3px 0 #7a1fa8) drop-shadow(0 0 18px rgba(255, 79, 216, .55)); }
-  .rfg h1 .tag { background: linear-gradient(180deg, #ff9df0, #ff4fd8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    filter: drop-shadow(0 3px 0 #1f7aa8) drop-shadow(0 0 18px rgba(79, 196, 255, .55)); }
+  .rfg h1 .tag { background: linear-gradient(180deg, #9ddeff, #4fc4ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .rfg .surtitre { color: var(--cyan); text-shadow: 0 0 10px rgba(62, 240, 255, .7); }
-  .rfg .blason { filter: drop-shadow(0 0 22px rgba(255, 79, 216, .75)); animation: flotte 5s ease-in-out infinite; }
+  .rfg .blason { filter: drop-shadow(0 0 22px rgba(79, 196, 255, .75)); animation: flotte 5s ease-in-out infinite; }
   @keyframes flotte { 50% { transform: translateY(-6px) rotate(-2deg); } }
-  .rfg .puce { border: 2px solid rgba(255, 79, 216, .5); background: rgba(255, 79, 216, .12); color: #ffd6f6; font-weight: 700; }
-  .rfg .lead { border-left: 4px solid var(--rose); background: linear-gradient(90deg, rgba(255, 79, 216, .18), rgba(62, 240, 255, .06)); border-radius: 0 16px 16px 0; }
+  .rfg .puce { border: 2px solid rgba(79, 196, 255, .5); background: rgba(79, 196, 255, .12); color: #d6f1ff; font-weight: 700; }
+  .rfg .lead { border-left: 4px solid var(--rose); background: linear-gradient(90deg, rgba(79, 196, 255, .18), rgba(62, 240, 255, .06)); border-radius: 0 16px 16px 0; }
   .rfg .lead b { color: var(--or); text-shadow: 0 0 8px rgba(255, 225, 77, .5); }
-  .rfg h2 { font-size: clamp(1.25rem, 2.6vw, 1.6rem); color: #fff; text-shadow: 0 2px 0 #4a1680, 0 0 14px rgba(157, 107, 255, .8); }
+  .rfg h2 { font-size: clamp(1.25rem, 2.6vw, 1.6rem); color: #fff; text-shadow: 0 2px 0 #165d80, 0 0 14px rgba(107, 206, 255, .8); }
   .rfg .ancre::before { content: ""; width: .9em; height: .9em; flex: none; border-radius: 4px; transform: rotate(45deg) scale(.8);
     background: linear-gradient(135deg, #fff 0%, var(--cyan) 35%, var(--rose) 100%); box-shadow: 0 0 12px var(--cyan); }
   .rfg h3 { color: var(--or-pale); font-weight: 800; }
   .rfg .note { color: var(--muet); }
   .rfg .card { background: var(--carte); border: 2px solid var(--bord); border-radius: 22px;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, .04), 0 12px 32px rgba(5, 0, 20, .55), 0 0 26px rgba(62, 240, 255, .12), inset 0 2px 0 rgba(255, 255, 255, .12);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .04), 0 12px 32px rgba(0, 13, 20, .55), 0 0 26px rgba(62, 240, 255, .12), inset 0 2px 0 rgba(255, 255, 255, .12);
     transition: transform .25s, box-shadow .25s, border-color .25s; }
-  .rfg section.card:hover { border-color: rgba(255, 79, 216, .55); box-shadow: 0 12px 32px rgba(5, 0, 20, .55), 0 0 34px rgba(255, 79, 216, .25), inset 0 2px 0 rgba(255, 255, 255, .12); }
+  .rfg section.card:hover { border-color: rgba(79, 196, 255, .55); box-shadow: 0 12px 32px rgba(0, 13, 20, .55), 0 0 34px rgba(79, 196, 255, .25), inset 0 2px 0 rgba(255, 255, 255, .12); }
   .rfg .tiles .card, .rfg .ev-tete .card { position: relative; overflow: hidden; border-top-width: 2px; }
   .rfg .tiles .card::before, .rfg .ev-tete .card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px;
     background: linear-gradient(90deg, var(--rose), var(--or), var(--cyan), var(--rose)); background-size: 300% 100%; animation: defile 6s linear infinite; }
   .rfg .tiles .card:hover, .rfg .ev-tete .card:hover { transform: translateY(-4px) scale(1.02); }
   @keyframes defile { to { background-position: 300% 0; } }
   .rfg .kpi-v { font-size: clamp(1.8rem, 3.6vw, 2.5rem); background: linear-gradient(180deg, #fff 0%, #ffe14d 55%, #ff9f1a 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 2px 0 rgba(122, 31, 168, .9)); }
+    filter: drop-shadow(0 2px 0 rgba(31, 122, 168, .9)); }
   .rfg .tiles .card:nth-child(2n) .kpi-v, .rfg .ev-tete .card:nth-child(2n) .kpi-v { background-image: linear-gradient(180deg, #fff 0%, #3ef0ff 60%, #2b8cff 100%); }
-  .rfg .tiles .card:nth-child(3n) .kpi-v, .rfg .ev-tete .card:nth-child(3n) .kpi-v { background-image: linear-gradient(180deg, #fff 0%, #ff9df0 55%, #ff4fd8 100%); }
+  .rfg .tiles .card:nth-child(3n) .kpi-v, .rfg .ev-tete .card:nth-child(3n) .kpi-v { background-image: linear-gradient(180deg, #fff 0%, #9ddeff 55%, #4fc4ff 100%); }
   .rfg .kpi-l { color: var(--cyan); font-weight: 800; }
   @media (max-width: 520px) { .rfg .kpi-l { font-size: .68rem; letter-spacing: .04em; overflow-wrap: anywhere; } }
   .rfg .up { color: var(--ok); text-shadow: 0 0 8px rgba(77, 255, 166, .5); } .rfg .down { color: var(--bad); }
   /* Tableaux */
   .rfg .tbox { border-radius: 16px; border: 1px solid rgba(62, 240, 255, .18); }
-  .rfg th { background: linear-gradient(180deg, #5b22b5, #3a1480); color: #fff; border-bottom: 2px solid var(--cyan); }
-  .rfg td { border-bottom: 1px solid rgba(185, 168, 232, .12); }
+  .rfg th { background: linear-gradient(180deg, #2284b5, #145c80); color: #fff; border-bottom: 2px solid var(--cyan); }
+  .rfg td { border-bottom: 1px solid rgba(168, 211, 232, .12); }
   .rfg tbody tr:nth-child(2n) td { background: rgba(255, 255, 255, .025); }
-  .rfg tbody tr:hover td { background: rgba(255, 79, 216, .12); }
-  .rfg td.lien { color: #ffd6f6; text-decoration-color: rgba(255, 79, 216, .7); }
-  .rfg input[type=search], .rfg select { border: 2px solid rgba(62, 240, 255, .4); border-radius: 14px; background: rgba(14, 6, 40, .85); color: var(--texte); font-weight: 700; }
-  .rfg input[type=search]:focus, .rfg select:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(255, 79, 216, .25), 0 0 16px rgba(255, 79, 216, .4); }
+  .rfg tbody tr:hover td { background: rgba(79, 196, 255, .12); }
+  .rfg td.lien { color: #d6f1ff; text-decoration-color: rgba(79, 196, 255, .7); }
+  .rfg input[type=search], .rfg select { border: 2px solid rgba(62, 240, 255, .4); border-radius: 14px; background: rgba(6, 29, 40, .85); color: var(--texte); font-weight: 700; }
+  .rfg input[type=search]:focus, .rfg select:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(79, 196, 255, .25), 0 0 16px rgba(79, 196, 255, .4); }
   .rfg .pill { font-weight: 800; background: rgba(0, 0, 0, .25); }
   /* Boutons en relief */
   .rfg .btn3d, .rfg .fiche-fermer, .rfg .carte-zoom button { font: inherit; font-weight: 800; font-size: .9rem; cursor: pointer; padding: 9px 16px; border-radius: 14px; border: 0;
@@ -308,7 +308,7 @@ window.dash = (() => {
     transition: transform .08s, box-shadow .08s, filter .2s; text-shadow: 0 1px 0 rgba(255, 255, 255, .5); }
   .rfg .btn3d:hover, .rfg .fiche-fermer:hover, .rfg .carte-zoom button:hover { filter: brightness(1.08) saturate(1.1); }
   .rfg .btn3d:active, .rfg .fiche-fermer:active, .rfg .carte-zoom button:active { transform: translateY(4px); box-shadow: 0 1px 0 #b35c00, inset 0 2px 0 rgba(255, 255, 255, .7); }
-  .rfg .btn3d.sec, .rfg .fiche-fermer:not(.fiche-export), .rfg .carte-zoom button:not(.actif) { color: #fff; text-shadow: 0 1px 0 rgba(0, 0, 0, .4); background: linear-gradient(180deg, #c9a8ff 0%, #9d6bff 45%, #6a2ee0 100%); box-shadow: 0 5px 0 #3d1490, 0 8px 18px rgba(157, 107, 255, .35), inset 0 2px 0 rgba(255, 255, 255, .45); }
+  .rfg .btn3d.sec, .rfg .fiche-fermer:not(.fiche-export), .rfg .carte-zoom button:not(.actif) { color: #fff; text-shadow: 0 1px 0 rgba(0, 0, 0, .4); background: linear-gradient(180deg, #a8e2ff 0%, #6bceff 45%, #2ea5e0 100%); box-shadow: 0 5px 0 #146790, 0 8px 18px rgba(107, 206, 255, .35), inset 0 2px 0 rgba(255, 255, 255, .45); }
   .rfg .fiche-export { color: #003a42 !important; background: linear-gradient(180deg, #b8fbff 0%, #3ef0ff 45%, #12a8d6 100%) !important; box-shadow: 0 5px 0 #0a6680, 0 8px 18px rgba(62, 240, 255, .35), inset 0 2px 0 rgba(255, 255, 255, .7) !important; text-shadow: none; }
   .rfg .btn3d.ok { background: linear-gradient(180deg, #c8ffe0, #4dffa6 50%, #13c46b); box-shadow: 0 5px 0 #0a7a40; color: #00361a; }
   .rfg .btn3d[disabled] { opacity: .7; cursor: progress; }
@@ -319,21 +319,21 @@ window.dash = (() => {
   .rfg .m1 { background: radial-gradient(circle at 35% 30%, #fffbe0, #ffd23d 45%, #c98a00); color: #4a2a00; }
   .rfg .m2 { background: radial-gradient(circle at 35% 30%, #fff, #d7e3f2 45%, #8ea3bd); }
   .rfg .m3 { background: radial-gradient(circle at 35% 30%, #ffe0c8, #e89a5e 45%, #9c5420); }
-  .rfg .medaille:not(.m1):not(.m2):not(.m3) { background: rgba(185, 168, 232, .2); color: var(--texte); }
+  .rfg .medaille:not(.m1):not(.m2):not(.m3) { background: rgba(168, 211, 232, .2); color: var(--texte); }
   @keyframes reflet { 0%, 60% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
   @keyframes brille { 50% { filter: drop-shadow(0 0 6px rgba(255, 225, 77, .8)); } }
-  .rfg .cl-carte { border: 2px solid rgba(62, 240, 255, .25); border-radius: 20px; background: linear-gradient(170deg, rgba(62, 22, 130, .7), rgba(20, 10, 58, .8)); }
+  .rfg .cl-carte { border: 2px solid rgba(62, 240, 255, .25); border-radius: 20px; background: linear-gradient(170deg, rgba(22, 94, 130, .7), rgba(10, 42, 58, .8)); }
   .rfg .cl-carte.p1 { border-color: var(--or); box-shadow: 0 0 28px rgba(255, 225, 77, .3); }
   .rfg .cl-score b { background: linear-gradient(180deg, #fff, #ffe14d 60%, #ff9f1a); -webkit-background-clip: text; background-clip: text; color: transparent; }
   /* Langues + menu */
-  .rfg .langues a { border: 2px solid rgba(62, 240, 255, .35); font-weight: 800; color: #e6dcff; }
-  .rfg .langues a.actif { background: linear-gradient(180deg, #ff9df0, #ff4fd8); border-color: #ff9df0; color: #2a0030; box-shadow: 0 0 16px rgba(255, 79, 216, .6); }
+  .rfg .langues a { border: 2px solid rgba(62, 240, 255, .35); font-weight: 800; color: #dcf3ff; }
+  .rfg .langues a.actif { background: linear-gradient(180deg, #9ddeff, #4fc4ff); border-color: #9ddeff; color: #002030; box-shadow: 0 0 16px rgba(79, 196, 255, .6); }
   .rfg .menu { position: sticky; top: 8px; z-index: 5; display: flex; gap: 8px; overflow-x: auto; padding: 8px; margin: 0 -6px; border-radius: 18px; scrollbar-width: none;
-    background: rgba(20, 8, 52, .82); backdrop-filter: blur(10px); box-shadow: 0 0 0 2px rgba(157, 107, 255, .35), 0 10px 26px rgba(0, 0, 0, .45); }
+    background: rgba(8, 37, 52, .82); backdrop-filter: blur(10px); box-shadow: 0 0 0 2px rgba(107, 206, 255, .35), 0 10px 26px rgba(0, 0, 0, .45); }
   .rfg .menu::-webkit-scrollbar { display: none; }
   .rfg .menu a { flex: none; text-decoration: none; color: #fff; font-weight: 800; font-size: .85rem; padding: 7px 13px; border-radius: 12px; white-space: nowrap;
-    background: linear-gradient(180deg, rgba(157, 107, 255, .55), rgba(90, 40, 190, .55)); box-shadow: 0 3px 0 #2c0d6e, inset 0 1px 0 rgba(255, 255, 255, .3); transition: transform .1s; }
-  .rfg .menu a:hover { transform: translateY(-2px); background: linear-gradient(180deg, #ff9df0, #ff4fd8); box-shadow: 0 3px 0 #8a0f6f; }
+    background: linear-gradient(180deg, rgba(107, 206, 255, .55), rgba(40, 140, 190, .55)); box-shadow: 0 3px 0 #0d4e6e, inset 0 1px 0 rgba(255, 255, 255, .3); transition: transform .1s; }
+  .rfg .menu a:hover { transform: translateY(-2px); background: linear-gradient(180deg, #9ddeff, #4fc4ff); box-shadow: 0 3px 0 #0f618a; }
   .rfg .menu a.nouveau::after { content: "NEW"; margin-left: 6px; font-size: .62rem; padding: 1px 5px; border-radius: 6px; background: var(--or); color: #3a1500; vertical-align: 2px; }
   .rfg [id] { scroll-margin-top: 70px; }
   /* Apparition */
@@ -344,7 +344,7 @@ window.dash = (() => {
   .rfg .hbars { display: flex; flex-direction: column; gap: 10px; }
   .rfg .hbar { display: grid; grid-template-columns: 4.5em 1fr auto; gap: 10px; align-items: center; font-size: .85rem; }
   .rfg .hbar .b { height: 14px; border-radius: 7px; background: rgba(255, 255, 255, .08); overflow: hidden; }
-  .rfg .hbar .f { display: block; height: 100%; border-radius: 7px; background: linear-gradient(90deg, #9d6bff, #ff4fd8); box-shadow: 0 0 12px rgba(255, 79, 216, .6); }
+  .rfg .hbar .f { display: block; height: 100%; border-radius: 7px; background: linear-gradient(90deg, #6bceff, #4fc4ff); box-shadow: 0 0 12px rgba(79, 196, 255, .6); }
   .rfg .hbar.manque .f { background: repeating-linear-gradient(45deg, rgba(255, 92, 138, .35) 0 6px, transparent 6px 12px); box-shadow: none; }
   .rfg .hbar .v { font-variant-numeric: tabular-nums; color: #fff; }
   .rfg .hbar.manque .v { color: var(--bad); }
@@ -352,52 +352,58 @@ window.dash = (() => {
   .rfg .lev-scroll { overflow-x: auto; padding: 6px 2px 10px; }
   .rfg .lev-g { display: grid; grid-template-columns: repeat(11, minmax(64px, 1fr)); grid-auto-rows: minmax(70px, auto); gap: 5px; min-width: 760px; }
   .rfg .lev-cell { position: relative; border-radius: 12px; padding: 14px 3px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden;
-    border: 2px solid rgba(185, 168, 232, .3); background: rgba(20, 10, 58, .8); transition: transform .15s; }
+    border: 2px solid rgba(168, 211, 232, .3); background: rgba(10, 42, 58, .8); transition: transform .15s; }
   .rfg .lev-cell:hover { transform: scale(1.08); z-index: 2; }
   .rfg .lev-cell i { position: absolute; top: 2px; left: 5px; font-style: normal; font-size: .7rem; font-weight: 800; opacity: .9; }
   .rfg .lev-cell b { font-size: .78rem; line-height: 1.1; white-space: nowrap; color: #fff; }
   .rfg .lev-cell b.l { font-size: .68rem; } .rfg .lev-cell b.xl { font-size: .6rem; }
   .rfg .lev-cell span { font-size: .68rem; color: var(--muet); }
-  .rfg .lev-cell.r2 { border-color: var(--or); background: linear-gradient(180deg, rgba(255, 225, 77, .28), rgba(20, 10, 58, .85)); } .rfg .lev-cell.r2 i { color: var(--or); }
-  .rfg .lev-cell.r3 { border-color: var(--cyan); background: linear-gradient(180deg, rgba(62, 240, 255, .2), rgba(20, 10, 58, .85)); } .rfg .lev-cell.r3 i { color: var(--cyan); }
-  .rfg .lev-cell.r4 { border-color: var(--violet); background: linear-gradient(180deg, rgba(157, 107, 255, .22), rgba(20, 10, 58, .85)); } .rfg .lev-cell.r4 i { color: var(--violet-clair); }
-  .rfg .lev-cell.r5 { border-color: rgba(185, 168, 232, .45); }
-  .rfg .lev-cell.vide { background: transparent; border: 2px dashed rgba(185, 168, 232, .15); }
+  .rfg .lev-cell.r2 { border-color: var(--or); background: linear-gradient(180deg, rgba(255, 225, 77, .28), rgba(10, 42, 58, .85)); } .rfg .lev-cell.r2 i { color: var(--or); }
+  .rfg .lev-cell.r3 { border-color: var(--cyan); background: linear-gradient(180deg, rgba(62, 240, 255, .2), rgba(10, 42, 58, .85)); } .rfg .lev-cell.r3 i { color: var(--cyan); }
+  .rfg .lev-cell.r4 { border-color: var(--violet); background: linear-gradient(180deg, rgba(107, 206, 255, .22), rgba(10, 42, 58, .85)); } .rfg .lev-cell.r4 i { color: var(--violet-clair); }
+  .rfg .lev-cell.r5 { border-color: rgba(168, 211, 232, .45); }
+  .rfg .lev-cell.vide { background: transparent; border: 2px dashed rgba(168, 211, 232, .15); }
   .rfg .lev-cell.moi { box-shadow: 0 0 0 3px #fff, 0 0 18px rgba(255, 255, 255, .6); }
-  .rfg .lev-cell.trouve { border-color: #fff; background: linear-gradient(180deg, #ff9df0, #ff4fd8); animation: pulse 1s ease-in-out infinite; z-index: 3; }
-  .rfg .lev-cell.trouve span, .rfg .lev-cell.trouve i { color: #2a0030; }
-  @keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(255, 255, 255, .9), 0 0 30px #ff4fd8; transform: scale(1.1); } }
+  .rfg .lev-cell.trouve { border-color: #fff; background: linear-gradient(180deg, #9ddeff, #4fc4ff); animation: pulse 1s ease-in-out infinite; z-index: 3; }
+  .rfg .lev-cell.trouve span, .rfg .lev-cell.trouve i { color: #002030; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(255, 255, 255, .9), 0 0 30px #4fc4ff; transform: scale(1.1); } }
   .rfg .lev-c { border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    background: radial-gradient(circle, #ff4fd8 0%, #7a2a9e 55%, #2a0f4a 100%); border: 3px solid #ff9df0; box-shadow: 0 0 40px rgba(255, 79, 216, .55); }
-  .rfg .lev-i { font-size: 3.4rem; line-height: 1; animation: flotte 4s ease-in-out infinite; }
+    background: radial-gradient(circle, #4fc4ff 0%, #2a779e 55%, #0f364a 100%); border: 3px solid #9ddeff; box-shadow: 0 0 40px rgba(79, 196, 255, .55); }
+  .rfg .lev-i { font-size: 3.4rem; line-height: 0; filter: drop-shadow(0 4px 10px rgba(0,0,0,.45)); animation: flotte 4s ease-in-out infinite; }
   .rfg .lev-c b { font-family: var(--titre); font-weight: 400; font-size: 1.25rem; letter-spacing: .1em; }
   .rfg .lev-c span { font-size: .8rem; }
   .rfg .legende i.lg { border-radius: 3px; }
-  .rfg .legende i.r2 { background: var(--or); } .rfg .legende i.r3 { background: var(--cyan); } .rfg .legende i.r4 { background: var(--violet); } .rfg .legende i.r5 { background: #8a7ab8; }
+  .rfg .legende i.r2 { background: var(--or); } .rfg .legende i.r3 { background: var(--cyan); } .rfg .legende i.r4 { background: var(--violet); } .rfg .legende i.r5 { background: #7aa3b8; }
   .rfg .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .rfg .chip { font-size: .8rem; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(185, 168, 232, .35); background: rgba(255, 255, 255, .05); color: var(--texte); }
-  .rfg .chip.trouve { background: var(--rose); color: #2a0030; }
-  .rfg .chip.dide { border-color: var(--rose); background: rgba(255, 79, 216, .2); color: #ffd6f6; } .rfg .chip.moon { border-color: var(--or); background: rgba(255, 225, 77, .12); color: var(--or-pale); }
+  .rfg .chip { font-size: .8rem; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(168, 211, 232, .35); background: rgba(255, 255, 255, .05); color: var(--texte); }
+  .rfg .chip.trouve { background: var(--rose); color: #002030; }
+  .rfg .chip.dide { border-color: var(--rose); background: rgba(79, 196, 255, .2); color: #d6f1ff; } .rfg .chip.moon { border-color: var(--or); background: rgba(255, 225, 77, .12); color: var(--or-pale); }
   .rfg .pastille { display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em; border-radius: 50%; font-size: .8rem; font-weight: 800; }
   .rfg .pastille.ok { background: radial-gradient(circle at 35% 30%, #c8ffe0, #13c46b); color: #00361a; box-shadow: 0 0 8px rgba(77, 255, 166, .6); }
   .rfg .pastille.ko { background: radial-gradient(circle at 35% 30%, #ffc2d4, #e0245e); color: #fff; }
   .rfg .pastille.na { color: var(--muet); }
   /* Officiers */
+  .rfg details.repli > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+  .rfg details.repli > summary::-webkit-details-marker { display: none; }
+  .rfg details.repli > summary h2 { margin: 0; flex: 1; }
+  .rfg details.repli > summary::after { content: "▾"; font-size: 1.4rem; color: #5ec8ff; transition: transform .2s; }
+  .rfg details.repli:not([open]) > summary::after { transform: rotate(-90deg); }
+  .rfg details.repli[open] > summary { margin-bottom: 12px; }
   .rfg .off-liste { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 14px; }
-  .rfg .off-carte { padding: 16px; border-radius: 18px; border: 2px solid rgba(255, 184, 77, .45); background: linear-gradient(170deg, rgba(80, 30, 110, .65), rgba(20, 10, 58, .85)); display: flex; flex-direction: column; gap: 8px; }
+  .rfg .off-carte { padding: 16px; border-radius: 18px; border: 2px solid rgba(255, 184, 77, .45); background: linear-gradient(170deg, rgba(30, 83, 110, .65), rgba(10, 42, 58, .85)); display: flex; flex-direction: column; gap: 8px; }
   .rfg .off-carte.absent { border-color: rgba(255, 92, 138, .6); }
   .rfg .off-haut { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .rfg .off-msg { margin: 0; padding: 10px 12px; border-radius: 12px; background: rgba(0, 0, 0, .3); border: 1px dashed rgba(62, 240, 255, .35); font-size: .82rem; color: #e6dcff; font-weight: 600; }
+  .rfg .off-msg { margin: 0; padding: 10px 12px; border-radius: 12px; background: rgba(0, 0, 0, .3); border: 1px dashed rgba(62, 240, 255, .35); font-size: .82rem; color: #dcf3ff; font-weight: 600; }
   .rfg .off-carte .tools { margin: 0; }
   /* Records et podiums */
   .rfg .rec-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 14px; }
   .rfg .rec-carte { position: relative; padding: 18px 16px 14px; border-radius: 20px; border: 2px solid rgba(255, 225, 77, .4); overflow: hidden;
-    background: radial-gradient(400px 160px at 50% -40%, rgba(255, 225, 77, .25), transparent 70%), linear-gradient(170deg, rgba(62, 22, 130, .75), rgba(20, 10, 58, .9)); }
+    background: radial-gradient(400px 160px at 50% -40%, rgba(255, 225, 77, .25), transparent 70%), linear-gradient(170deg, rgba(22, 94, 130, .75), rgba(10, 42, 58, .9)); }
   .rfg .rec-ic { font-size: 2.2rem; line-height: 1; filter: drop-shadow(0 0 10px rgba(255, 225, 77, .7)); margin-bottom: 6px; }
   .rfg .rec-carte h3 { font-size: .95rem; margin-bottom: 10px; }
   .rfg .rec-top { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
   .rfg .rec-top li { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; font-size: .88rem; }
-  .rfg .rec-top li.dide { background: rgba(255, 79, 216, .16); border-radius: 10px; padding: 2px 6px; margin: 0 -6px; }
+  .rfg .rec-top li.dide { background: rgba(79, 196, 255, .16); border-radius: 10px; padding: 2px 6px; margin: 0 -6px; }
   .rfg .rec-nom { all: unset; cursor: pointer; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   button.rec-nom:hover { color: var(--or-pale); text-decoration: underline; }
   .rfg .rec-top b { color: var(--or); font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -406,9 +412,9 @@ window.dash = (() => {
   .rfg .srv-l { display: grid; grid-template-columns: 2.4em minmax(7em, 11em) 1fr auto; gap: 8px; align-items: center; font-size: .82rem; padding: 3px 6px; border-radius: 10px; }
   .rfg .srv-r { color: var(--muet); font-weight: 800; } .rfg .srv-n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .rfg .srv-b { height: 12px; border-radius: 6px; background: rgba(255, 255, 255, .07); overflow: hidden; }
-  .rfg .srv-b .f { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #4a3a8a, #8a7ab8); }
+  .rfg .srv-b .f { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #3a6f8a, #7aa3b8); }
   .rfg .srv-v { font-variant-numeric: tabular-nums; }
-  .rfg .srv-l.dide { background: rgba(255, 79, 216, .18); box-shadow: inset 0 0 0 1px rgba(255, 79, 216, .6); } .rfg .srv-l.dide .f { background: linear-gradient(90deg, #ff4fd8, #ff9df0); box-shadow: 0 0 10px #ff4fd8; }
+  .rfg .srv-l.dide { background: rgba(79, 196, 255, .18); box-shadow: inset 0 0 0 1px rgba(79, 196, 255, .6); } .rfg .srv-l.dide .f { background: linear-gradient(90deg, #4fc4ff, #9ddeff); box-shadow: 0 0 10px #4fc4ff; }
   .rfg .srv-l.moon .f { background: linear-gradient(90deg, #ff9f1a, #ffe14d); }
   @media (max-width: 520px) { .rfg .srv-l { grid-template-columns: 2.2em 1fr auto; } .rfg .srv-l .srv-b { display: none; } }
   .rfg .chart:has(> .hbars), .rfg .chart:has(> .vide) { min-height: 0; }
@@ -417,22 +423,22 @@ window.dash = (() => {
   .rfg .carte-zoom button { padding: 7px 13px; font-size: .82rem; }
   /* Gazette */
   .rfg .gz-outils { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
-  .gz { position: relative; overflow: hidden; border-radius: 26px; padding: clamp(18px, 4vw, 34px) clamp(12px, 3vw, 30px) 22px; color: #f4efff; font-family: "Nunito", system-ui, sans-serif; font-weight: 600;
-    background: radial-gradient(600px 300px at 15% 0%, rgba(255, 79, 216, .45), transparent 70%), radial-gradient(600px 340px at 100% 30%, rgba(62, 240, 255, .3), transparent 70%), linear-gradient(170deg, #3a1490, #12062e 70%);
-    border: 3px solid #ff9df0; box-shadow: 0 0 40px rgba(255, 79, 216, .4); }
+  .gz { position: relative; overflow: hidden; border-radius: 26px; padding: clamp(18px, 4vw, 34px) clamp(12px, 3vw, 30px) 22px; color: #effaff; font-family: "Nunito", system-ui, sans-serif; font-weight: 600;
+    background: radial-gradient(600px 300px at 15% 0%, rgba(79, 196, 255, .45), transparent 70%), radial-gradient(600px 340px at 100% 30%, rgba(62, 240, 255, .3), transparent 70%), linear-gradient(170deg, #146790, #06212e 70%);
+    border: 3px solid #9ddeff; box-shadow: 0 0 40px rgba(79, 196, 255, .4); }
   .gz .bi { display: inline-flex; flex-direction: column; line-height: 1.15; } .gz .bi .fr { font-size: .78em; opacity: .7; font-weight: 600; }
   .gz-mast { text-align: center; margin-bottom: 20px; }
-  .gz-tag { display: inline-block; padding: 4px 14px; border-radius: 999px; background: #ff4fd8; color: #2a0030; font-weight: 900; letter-spacing: .05em; }
+  .gz-tag { display: inline-block; padding: 4px 14px; border-radius: 999px; background: #4fc4ff; color: #002030; font-weight: 900; letter-spacing: .05em; }
   .gz-titre { font-family: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif; font-size: clamp(3rem, 11vw, 6rem); line-height: 1; margin: 10px 0 4px; letter-spacing: .06em;
-    color: #ffe14d; text-shadow: 0 4px 0 #b35c00, 0 8px 0 #5a1d8a, 0 0 30px rgba(255, 225, 77, .6); }
+    color: #ffe14d; text-shadow: 0 4px 0 #b35c00, 0 8px 0 #1d668a, 0 0 30px rgba(255, 225, 77, .6); }
   .gz-date { font-size: 1.15rem; font-weight: 800; color: #3ef0ff; }
   .gz-sous { margin-top: 6px; font-size: 1rem; }
   .gz-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr)); gap: 12px; margin-bottom: 18px; }
   .gz-k { text-align: center; padding: 14px 8px; border-radius: 18px; background: rgba(0, 0, 0, .28); border: 2px solid rgba(62, 240, 255, .4); }
-  .gz-k b { display: block; font-family: "Lilita One", system-ui, sans-serif; font-weight: 400; font-size: clamp(1.5rem, 6vw, 2.2rem); color: #ffe14d; text-shadow: 0 3px 0 #7a1fa8; }
+  .gz-k b { display: block; font-family: "Lilita One", system-ui, sans-serif; font-weight: 400; font-size: clamp(1.5rem, 6vw, 2.2rem); color: #ffe14d; text-shadow: 0 3px 0 #1f7aa8; }
   .gz-k i { display: block; font-style: normal; color: #4dffa6; font-weight: 800; margin-top: 4px; }
   .gz-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 14px; }
-  .gz-bloc { padding: 14px 16px; border-radius: 18px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(255, 79, 216, .4); }
+  .gz-bloc { padding: 14px 16px; border-radius: 18px; background: rgba(255, 255, 255, .06); border: 2px solid rgba(79, 196, 255, .4); }
   .gz-bloc h4 { margin: 0 0 10px; display: flex; gap: 10px; align-items: center; font-size: 1.05rem; color: #fff3a8; }
   .gz-bloc h4 .ic { font-size: 1.7rem; }
   .gz-ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
@@ -442,7 +448,7 @@ window.dash = (() => {
   .gz .m1 { background: radial-gradient(circle at 35% 30%, #fffbe0, #ffd23d 45%, #c98a00); color: #4a2a00; } .gz .m2 { background: radial-gradient(circle at 35% 30%, #fff, #d7e3f2 45%, #8ea3bd); color: #1c2a3a; } .gz .m3 { background: radial-gradient(circle at 35% 30%, #ffe0c8, #e89a5e 45%, #9c5420); color: #3a1a06; }
   .gz-big { display: flex; flex-direction: column; gap: 2px; margin: 0 0 10px; } .gz-big b { font-family: "Lilita One", system-ui, sans-serif; font-weight: 400; font-size: 2rem; color: #3ef0ff; }
   .gz-note, .gz-mv { margin: 6px 0 0; font-size: .9rem; } .gz .up { color: #4dffa6; } .gz .down { color: #ff5c8a; }
-  .gz-pied { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: space-between; margin-top: 18px; padding-top: 12px; border-top: 2px dashed rgba(255, 255, 255, .2); font-size: .85rem; color: #b9a8e8; }
+  .gz-pied { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: space-between; margin-top: 18px; padding-top: 12px; border-top: 2px dashed rgba(255, 255, 255, .2); font-size: .85rem; color: #a8d3e8; }
   .gz.gz-export { border-radius: 0; padding: 50px 46px 30px; font-size: 22px; }
   .gz.gz-export .gz-titre { font-size: 8rem; } .gz.gz-export .gz-k b { font-size: 3rem; } .gz.gz-export .gz-big { flex-direction: row; align-items: center; gap: 14px; } .gz.gz-export .gz-kpis { grid-template-columns: repeat(4, 1fr); } .gz.gz-export .gz-cols { grid-template-columns: 1fr 1fr; }
 </style>
@@ -456,7 +462,7 @@ window.dash = (() => {
   <header class="hero">
     <svg class="blason" viewBox="0 0 120 150" role="img" aria-label="Bannière de l'alliance" data-aria-fr="Bannière de l'alliance" data-aria-en="Alliance banner" data-aria-de="Allianzbanner">
       <defs>
-        <linearGradient id="rfg-ban" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#5b2fc0"/></linearGradient>
+        <linearGradient id="rfg-ban" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5cc3f6"/><stop offset="1" stop-color="#2f90c0"/></linearGradient>
         <linearGradient id="rfg-or" x1="0" x2="1"><stop offset="0" stop-color="#c99a2e"/><stop offset=".5" stop-color="#f7e3a1"/><stop offset="1" stop-color="#c99a2e"/></linearGradient>
       </defs>
       <rect x="6" y="8" width="108" height="9" rx="4.5" fill="url(#rfg-or)"/>
@@ -622,9 +628,11 @@ window.dash = (() => {
   </section>
 
   <section class="card">
-    <h2 class="ancre" id="officiers"><span class="t-fr">Espace officiers</span><span class="t-en">Officers corner</span><span class="t-de">Offiziersbereich</span></h2>
+    <details class="repli" id="officiers-repli">
+    <summary><h2 class="ancre" id="officiers"><span class="t-fr">Espace officiers</span><span class="t-en">Officers corner</span><span class="t-de">Offiziersbereich</span></h2></summary>
     <p class="note"><span class="t-fr">Membres à relancer ou à exclure : absents depuis plus de 7 jours, ou qui ne jouent pas le Léviathan. Message en allemand prêt à copier dans le jeu (R5 exclus).</span><span class="t-en">Members to remind or kick: absent for more than 7 days, or not playing the Leviathan. German message ready to paste in the game (R5 excluded).</span><span class="t-de">Mitglieder zum Erinnern oder Entfernen: seit über 7 Tagen abwesend oder ohne Leviathan-Teilnahme. Nachricht zum Kopieren ins Spiel (ohne R5).</span></p>
     <div class="ev-vue" data-draw="officiers" data-source="lev_assiduite"></div>
+    </details>
   </section>
 
   <section class="card">
@@ -679,7 +687,7 @@ window.dash = (() => {
       <select aria-label="Choisir une semaine" data-aria-fr="Choisir une semaine" data-aria-en="Choose a week" data-aria-de="Woche wählen" data-draw="cl-choix" data-source="classement" hidden></select>
     </div>
     <p class="note"><span class="t-fr">Top 4 des membres hors R4 et R5, établi chaque vendredi sur 100 points. Clique sur un pseudo pour ouvrir sa fiche.</span><span class="t-en">Top 4 members excluding R4 and R5, scored out of 100 every Friday. Click a name to open their profile.</span><span class="t-de">Top 4 der Mitglieder ohne R4 und R5, jeden Freitag auf 100 Punkte berechnet. Klicke auf einen Namen, um das Profil zu öffnen.</span></p>
-    <p class="cl-bareme"><span><i style="background:#f2c94c"></i><span class="t-fr">Progression de puissance</span><span class="t-en">Power growth</span><span class="t-de">Machtzuwachs</span> · 40 pts</span><span><i style="background:#a985ff"></i><span class="t-fr">Piège Léviathan</span><span class="t-en">Leviathan Trap</span><span class="t-de">Leviathan-Falle</span> · 30 pts</span><span><i style="background:#40a0ff"></i><span class="t-fr">Guerre d'Oasis</span><span class="t-en">Oasis War</span><span class="t-de">Oasenkrieg</span> · 30 pts</span></p>
+    <p class="cl-bareme"><span><i style="background:#f2c94c"></i><span class="t-fr">Progression de puissance</span><span class="t-en">Power growth</span><span class="t-de">Machtzuwachs</span> · 40 pts</span><span><i style="background:#85d6ff"></i><span class="t-fr">Piège Léviathan</span><span class="t-en">Leviathan Trap</span><span class="t-de">Leviathan-Falle</span> · 30 pts</span><span><i style="background:#40a0ff"></i><span class="t-fr">Guerre d'Oasis</span><span class="t-en">Oasis War</span><span class="t-de">Oasenkrieg</span> · 30 pts</span></p>
     <div class="ev-vue" data-draw="classement" data-source="classement membres"></div>
   </section>
 
@@ -781,7 +789,7 @@ window.RFG_I18N = (() => {
   return {en, de, re};
 })();
 
-const RFG_C = {or: '#f2c94c', violet: '#6a3fd1', violetClair: '#a985ff', texte: '#eaf2ff', muet: '#9fb6d6', axe: 'rgba(242,201,76,.35)', nuit: '#0b1f3a'};
+const RFG_C = {or: '#f2c94c', violet: '#3fa0d1', violetClair: '#85d6ff', texte: '#eaf2ff', muet: '#9fb6d6', axe: 'rgba(242,201,76,.35)', nuit: '#0b1f3a'};
 
 dash.calc('instantanes', {
   title: 'Liste des relevés',
@@ -1047,7 +1055,7 @@ dash.calc('oasis_ecart', {
   title: "Guerre d'Oasis : inscrits et participants",
   description: "Pour chaque Guerre d'Oasis, chaque membre inscrit ou ayant marqué des points, avec son statut : présent, inscrit absent, ou présent sans inscription.",
   inputs: ['evenements'],
-  fn: (evenements) => evenements.filter((r) => r.type === "Guerre d'Oasis").map((r) => ({
+  fn: (evenements) => evenements.filter((r) => r.type === "Guerre d'Oasis" && (r.inscrit || r.participe)).map((r) => ({
     evenement: r.evenement, membre: r.membre, classement: r.classement, score: Number(r.score) || 0,
     statut: r.inscrit && r.participe ? 'Inscrit et présent' : r.inscrit ? 'Inscrit absent' : 'Présent sans inscription'
   }))
@@ -1182,7 +1190,7 @@ dash.draw('classement', (el) => {
   const debut = rows.length && rows[0].debut;
   el.append(rfgEl('p', 'note', debut ? rfg.t('Du vendredi') + ' ' + rfg.dateFr(debut) + ' ' + rfg.t('au vendredi') + ' ' + rfg.dateFr(sem) : rfg.t('Semaine du') + ' ' + rfg.dateFr(sem)));
   const m1 = (v) => rfg.fmt(v, 'm'), dec = (v) => v == null ? '—' : String(Math.round(v * 10) / 10).replace('.', ',');
-  const base = [['Puissance', 'pts_puissance', 40, '#f2c94c'], ['Léviathan', 'pts_leviathan', 30, '#a985ff'], ['Oasis', 'pts_oasis', 30, '#40a0ff']];
+  const base = [['Puissance', 'pts_puissance', 40, '#f2c94c'], ['Léviathan', 'pts_leviathan', 30, '#85d6ff'], ['Oasis', 'pts_oasis', 30, '#40a0ff']];
   const absents = base.filter(([, k]) => k !== 'pts_puissance' && rows.every((r) => r[k] == null));
   const actifs = base.filter((p) => !absents.includes(p)), total = actifs.reduce((s, p) => s + p[2], 0);
   const parts = actifs.map(([l, k, m, c]) => [l, k, Math.round(m * 1000 / total) / 10, c]);
@@ -1272,7 +1280,7 @@ const RFG_TERR_COUL = ['#40a0ff', '#ff7a7a', '#5ee3a1', '#ffc857', '#a985ff', '#
 const rfgCoul = (() => {
   const cache = new Map();
   return (a, statut) => {
-    if (statut === 'Notre alliance' || statut === 'Le Refuge') return '#ff4fd8';
+    if (statut === 'Notre alliance' || statut === 'Le Refuge') return '#4fc4ff';
     if (statut === 'Libre') return '#9fb6d6';
     if (!cache.has(a)) cache.set(a, RFG_TERR_COUL[cache.size % RFG_TERR_COUL.length]);
     return cache.get(a);
@@ -1323,7 +1331,7 @@ dash.draw('carte', (el) => {
   }).on('pointerleave', () => { tip.hidden = true; });
   const leg = rfgEl('div', 'legende');
   const item = (c, t) => { const s = rfgEl('span'); const i = rfgEl('i'); i.style.background = c; s.append(i, document.createTextNode(t)); leg.append(s); };
-  item('#ff4fd8', 'DiDe'); item('#f2c94c', rfg.t('Contour doré : allié')); item('#9fb6d6', rfg.t('Libre')); item('#ffffff', rfg.t('Arche Suprême'));
+  item('#4fc4ff', 'DiDe'); item('#f2c94c', rfg.t('Contour doré : allié')); item('#9fb6d6', rfg.t('Libre')); item('#ffffff', rfg.t('Arche Suprême'));
   el.append(leg);
 });
 
@@ -1337,7 +1345,7 @@ dash.draw('terr-barres', (el) => {
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).style('display', 'block');
   const lab = (r) => ((r.statut === 'Notre alliance' || r.statut === 'Le Refuge') ? '★ ' : r.statut === 'Allié' ? '◆ ' : '') + r.alliance;
   const labels = svg.selectAll('text.l').data(rows).join('text').attr('class', 'l').attr('x', 0).attr('y', (r, i) => i * (bh + gap) + bh / 2 + 4)
-    .style('fill', (r) => (r.statut === 'Notre alliance' || r.statut === 'Le Refuge') ? '#ff4fd8' : r.statut === 'Allié' ? RFG_C.or : RFG_C.texte).style('font-size', 'var(--cds-font-size-caption)').text(lab);
+    .style('fill', (r) => (r.statut === 'Notre alliance' || r.statut === 'Le Refuge') ? '#4fc4ff' : r.statut === 'Allié' ? RFG_C.or : RFG_C.texte).style('font-size', 'var(--cds-font-size-caption)').text(lab);
   const lw = d3.max(labels.nodes(), (n) => n.getComputedTextLength()) + 10;
   const vals = svg.selectAll('text.v').data(rows).join('text').attr('class', 'v').attr('y', (r, i) => i * (bh + gap) + bh / 2 + 4)
     .style('fill', RFG_C.muet).style('font-size', 'var(--cds-font-size-caption)').style('font-variant-numeric', 'tabular-nums').text((r) => r.valeur + ' · ' + rfg.t('niv.') + ' ' + r.niveaux);
@@ -1475,7 +1483,7 @@ dash.draw('fiche-ev', (tb) => {
   const nom = dash.params().membre, g = dash.data('participations');
   tb.replaceChildren();
   if (!nom || g.status !== 'ok') return;
-  for (const r of g.data.filter((x) => x.membre === nom)) {
+  for (const r of g.data.filter((x) => x.membre === nom && x.statut !== 'Non inscrit')) {
     const tr = document.createElement('tr');
     tr.dataset.key = encodeURIComponent(r.membre) + ',' + encodeURIComponent(r.evenement);
     rfgCell(tr, rfg.t(r.titre));
@@ -1608,7 +1616,7 @@ document.querySelectorAll('.fiche-export').forEach((b) => b.addEventListener('cl
     const etroit = fiche.clientWidth < 900;
     if (etroit) { fiche.style.width = '1040px'; fiche.style.maxWidth = 'none'; dash.draw('fiche-courbe'); }
     await new Promise((ok) => requestAnimationFrame(() => requestAnimationFrame(ok)));
-    const canvas = await h2c(fiche, {backgroundColor: '#1a0b48', scale: 2, useCORS: true, logging: false, windowWidth: Math.max(window.innerWidth, 1200)});
+    const canvas = await h2c(fiche, {backgroundColor: '#0b3448', scale: 2, useCORS: true, logging: false, windowWidth: Math.max(window.innerWidth, 1200)});
     const blob = await new Promise((ok) => canvas.toBlob(ok, 'image/png'));
     const fichier = 'DiDe-fiche-' + nom.normalize('NFKD').replace(/[^\w-]+/g, '_').replace(/^_+|_+$/g, '') + '.png';
     const lien = document.createElement('a');
@@ -1700,7 +1708,7 @@ dash.calc('progression7', {
   const c = document.getElementById('neon-fond');
   if (!c || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const ctx = c.getContext('2d'); let W, H, pts = [];
-  const couleurs = ['#ff4fd8', '#3ef0ff', '#ffe14d', '#9d6bff'];
+  const couleurs = ['#4fc4ff', '#3ef0ff', '#ffe14d', '#6bceff'];
   const init = () => { W = c.width = innerWidth; H = c.height = innerHeight; pts = Array.from({length: Math.min(70, Math.round(W / 22))}, () => ({x: Math.random() * W, y: Math.random() * H, r: 0.6 + Math.random() * 2.2, v: 0.15 + Math.random() * 0.45, c: couleurs[Math.floor(Math.random() * 4)], p: Math.random() * 6.28})); };
   const tick = () => {
     ctx.clearRect(0, 0, W, H);
@@ -1722,6 +1730,14 @@ dash.calc('progression7', {
   setTimeout(() => vus.forEach((n) => n.classList.add('vu')), 4000);
 })();
 
+(() => {
+  const d = document.getElementById('officiers-repli'); if (!d) return;
+  try { if (localStorage.getItem('dide-officiers') === 'ferme') d.open = false; else d.open = true; } catch (e) { d.open = true; }
+  d.addEventListener('toggle', () => { try { localStorage.setItem('dide-officiers', d.open ? 'ouvert' : 'ferme'); } catch (e) {} });
+  document.querySelectorAll('a[href="#officiers"]').forEach((a) => a.addEventListener('click', () => { d.open = true; }));
+})();
+
+const RFG_PIEUVRE = '<svg viewBox="0 0 120 110" width="124" height="114" aria-hidden="true"><defs><radialGradient id="pv-g" cx="45%" cy="35%" r="70%"><stop offset="0" stop-color="#ff8a7a"/><stop offset=".6" stop-color="#e0413a"/><stop offset="1" stop-color="#8f1d24"/></radialGradient></defs><g fill="url(#pv-g)" stroke="#5a0f16" stroke-width="2" stroke-linejoin="round"><path d="M30 58 C18 66 8 70 4 84 C10 80 16 80 18 86 C22 76 28 72 38 70 Z"/><path d="M38 66 C30 80 26 92 30 106 C34 98 38 96 42 100 C40 88 42 80 48 72 Z"/><path d="M50 70 C48 84 50 96 58 106 C58 98 62 94 66 98 C60 88 58 80 60 72 Z"/><path d="M62 70 C66 84 72 94 82 100 C80 92 84 88 88 90 C80 82 76 76 72 68 Z"/><path d="M74 64 C86 70 98 72 112 82 C108 74 110 70 116 70 C104 60 94 58 82 58 Z"/><path d="M24 52 C12 50 6 42 2 30 C8 34 12 34 14 30 C16 40 22 44 32 46 Z"/><path d="M88 50 C100 50 108 42 114 30 C108 34 104 34 102 30 C100 40 94 44 84 46 Z"/><path d="M60 6 C84 6 96 24 94 44 C92 62 78 72 60 72 C42 72 28 62 26 44 C24 24 36 6 60 6 Z"/></g><g fill="#ffd2c8" opacity=".55"><circle cx="20" cy="80" r="2"/><circle cx="34" cy="94" r="2"/><circle cx="56" cy="96" r="2"/><circle cx="78" cy="90" r="2"/><circle cx="102" cy="74" r="2"/></g><ellipse cx="48" cy="22" rx="9" ry="5" fill="#fff" opacity=".25"/><g><ellipse cx="48" cy="44" rx="8" ry="9" fill="#fff6c8" stroke="#5a0f16" stroke-width="2"/><ellipse cx="72" cy="44" rx="8" ry="9" fill="#fff6c8" stroke="#5a0f16" stroke-width="2"/><ellipse cx="49" cy="46" rx="3" ry="5" fill="#1a0b0b"/><ellipse cx="71" cy="46" rx="3" ry="5" fill="#1a0b0b"/><path d="M38 34 L56 40" stroke="#5a0f16" stroke-width="3" stroke-linecap="round"/><path d="M82 34 L64 40" stroke="#5a0f16" stroke-width="3" stroke-linecap="round"/></g><path d="M52 60 Q60 56 68 60" fill="none" stroke="#5a0f16" stroke-width="2.5" stroke-linecap="round"/></svg>';
 /* --- Mes progrès --- */
 window.rfgMoi = (() => { try { return localStorage.getItem('dide-moi') || ''; } catch (e) { return ''; } })();
 dash.draw('progres', (el) => {
@@ -1784,8 +1800,8 @@ const rfgMiniLigne = (el, pts, coul) => {
   const id = 'g' + Math.random().toString(36).slice(2);
   const gr = svg.append('defs').append('linearGradient').attr('id', id).attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
   gr.append('stop').attr('offset', 0).attr('stop-color', coul).attr('stop-opacity', .45); gr.append('stop').attr('offset', 1).attr('stop-color', coul).attr('stop-opacity', 0);
-  y.ticks(4).forEach((t) => { svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(t)).attr('y2', y(t)).style('stroke', 'rgba(255,255,255,.08)'); svg.append('text').attr('x', m.l - 6).attr('y', y(t) + 4).attr('text-anchor', 'end').style('fill', '#b9a8e8').style('font-size', '11px').text(rfg.fmt(t, 'm')); });
-  pts.forEach((p, i) => { if (pts.length <= 8 || i % Math.ceil(pts.length / 6) === 0 || i === pts.length - 1) svg.append('text').attr('x', x(p.d)).attr('y', H - 6).attr('text-anchor', 'middle').style('fill', '#b9a8e8').style('font-size', '11px').text(rfgCourt(p.d)); });
+  y.ticks(4).forEach((t) => { svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(t)).attr('y2', y(t)).style('stroke', 'rgba(255,255,255,.08)'); svg.append('text').attr('x', m.l - 6).attr('y', y(t) + 4).attr('text-anchor', 'end').style('fill', '#a8d3e8').style('font-size', '11px').text(rfg.fmt(t, 'm')); });
+  pts.forEach((p, i) => { if (pts.length <= 8 || i % Math.ceil(pts.length / 6) === 0 || i === pts.length - 1) svg.append('text').attr('x', x(p.d)).attr('y', H - 6).attr('text-anchor', 'middle').style('fill', '#a8d3e8').style('font-size', '11px').text(rfgCourt(p.d)); });
   svg.append('path').attr('d', d3.area().x((p) => x(p.d)).y0(H - m.b).y1((p) => y(p.v)).curve(d3.curveMonotoneX)(pts)).style('fill', `url(#${id})`);
   svg.append('path').attr('d', d3.line().x((p) => x(p.d)).y((p) => y(p.v)).curve(d3.curveMonotoneX)(pts)).style('fill', 'none').style('stroke', coul).style('stroke-width', 3).style('filter', `drop-shadow(0 0 6px ${coul})`);
   svg.selectAll('circle').data(pts).join('circle').attr('cx', (p) => x(p.d)).attr('cy', (p) => y(p.v)).attr('r', 4.5).style('fill', '#fff').style('stroke', coul).style('stroke-width', 2.5).append('title').text((p) => rfgCourt(p.d) + ' · ' + rfg.fmt(p.v, 'm'));
@@ -1823,7 +1839,8 @@ dash.draw('lev-grille', (el) => {
   const g = rfgEl('div', 'lev-g');
   const q = rfgLevCherche.trim().toLowerCase();
   const lev = rfgEl('div', 'lev-c'); lev.style.gridArea = `${c}/${c}/span 3/span 3`;
-  lev.append(rfgEl('div', 'lev-i', '🐋'), rfgEl('b', '', 'LEVIATHAN'), rfgEl('span', '', T('Piège', 'Trap', 'Falle')));
+  const pieuvre = rfgEl('div', 'lev-i'); pieuvre.innerHTML = RFG_PIEUVRE;
+  lev.append(pieuvre, rfgEl('b', '', 'LEVIATHAN'), rfgEl('span', '', T('Piège', 'Trap', 'Falle')));
   g.append(lev);
   let trouve = null;
   cells.forEach((p, i) => {
@@ -1904,8 +1921,8 @@ dash.draw('lev-assiduite', (el) => {
 const RFG_MSG = {
   absent: {de: (n, j) => `Hallo ${n}! 👋 Du warst seit ${j} Tagen nicht mehr online. Ist alles in Ordnung? Bitte melde dich kurz bei uns – sonst müssen wir deinen Platz bald für aktive Spieler freigeben. Danke! – Die Offiziere von <DiDe>`,
     fr: (n, j) => `Salut ${n} ! 👋 Tu n'es pas venu depuis ${j} jours. Tout va bien ? Donne-nous un signe, sinon nous devrons bientôt libérer ta place pour un joueur actif. Merci ! – Les officiers <DiDe>`},
-  lev: {de: (n, a, b) => `Hallo ${n}! 🐋 Du warst bei ${b - a} von ${b} Leviathan-Fallen nicht dabei. Jeder Treffer zählt für die Allianz – sei bitte beim nächsten Mal dabei! Danke! – Die Offiziere von <DiDe>`,
-    fr: (n, a, b) => `Salut ${n} ! 🐋 Tu as manqué ${b - a} des ${b} derniers Pièges Léviathan. Chaque coup compte pour l'alliance : on compte sur toi au prochain ! – Les officiers <DiDe>`},
+  lev: {de: (n, a, b) => `Hallo ${n}! 🐙 Du warst bei ${b - a} von ${b} Leviathan-Fallen nicht dabei. Jeder Treffer zählt für die Allianz – sei bitte beim nächsten Mal dabei! Danke! – Die Offiziere von <DiDe>`,
+    fr: (n, a, b) => `Salut ${n} ! 🐙 Tu as manqué ${b - a} des ${b} derniers Pièges Léviathan. Chaque coup compte pour l'alliance : on compte sur toi au prochain ! – Les officiers <DiDe>`},
 };
 dash.draw('officiers', (el) => {
   const g = dash.data('lev_assiduite');
@@ -1964,7 +1981,7 @@ dash.draw('records', (el) => {
   const defs = [
     ['🚀', T('Plus grosse progression sur 7 jours', 'Biggest 7-day growth', 'Größter Zuwachs in 7 Tagen'), [...gp.data].sort((a, b) => b.gain - a.gain).slice(0, 3).map((p) => [p.membre, rfg.signed(p.gain, 'm')])],
     ['⚡', T('Plus gros bond en un jour', 'Biggest one-day jump', 'Größter Sprung an einem Tag'), [...gp.data].sort((a, b) => b.saut_jour - a.saut_jour).slice(0, 3).map((p) => [p.membre, rfg.signed(p.saut_jour, 'm')])],
-    ['🐋', T('Meilleurs dégâts sur un Léviathan', 'Best damage in one Leviathan', 'Bester Schaden an einem Leviathan'), [...ev].sort((a, b) => b.score - a.score).slice(0, 3).map((r) => [r.membre, rfg.fmt(r.score, 'm') + ' · ' + rfgCourt(r.date)])],
+    ['🐙', T('Meilleurs dégâts sur un Léviathan', 'Best damage in one Leviathan', 'Bester Schaden an einem Leviathan'), [...ev].sort((a, b) => b.score - a.score).slice(0, 3).map((r) => [r.membre, rfg.fmt(r.score, 'm') + ' · ' + rfgCourt(r.date)])],
     ['🔥', T('Plus longue série de Pièges', 'Longest Trap streak', 'Längste Fallen-Serie'), [...ga.data].sort((a, b) => b.meilleure_serie - a.meilleure_serie || b.puissance - a.puissance).slice(0, 3).map((a) => [a.membre, a.meilleure_serie + ' ' + T('d\'affilée', 'in a row', 'in Folge')])],
     ['⚔️', T('Éliminations (serveur)', 'Kills (server)', 'Abschüsse (Server)'), kills.slice(0, 3).map((r) => [r.nom, rfg.fmt(r.valeur, 'm') + ' · #' + r.rang])],
   ];
@@ -1989,7 +2006,8 @@ dash.draw('serveur', (el) => {
   el.classList.remove('dash-skeleton');
   if (!g.data.length) { el.append(rfgEl('p', 'vide', T('Pas encore de relevé des classements du serveur.', 'No server ranking survey yet.', 'Noch keine Erfassung der Server-Ranglisten.'))); return; }
   const date = g.data.reduce((m, r) => r.date > m ? r.date : m, '');
-  const rows = g.data.filter((r) => r.date === date), de = (c) => rows.filter((r) => r.classement === c);
+  const dateDe = (c) => g.data.filter((r) => r.classement === c).reduce((m, r) => r.date > m ? r.date : m, '');
+  const de = (c) => { const d = dateDe(c); return g.data.filter((r) => r.classement === c && r.date === d); };
   el.append(rfgEl('p', 'note', T('Classements de la zone maritime #17 relevés le ', 'Sea Zone #17 rankings recorded on ', 'Ranglisten der Seezone #17, erfasst am ') + rfg.dateFr(date) + '.'));
   const coul = (a) => a === 'DiDe' ? 'dide' : a === 'moon' ? 'moon' : '';
   const barres = (titre, c, f) => {
@@ -2118,7 +2136,7 @@ dash.draw('gazette', (el) => {
   const b1 = bloc('🚀', 'Meilleures progressions', 'Top-Aufsteiger');
   const ol = rfgEl('ol', 'gz-ol'); top.forEach((p, i) => { const li = rfgEl('li'); li.append(rfgEl('span', 'medaille ' + (i < 3 ? 'm' + (i + 1) : ''), String(i + 1)), rfgEl('span', 'n', p.membre), rfgEl('b', '', rfg.signed(p.gain, 'm'))); ol.append(li); }); b1.append(ol);
   const levs = (gr.status === 'ok' ? gr.data : []).filter((e) => e.type === 'Piège Léviathan' && e.date >= debut).sort((a, b) => a.date < b.date ? 1 : -1);
-  const b2 = bloc('🐋', 'Piège Léviathan', 'Leviathan-Falle');
+  const b2 = bloc('🐙', 'Piège Léviathan', 'Leviathan-Falle');
   if (levs.length) {
     const tot = levs.reduce((a, e) => a + (e.total || 0), 0);
     const p = rfgEl('p', 'gz-big'); p.append(rfgEl('b', '', rfg.fmt(tot, 'md')), B(levs.length + ' piège(s) · dégâts', levs.length + ' Falle(n) · Schaden')); b2.append(p);
@@ -2150,7 +2168,7 @@ document.querySelectorAll('.gazette-export').forEach((b) => b.addEventListener('
   try {
     const h2c = await rfgChargerH2C();
     await new Promise((ok) => requestAnimationFrame(() => requestAnimationFrame(ok)));
-    const canvas = await h2c(clone, {backgroundColor: '#12062e', scale: 1, width: 1080, windowWidth: 1200, logging: false});
+    const canvas = await h2c(clone, {backgroundColor: '#06212e', scale: 1, width: 1080, windowWidth: 1200, logging: false});
     const blob = await new Promise((ok) => canvas.toBlob(ok, 'image/png'));
     const d = (dash.data('dernier').data[0] || {}).date || 'semaine';
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'DiDe-gazette-' + d + '.png';
